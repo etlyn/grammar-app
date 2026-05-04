@@ -1,0 +1,5 @@
+export const REQUIRED_QUIZ_ITEMS = 20;
+export const TOPIC_QUIZ_BANK_SIZE = 400;
+export const PLACEMENT_TEST_ITEMS = 50;
+export const PASSING_ACCURACY = 80;
+export const REQUIRED_CORRECT_ANSWERS = Math.ceil((REQUIRED_QUIZ_ITEMS * PASSING_ACCURACY) / 100);

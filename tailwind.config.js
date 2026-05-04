@@ -1,17 +1,19 @@
-module.exports = {
+export default {
   content: [
-    "./pages/*.{js,ts,jsx,tsx}",
-    "./components/*.{js,ts,jsx,tsx}",
-    "./icons/*.{js,ts,jsx,tsx}",
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      boxShadow: {
+        soft: "0 22px 70px rgba(79, 70, 229, 0.12)",
+      },
+    },
     container: {
       center: true,
     },
     fontFamily: {
-      sans: ["Graphik", "sans-serif"],
-      serif: ["Merriweather", "serif"],
+      sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
     },
   },
   plugins: [],
