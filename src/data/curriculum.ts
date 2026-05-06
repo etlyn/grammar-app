@@ -343,29 +343,6 @@ const topicQuiz: Record<string, QuizItem[]> = {
   ],
 };
 
-const quizContexts = [
-  "a quick grammar check",
-  "a CEFR-style practice item",
-  "a focused review question",
-  "a classroom drill",
-  "a short exam-style task",
-  "a warm-up exercise",
-  "a mixed practice set",
-  "a revision round",
-  "a fluency check",
-  "an accuracy check",
-  "a mini test item",
-  "a guided practice task",
-  "a grammar-book exercise",
-  "a self-study question",
-  "a progress check",
-  "a challenge round",
-  "a recap question",
-  "a confidence check",
-  "a skill-building item",
-  "a final review item",
-];
-
 const baseDefaultQuizItems = (slug: string, title: string, level: CEFRLevel): QuizItem[] => {
   const lowerTitle = title.toLowerCase();
 
@@ -405,7 +382,70 @@ const baseDefaultQuizItems = (slug: string, title: string, level: CEFRLevel): Qu
     quiz(slug, 18, "The mistake is easier to notice when the sentence is read ____.", ["aloud", "loud", "loudly voice", "louder"], "A", "Read aloud is the natural phrase.", "Aloud means spoken so that people can hear it.", ["read"], level),
     quiz(slug, 19, "The guide asks learners to focus on meaning rather ____ memorising rules only.", ["that", "than", "then", "to"], "B", "The phrase is rather than.", "Rather than introduces the alternative you are avoiding.", ["rather"], level),
     quiz(slug, 20, `After twenty questions, you should be able to explain ${lowerTitle} ____ your own words.`, ["on", "at", "in", "by"], "C", "The fixed phrase is in your own words.", "Use in your own words when someone explains an idea personally and clearly.", ["your own words"], level),
+    quiz(slug, 21, "A learner who checks the whole sentence usually ____ fewer mistakes.", ["makes", "make", "making", "made"], "A", "The subject is a learner, so use a singular verb.", "A singular subject takes a singular present-simple verb form.", ["learner", "usually"], level),
+    quiz(slug, 22, "The example is clearer when the subject and verb ____.", ["agree", "agrees", "agreed", "agreeing"], "A", "The plural pair subject and verb needs the base plural form.", "Subject and verb agreement makes the sentence grammatical.", ["subject", "verb"], level),
+    quiz(slug, 23, "This exercise focuses on ____ the form fits the meaning.", ["what", "why", "which", "whose"], "B", "The sentence asks for a reason.", "Why introduces the reason that the form fits the meaning.", ["form", "meaning"], level),
+    quiz(slug, 24, "The notes include examples ____ show the rule in context.", ["who", "where", "that", "when"], "C", "Examples are things, so that can introduce the defining clause.", "That can refer to things in defining relative clauses.", ["examples", "show"], level),
+    quiz(slug, 25, "If you are not sure, ____ the clue words before answering.", ["to check", "checking", "check", "checks"], "C", "This is an instruction, so use the base verb.", "Imperative instructions often begin with the base verb.", ["If", "before answering"], level),
+    quiz(slug, 26, "The sentence has been rewritten ____ it sounds natural.", ["unless", "so that", "despite", "as if"], "B", "The second clause explains the purpose of rewriting.", "So that introduces a purpose or intended result.", ["rewritten", "sounds natural"], level),
+    quiz(slug, 27, "The correct option depends ____ the time and meaning of the sentence.", ["in", "at", "on", "for"], "C", "The fixed phrase is depend on.", "Use depend on to show what controls a choice or result.", ["depends"], level),
+    quiz(slug, 28, "A question can be difficult even when the rule ____ simple.", ["seems", "seem", "seeming", "to seem"], "A", "The subject the rule is singular.", "Use seems after a singular subject in the present simple.", ["rule"], level),
+    quiz(slug, 29, "Good feedback helps learners ____ the same mistake next time.", ["avoids", "avoid", "avoided", "avoiding"], "B", "After helps + object, use the base verb.", "Help can be followed by an object and the base form of the verb.", ["helps learners"], level),
+    quiz(slug, 30, "The form in this sentence is different ____ the form in the example.", ["than", "then", "from", "as"], "C", "The common phrase is different from.", "Use different from to compare two things that are not the same.", ["different"], level),
+    quiz(slug, 31, "The answer should match both the grammar and the ____.", ["mean", "meaning", "meant", "means"], "B", "Both joins two nouns here.", "Meaning is the noun that pairs naturally with grammar.", ["both", "grammar"], level),
+    quiz(slug, 32, "When two choices look similar, the context usually ____ the difference.", ["show", "shows", "showing", "shown"], "B", "The subject context is singular.", "A singular subject takes shows in the present simple.", ["context", "usually"], level),
+    quiz(slug, 33, "The lesson gives you enough examples ____ practise the pattern.", ["for", "to", "with", "by"], "B", "Enough is often followed by to + base verb.", "Use enough + noun + to + verb to express sufficiency for an action.", ["enough examples"], level),
+    quiz(slug, 34, "The explanation is useful because it tells you ____ the answer is correct.", ["because", "which", "why", "where"], "C", "The clause asks for the reason.", "Why introduces the reason that something is correct.", ["explanation", "correct"], level),
+    quiz(slug, 35, "Careful learners compare their answer ____ the full sentence.", ["at", "with", "in", "for"], "B", "The common phrase is compare with.", "Compare with shows that you check one thing against another.", ["compare"], level),
+    quiz(slug, 36, "This grammar point becomes easier after you ____ several examples.", ["study", "studies", "studied", "to study"], "A", "After you, use the base present-simple form.", "You takes the base verb form in the present simple.", ["after you"], level),
+    quiz(slug, 37, "Do not choose an option only because it ____ familiar.", ["looks", "look", "looking", "to look"], "A", "The subject it is singular.", "Use looks after it in the present simple.", ["because", "familiar"], level),
+    quiz(slug, 38, "A short review after each quiz ____ progress faster.", ["make", "makes", "making", "made"], "B", "The subject a short review is singular.", "A singular subject takes makes in the present simple.", ["review"], level),
+    quiz(slug, 39, "The best answer is the one ____ completes the sentence naturally.", ["who", "where", "that", "when"], "C", "The one refers to an answer, so that fits.", "That can introduce a defining relative clause for a thing or choice.", ["the one", "completes"], level),
+    quiz(slug, 40, `You can understand ${lowerTitle} better by noticing ____ it changes the sentence meaning.`, ["what", "how", "whose", "which"], "B", "The sentence asks about the manner or way.", "How explains the way something affects meaning.", ["noticing", "meaning"], level),
   ];
+};
+
+const quizContentKey = (item: QuizItem) =>
+  [
+    item.prompt.toLowerCase().replace(/\s+/g, " ").trim(),
+    item.answerId,
+    ...item.choices.map((choice) =>
+      choice.text.toLowerCase().replace(/\s+/g, " ").trim(),
+    ),
+  ].join("|");
+
+const mergeQuizItems = (
+  items: QuizItem[],
+  slug: string,
+  title: string,
+  level: CEFRLevel,
+) => {
+  const merged: QuizItem[] = [];
+  const seenContent = new Set<string>();
+  const seenIds = new Set<string>();
+
+  const addItem = (item: QuizItem, fallbackId: string) => {
+    const contentKey = quizContentKey(item);
+    if (seenContent.has(contentKey)) return;
+
+    let id = item.id;
+    let suffix = 1;
+    while (seenIds.has(id)) {
+      id = `${fallbackId}-${suffix}`;
+      suffix += 1;
+    }
+
+    merged.push({ ...item, id, topicSlug: slug, level: item.level ?? level });
+    seenContent.add(contentKey);
+    seenIds.add(id);
+  };
+
+  items.forEach((item, index) => addItem(item, `${slug}-seed-${index + 1}`));
+  baseDefaultQuizItems(slug, title, level).forEach((item, index) =>
+    addItem(item, `${slug}-default-${index + 1}`),
+  );
+
+  return merged;
 };
 
 const buildQuizBank = (
@@ -414,35 +454,7 @@ const buildQuizBank = (
   title: string,
   level: CEFRLevel,
 ) => {
-  const baseItems = items.length ? items : baseDefaultQuizItems(slug, title, level);
-  const bank = [...items];
-  const seenIds = new Set(bank.map((item) => item.id));
-  let variant = 1;
-
-  const withContext = (prompt: string, context: string) =>
-    `In ${context}, answer this: ${prompt}`;
-
-  while (bank.length < TOPIC_QUIZ_BANK_SIZE) {
-    const item = baseItems[(variant - 1) % baseItems.length];
-    const context = quizContexts[(variant - 1) % quizContexts.length];
-    const nextId = `${slug}-bank-${variant}`;
-    variant += 1;
-
-    if (seenIds.has(nextId)) continue;
-
-    seenIds.add(nextId);
-    bank.push({
-      ...item,
-      id: nextId,
-      topicSlug: slug,
-      level: item.level ?? level,
-      prompt: withContext(item.prompt, context),
-      hint: `${item.hint} Read it as if it appears in ${context}.`,
-      explanation: `${item.explanation} This variation checks the same grammar skill in ${context}.`,
-    });
-  }
-
-  return bank.slice(0, TOPIC_QUIZ_BANK_SIZE);
+  return mergeQuizItems(items, slug, title, level).slice(0, TOPIC_QUIZ_BANK_SIZE);
 };
 
 const defaultQuizItems = (slug: string, title: string, level: CEFRLevel): QuizItem[] =>

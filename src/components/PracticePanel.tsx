@@ -11,6 +11,7 @@ import type {
   QuizItem,
   TopicProgress,
 } from "../types/grammar";
+import { buildQuizSessionItems, cleanQuizPrompt } from "../utils/quiz";
 
 type PracticePanelProps = {
   topic: GrammarTopic;
@@ -27,17 +28,6 @@ type AnswerRecord = {
 
 const escapeRegExp = (value: string) =>
   value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-
-const shuffle = <T,>(items: T[]) => {
-  const copy = [...items];
-
-  for (let index = copy.length - 1; index > 0; index -= 1) {
-    const swapIndex = Math.floor(Math.random() * (index + 1));
-    [copy[index], copy[swapIndex]] = [copy[swapIndex], copy[index]];
-  }
-
-  return copy;
-};
 
 function HighlightedPrompt({
   prompt,
@@ -74,10 +64,11 @@ function HighlightedPrompt({
 }
 
 const buildSessionItems = (topic: GrammarTopic, progress?: TopicProgress) => {
-  const answered = new Set(progress?.answeredItemIds ?? []);
-  const fresh = topic.quizItems.filter((item) => !answered.has(item.id));
-  const review = topic.quizItems.filter((item) => answered.has(item.id));
-  return [...shuffle(fresh), ...shuffle(review)].slice(0, REQUIRED_QUIZ_ITEMS);
+  return buildQuizSessionItems({
+    items: topic.quizItems,
+    answeredItemIds: progress?.answeredItemIds,
+    count: REQUIRED_QUIZ_ITEMS,
+  });
 };
 
 export function PracticePanel({
@@ -113,6 +104,22 @@ export function PracticePanel({
     setAnswers([]);
     setSessionComplete(false);
   }, [topic.slug]);
+
+  useEffect(() => {
+    if (answers.length || currentIndex || selectedAnswer || sessionComplete) {
+      return;
+    }
+
+    setSessionItems(buildSessionItems(topic, progress));
+  }, [
+    answers.length,
+    currentIndex,
+    progress?.updatedAt,
+    selectedAnswer,
+    sessionComplete,
+    topic,
+    progress,
+  ]);
 
   const submitAnswer = async (choiceId: QuizChoice["id"]) => {
     if (!currentItem || selectedAnswer) return;
@@ -187,7 +194,9 @@ export function PracticePanel({
               className="rounded-3xl border border-indigo-50 bg-indigo-50/40 p-4"
               key={answer.item.id}
             >
-              <p className="font-medium text-slate-900">{answer.item.prompt}</p>
+              <p className="font-medium text-slate-900">
+                {cleanQuizPrompt(answer.item.prompt)}
+              </p>
               <p className="mt-2 text-sm text-slate-600">
                 Your answer: {answer.selectedAnswer}. Correct answer:{" "}
                 {answer.item.answerId}.
@@ -246,7 +255,7 @@ export function PracticePanel({
           <HighlightedPrompt
             enabled={showHint}
             keywords={currentItem.keywords}
-            prompt={currentItem.prompt}
+            prompt={cleanQuizPrompt(currentItem.prompt)}
           />
         </div>
 

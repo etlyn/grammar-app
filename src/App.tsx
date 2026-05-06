@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { AuthPanel } from "./components/AuthPanel";
-import { PlacementTestDialog } from "./components/PlacementTestDialog.tsx";
+import { PlacementTestPanel } from "./components/PlacementTestPanel";
 import { PracticePanel } from "./components/PracticePanel";
 import { ProgressDashboard } from "./components/ProgressDashboard";
 import { TopicReader } from "./components/TopicReader";
@@ -121,10 +121,11 @@ function App() {
           </div>
           <button
             className="hidden shrink-0 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-black text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 hover:bg-slate-50 sm:inline-flex"
-            onClick={() => setIsPlacementTestOpen(true)}
+            aria-expanded={isPlacementTestOpen}
+            onClick={() => setIsPlacementTestOpen((value) => !value)}
             type="button"
           >
-            Test your CEFR level
+            {isPlacementTestOpen ? "Hide CEFR test" : "Test your CEFR level"}
           </button>
           <AuthPanel
             isConfigured={auth.isConfigured}
@@ -141,11 +142,26 @@ function App() {
       <div className="border-b border-indigo-100/70 bg-white/45 px-4 py-1.5 sm:hidden">
         <button
           className="w-full rounded-full border border-slate-200 bg-white px-3 py-2 text-xs font-black text-slate-800 shadow-sm"
-          onClick={() => setIsPlacementTestOpen(true)}
+          aria-expanded={isPlacementTestOpen}
+          onClick={() => setIsPlacementTestOpen((value) => !value)}
           type="button"
         >
-          Test your CEFR level · 50 questions
+          {isPlacementTestOpen
+            ? "Hide CEFR level test"
+            : "Test your CEFR level · 50 questions"}
         </button>
+      </div>
+
+      <div
+        aria-hidden={!isPlacementTestOpen}
+        className={`mx-auto max-w-7xl px-4 pt-5 sm:px-6 lg:px-8 ${
+          isPlacementTestOpen ? "block" : "hidden"
+        }`}
+      >
+        <PlacementTestPanel
+          onClose={() => setIsPlacementTestOpen(false)}
+          topics={topics}
+        />
       </div>
 
       {isTopicMenuOpen ? (
@@ -171,13 +187,6 @@ function App() {
             />
           </div>
         </div>
-      ) : null}
-
-      {isPlacementTestOpen ? (
-        <PlacementTestDialog
-          onClose={() => setIsPlacementTestOpen(false)}
-          topics={topics}
-        />
       ) : null}
 
       <div
