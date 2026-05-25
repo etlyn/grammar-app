@@ -107,9 +107,11 @@ function App() {
                 <span className="block h-0.5 w-5 rounded bg-current" />
               </span>
             </button>
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500 via-sky-400 to-fuchsia-400 text-sm font-black text-white shadow-md shadow-indigo-200/70">
-              G
-            </div>
+            <img
+              alt=""
+              className="h-9 w-9 shrink-0 rounded-2xl object-cover shadow-md shadow-indigo-200/70"
+              src="/assets/grammacho-logo.png"
+            />
             <div className="flex min-w-0 items-baseline gap-2">
               <h1 className="truncate text-sm font-black tracking-tight text-slate-950 sm:text-base">
                 Grammacho

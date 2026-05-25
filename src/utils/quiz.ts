@@ -9,7 +9,11 @@ export const cleanQuizPrompt = (prompt: string) =>
 const getRandomIndex = (exclusiveMax: number) => {
   if (exclusiveMax <= 1) return 0;
 
-  const cryptoSource = globalThis.crypto;
+  const cryptoSource = (
+    globalThis as typeof globalThis & {
+      crypto?: { getRandomValues: (values: Uint32Array) => Uint32Array };
+    }
+  ).crypto;
   if (cryptoSource?.getRandomValues) {
     const values = new Uint32Array(1);
     const maxUnbiasedValue =

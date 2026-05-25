@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024"
+    role="img" aria-labelledby="title desc">
+    <title id="title">Grammacho logo</title>
+    <desc id="desc">A white chat mascot wearing a sombrero on a purple rounded square.</desc>
+    <defs>
+        <linearGradient id="bg" x1="160" y1="96" x2="860" y2="908" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#693cf4" />
+            <stop offset="0.5" stop-color="#512bdc" />
+            <stop offset="1" stop-color="#4024ce" />
+        </linearGradient>
+        <linearGradient id="ghost" x1="374" y1="379" x2="642" y2="822"
+            gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#ffffff" />
+            <stop offset="1" stop-color="#f4f1ff" />
+        </linearGradient>
+        <linearGradient id="mouth" x1="468" y1="650" x2="536" y2="723"
+            gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#100749" />
+            <stop offset="1" stop-color="#2d1a86" />
+        </linearGradient>
+        <filter id="softShadow" x="-20%" y="-20%" width="140%" height="150%"
+            color-interpolation-filters="sRGB">
+            <feDropShadow dx="0" dy="20" stdDeviation="18" flood-color="#16095e"
+                flood-opacity="0.22" />
+        </filter>
+        <filter id="brimShadow" x="-20%" y="-30%" width="140%" height="180%"
+            color-interpolation-filters="sRGB">
+            <feDropShadow dx="0" dy="18" stdDeviation="12" flood-color="#3013b8"
+                flood-opacity="0.28" />
+        </filter>
+    </defs>
+
+    <rect width="1024" height="1024" fill="#ffffff" />
+    <rect x="86" y="72" width="852" height="876" rx="184" fill="url(#bg)" />
+
+    <g filter="url(#softShadow)">
+        <path
+            fill="#ffffff"
+            d="M456 325c44-118 118-173 190-142 77 33 114 142 96 302-82-48-183-86-303-113 5-16 11-32 17-47Z"
+        />
+        <path
+            fill="url(#ghost)"
+            d="M286 750c-46-69-41-175 14-253 70-99 212-123 334-55 118 65 169 187 116 285-52 96-185 136-318 80l-127 38c-27 8-49-18-40-44l21-51Z"
+        />
+        <ellipse cx="409" cy="584" rx="32" ry="43" fill="#12084e" />
+        <ellipse cx="566" cy="584" rx="32" ry="43" fill="#12084e" />
+        <path
+            fill="url(#mouth)"
+            d="M424 668c29 76 135 90 190 18 13-18-4-42-26-35-45 15-91 13-139-6-19-8-34 6-25 23Z"
+        />
+        <path
+            fill="#4424ca"
+            opacity="0.62"
+            d="M458 715c34 25 86 24 120-2-33-20-77-19-120 2Z"
+        />
+    </g>
+
+    <g filter="url(#brimShadow)" transform="rotate(13 524 340)">
+        <path
+            fill="#ffffff"
+            d="M188 282c42-88 218-116 410-67 213 55 352 171 319 259-34 90-230 76-438 7-207-69-332-112-291-199Z"
+        />
+        <path
+            fill="#f7f4ff"
+            d="M205 318c85 54 206 98 357 130 142 30 264 32 329 9-51 60-222 47-405-13-164-54-271-91-281-126Z"
+        />
+        <path
+            d="M251 302 295 345 344 293 397 348 452 302 503 370 566 337 606 409 673 376 714 446 779 422 820 481"
+            fill="none"
+            stroke="#4e2bd8"
+            stroke-width="31"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        />
+    </g>
+</svg>

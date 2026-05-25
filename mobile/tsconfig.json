@@ -1,0 +1,21 @@
+{
+  "extends": "./node_modules/@react-native/typescript-config/tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"],
+      "@grammar/*": ["../src/*"]
+    },
+    "types": ["jest"]
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "src/types/*.d.ts",
+    "src/types/**/*.d.ts",
+    "../src/constants/**/*.ts",
+    "../src/data/**/*.ts",
+    "../src/types/**/*.ts",
+    "../src/utils/**/*.ts"
+  ],
+  "exclude": ["**/node_modules", "**/Pods"]
+}

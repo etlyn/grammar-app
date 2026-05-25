@@ -52,3 +52,9 @@ yarn preview
 The production build is emitted to `dist`. GitHub Pages deployment is configured in `.github/workflows/main.yml`.
 
 For hosted Supabase auth/content, set `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in the deployment environment before building. Without them, production still works in local learner mode.
+
+## Mobile
+
+The React Native scaffold lives in [mobile](mobile). It follows the shared mobile baseline used by Offtasks and Case Tracker: React Native 0.82, React 19.1, React Navigation, AsyncStorage, app-local providers, and a reusable glass theme.
+
+See [docs/mobile-infrastructure-guide.md](docs/mobile-infrastructure-guide.md) for the cross-app structure guide and native shell setup notes.
