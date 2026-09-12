@@ -4,13 +4,13 @@
 
 Etlyn-owned applications share **Etlyn Apps** (`nqsclqtpnosuhoobgyxc`, AWS Ohio), formerly Task App, in **Etlyn's Org**. This is one managed PostgreSQL database and compute instance with separate schemas, not separate databases.
 
-| Schema | Owner and access |
-| --- | --- |
-| `public` | Existing Offtasks tables and protected analytics migration metadata; unchanged by this consolidation. |
-| `auth` | Shared Supabase identities; managed by Supabase. |
-| `storage` | Shared Supabase Storage metadata; use app-specific buckets and policies when needed. |
+| Schema      | Owner and access                                                                                       |
+| ----------- | ------------------------------------------------------------------------------------------------------ |
+| `public`    | Existing Offtasks tables and protected analytics migration metadata; unchanged by this consolidation.  |
+| `auth`      | Shared Supabase identities; managed by Supabase.                                                       |
+| `storage`   | Shared Supabase Storage metadata; use app-specific buckets and policies when needed.                   |
 | `analytics` | Private analytics data, owned by etlyn-server; existing tenant RLS and hourly retention remain intact. |
-| `grammar` | Grammar content, progress, attempts, and migration metadata; private backend access only. |
+| `grammar`   | Grammar content, progress, attempts, and migration metadata; private backend access only.              |
 
 Sharing Auth does not grant access to another app's data. Use app-scoped schemas, least-privilege database roles, RLS, and server-side authorization. Do not distribute project-wide privileged credentials to clients. Shared compute also shares capacity, outages, administrators, and Auth settings. Keep non-production and independently administered or sensitive client projects separate.
 
