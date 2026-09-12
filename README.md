@@ -18,28 +18,13 @@ yarn install
 yarn dev
 ```
 
-Copy `.env.example` to `.env.local` and add Supabase browser keys:
-
-```bash
-VITE_SUPABASE_URL=https://your-project.supabase.co
-VITE_SUPABASE_ANON_KEY=your-public-anon-key
-```
-
-If these are missing, the app runs in local learner mode with the seed curriculum.
+Leave the Supabase environment variables unset to run in local learner mode with the seed curriculum. The existing direct-Supabase client is a legacy integration; it is not configured for the new private Grammar schema.
 
 ## Supabase
 
-1. Create a Supabase project.
-2. Run the SQL migration in `supabase/migrations`.
-3. Enable email magic-link auth in Supabase Auth settings.
-4. Deploy the Edge Function:
+Grammar uses the private `grammar` schema in the shared **Etlyn Apps** project, alongside shared Supabase Auth and the existing Offtasks and analytics schemas. Its standalone Supabase project was retired on 2026-09-12.
 
-```bash
-supabase functions deploy generate-grammar-content
-supabase secrets set OPENAI_API_KEY=sk-your-server-side-key
-```
-
-The browser never receives the OpenAI key. The function first checks saved content and only generates more when reusable content does not already exist.
+See [the consolidation runbook](supabase/consolidation/README.md) for applied migrations, permissions, identity handling, recovery, and the deferred FastAPI integration. Do not run the legacy migration in `supabase/migrations` against Etlyn Apps or deploy the legacy Edge Function there.
 
 ## Production
 
@@ -51,7 +36,7 @@ yarn preview
 
 The production build is emitted to `dist`. GitHub Pages deployment is configured in `.github/workflows/main.yml`.
 
-For hosted Supabase auth/content, set `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in the deployment environment before building. Without them, production still works in local learner mode.
+Keep `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` unset until the FastAPI integration replaces direct table access. The old Grammar project URL no longer works. Without these variables, production works in local learner mode.
 
 ## Mobile
 
