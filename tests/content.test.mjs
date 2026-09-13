@@ -263,3 +263,84 @@ test("core contrast questions distinguish time, modality, clause roles and irreg
     "children's",
   );
 });
+
+test("the complete v3 quiz payloads are unchanged by the reading expansion", async () => {
+  const foundation = await import("../content/foundations.mjs");
+  const extension = await import("../content/extension/index.mjs");
+  const core = await import("../content/core/index.mjs");
+  const refs = await import("../content/core/sources.mjs");
+  const previous = core.sequence(
+    [
+      ...foundation.buildTopics(),
+      ...extension.buildExtension(),
+      ...core.buildCore(),
+    ].map((t) => {
+      const more = refs.extraReferences[t.slug];
+      if (more)
+        t = {
+          ...t,
+          provenance: {
+            ...t.provenance,
+            referenceIds: [...t.provenance.referenceIds, ...more],
+          },
+        };
+      return core.enrichTeaching(core.enrichChapter(t));
+    }),
+  );
+  assert.equal(
+    sha(
+      JSON.stringify({
+        version: "core-2026-09-v3",
+        sources: [...foundation.sources, ...extension.sources, ...refs.sources],
+        topics: previous,
+      }),
+    ),
+    "e49c6c64b6333354230b05b223ded19e0e7519c1828bf3f36aee778f9f3f39c4",
+  );
+  for (const old of previous)
+    assert.deepEqual(
+      topics.find((t) => t.slug === old.slug).quizItems,
+      old.quizItems,
+    );
+});
+
+test("the grammar map exposes every reading section exactly once with valid destinations", async () => {
+  const { makeGrammarMap, additions } = await import(
+    "../content/scope/index.mjs"
+  );
+  const catalog = JSON.parse(
+    await readFile(new URL("../src/generated/catalog.json", import.meta.url)),
+  );
+  const map = makeGrammarMap(topics);
+  assert.deepEqual(catalog.grammarMap, map);
+  assert.equal(map.domains.length, 20);
+  assert.equal(additions.length, 135);
+  const ids = new Set();
+  for (const domain of map.domains) {
+    assert.ok(domain.concepts.length > 0);
+    for (const concept of domain.concepts) {
+      assert.ok(!ids.has(concept.id), concept.id);
+      ids.add(concept.id);
+      const chapter = topics.find((t) => t.slug === concept.topicSlug);
+      const section = chapter.chapter.rules.find((r) => r.id === concept.id);
+      assert.equal(section.title, concept.title);
+      assert.equal(section.domain, domain.id);
+      assert.ok(section.referenceIds.length > 0);
+      assert.ok(
+        section.referenceIds.every((id) => sources.some((s) => s.id === id)),
+      );
+      assert.ok(section.examples.length >= 2);
+    }
+  }
+  assert.equal(ids.size, 403);
+  assert.equal(
+    ids.size,
+    topics.reduce((n, t) => n + t.chapter.rules.length, 0),
+  );
+  assert.deepEqual(
+    JSON.parse(
+      await readFile(new URL("../content/CONCEPTS.json", import.meta.url)),
+    ),
+    map,
+  );
+});

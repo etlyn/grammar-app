@@ -1,6 +1,6 @@
 # Grammacho web beta
 
-English foundation practice with Vite, React and TypeScript. 67 ordered chapters each include 200 original practice questions, extended explanations and published learning references: 13,400 questions in six stages from sentence foundations to advanced control.
+An English grammar reading and practice app with Vite, React and TypeScript. A searchable Grammar map connects 20 subject areas and 403 reading sections. 67 ordered chapters each include 200 original practice questions, extended explanations and published learning references: 13,400 questions in six stages from sentence foundations to advanced control.
 
 The questions were generated offline with AI assistance using British Council grammar guidance; the first eight topics also follow the structure of Portland Community College's _A Digital Workbook for Beginning ESOL_. They are **not copied publisher exercises, official test material, endorsed school content, or a calibrated CEFR assessment**. Automated checks have passed; independent educator review remains pending. Each bank has 50 lexical/situational contexts and four practice tasks per context. See [curriculum coverage and expansion rules](content/INDEX.md).
 
@@ -51,7 +51,7 @@ The standalone Supabase project was retired on 2026-09-12. See [the consolidatio
 
 ## Web reading and keyboard controls
 
-Read and Practice are separate views. Lessons use a single reading column with linked sections, examples, and expandable study goals and source notes. Selecting another topic opens its lesson; switching back to Practice resumes checked answers. The chosen view is remembered on this browser.
+Grammar map, Read and Practice are separate views. First-time visitors see the map; returning visitors retain their saved view. Map entries open the corresponding reading section, and each chapter offers a link to continue reading the next one. Lessons use a single reading column with linked sections, examples, and expandable study goals and source notes. Selecting another topic opens its lesson; switching back to Practice resumes checked answers. The chosen view is remembered on this browser.
 
 Quiz choices stay editable until checked:
 
@@ -61,7 +61,7 @@ Quiz choices stay editable until checked:
 - Left: review the previous saved answer; Right returns toward the current question. Reviewing does not change scoring or discard the current selection.
 - Tap Shift alone: reveal the hint. Shift+Tab continues normal backward navigation.
 - Finishing focuses the result heading. Incorrect items have amber review containers with a specific diagnosis and a worked explanation.
-- Left / Right and Home / End: switch the Read / Practice tabs when a tab is focused.
+- Left / Right and Home / End: switch the Grammar map / Read / Practice tabs when a tab is focused.
 - Escape: close the mobile topic dialog and restore focus to Topics.
 
 Hints, answer review, sources, and progress disclosures also work with Tab and Enter. Keyboard actions are scoped to the focused controls. Focus uses a single visible edge; reduced motion and forced-colors settings are respected. Only checked answers are saved; an unsubmitted choice is not persisted.
@@ -75,3 +75,9 @@ Hints, answer review, sources, and progress disclosures also work with Tab and E
 `core-2026-09-v3` adds 49 banks (9,800 questions) and expands the reading and feedback for all 67 chapters. The original 3,600 prompts, choices, correct answers, IDs and fingerprints remain unchanged; their teaching and hints are explicitly revised in the complete v3 archive. All prior progress remains compatible.
 
 The six-stage sequence is our pedagogical synthesis of British Council level collections and Department for Education grammar scope. These institutions do not prescribe this exact sequence or certify this app. See [scope, skills and review boundaries](content/core/README.md). Completion records practice progress; it does not establish exhaustive mastery of every construction, dialect or usage in English.
+
+## Whole-subject reading release
+
+`core-2026-09-v4` adds 135 reading sections, bringing the book to 403 sections in the same 67 chapters. The 20-area map exposes the subject’s structure instead of treating chapter count as a count of English concepts. All 13,400 v3 quiz payloads remain unchanged; new reading sections do not each have their own dedicated 200-question bank.
+
+See the [reference crosswalk and expansion rules](content/scope/README.md) and [complete reading index](content/CONCEPTS.md). The map covers the major systems of contemporary standard English with common variation, not every dialectal or lexical exception. Educator review remains pending.

@@ -20,6 +20,18 @@ const assert = require("node:assert/strict");
   });
   await page.goto(previewUrl);
   await page
+    .getByRole("heading", { name: "The English grammar map", exact: true })
+    .waitFor();
+  assert.equal(await page.locator(".grammar-area").count(), 20);
+  await page
+    .getByRole("searchbox", { name: "Find a concept" })
+    .fill("Negation");
+  assert.ok((await page.locator(".concept-list button:visible").count()) > 0);
+  await page.getByRole("button", { name: "Clear search", exact: true }).click();
+  await page
+    .getByRole("button", { name: /Start with the foundations/ })
+    .click();
+  await page
     .getByRole("tab", { name: "Read", exact: true })
     .press("ArrowRight");
   await page

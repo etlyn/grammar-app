@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { flushSync } from "react-dom";
 import { PracticePanel } from "./components/PracticePanel";
+import { GrammarMap } from "./components/GrammarMap";
 import { TopicReader } from "./components/TopicReader";
 import { TopicSidebar } from "./components/TopicSidebar";
 import { useProgress } from "./hooks/useProgress";
@@ -9,7 +10,7 @@ import {
   catalogVersion,
 } from "./services/contentService";
 
-type View = "read" | "practice";
+type View = "map" | "read" | "practice";
 const viewKey = "grammacho-web-view";
 export default function App() {
   const learning = useProgress();
@@ -17,12 +18,14 @@ export default function App() {
   const nextTopic = topics[topics.indexOf(topic) + 1];
   const [view, setView] = useState<View>(() => {
     try {
-      return localStorage.getItem(viewKey) === "practice" ? "practice" : "read";
+      const saved = localStorage.getItem(viewKey);
+      return saved === "practice" || saved === "read" ? saved : "map";
     } catch {
-      return "read";
+      return "map";
     }
   });
   const dialog = useRef<HTMLDialogElement>(null);
+  const mapTab = useRef<HTMLButtonElement>(null);
   const readTab = useRef<HTMLButtonElement>(null);
   const practiceTab = useRef<HTMLButtonElement>(null);
   const content = useRef<HTMLDivElement>(null);
@@ -33,13 +36,27 @@ export default function App() {
       /* Learning hook reports storage failures. */
     }
   }, [view]);
-  const select = (slug: string) => {
+  const select = (slug: string, sectionId?: string) => {
     learning.selectTopic(slug);
     setView("read");
     dialog.current?.close();
     requestAnimationFrame(() => {
-      readTab.current?.focus({ preventScroll: true });
-      window.scrollTo({ top: 0, behavior: "instant" });
+      const section = sectionId
+        ? document.getElementById(`concept-${sectionId}`)
+        : null;
+      if (section) {
+        section.focus({ preventScroll: true });
+        section.scrollIntoView({
+          block: "start",
+          behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
+            .matches
+            ? "instant"
+            : "smooth",
+        });
+      } else {
+        readTab.current?.focus({ preventScroll: true });
+        window.scrollTo({ top: 0, behavior: "instant" });
+      }
     });
   };
   const changeView = (next: View) => {
@@ -54,16 +71,18 @@ export default function App() {
   const tabKeys = (event: KeyboardEvent<HTMLButtonElement>) => {
     if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
     event.preventDefault();
+    const views: View[] = ["map", "read", "practice"];
+    const index = views.indexOf(view);
     const next =
       event.key === "Home"
-        ? "read"
+        ? "map"
         : event.key === "End"
           ? "practice"
-          : view === "read"
-            ? "practice"
-            : "read";
+          : views[(index + (event.key === "ArrowRight" ? 1 : 2)) % 3];
     changeView(next);
-    (next === "read" ? readTab : practiceTab).current?.focus();
+    ({ map: mapTab, read: readTab, practice: practiceTab })[
+      next
+    ].current?.focus();
   };
   const practise = () => {
     setView("practice");
@@ -78,6 +97,14 @@ export default function App() {
       activeSlug={topic.slug}
       progress={learning.progress}
       onSelect={select}
+      onMap={() => {
+        setView("map");
+        dialog.current?.close();
+        requestAnimationFrame(() => {
+          mapTab.current?.focus({ preventScroll: true });
+          window.scrollTo({ top: 0, behavior: "instant" });
+        });
+      }}
       onClose={mobile ? () => dialog.current?.close() : undefined}
     />
   );
@@ -168,15 +195,33 @@ export default function App() {
           )}
           <div className="lesson-toolbar">
             <span className="topic-position">
-              {topic.stage?.split(" · ")[1] ?? "Grammar"}{" "}
-              <span aria-hidden="true">/</span>{" "}
-              {String(topics.indexOf(topic) + 1).padStart(2, "0")}
+              {view === "map" ? (
+                "Whole course"
+              ) : (
+                <>
+                  {topic.stage?.split(" · ")[1] ?? "Grammar"}{" "}
+                  <span aria-hidden="true">/</span>{" "}
+                  {String(topics.indexOf(topic) + 1).padStart(2, "0")}
+                </>
+              )}
             </span>
             <div
               className="view-tabs"
               role="tablist"
               aria-label="Learning mode"
             >
+              <button
+                ref={mapTab}
+                id="map-tab"
+                role="tab"
+                aria-selected={view === "map"}
+                aria-controls="lesson-content"
+                tabIndex={view === "map" ? 0 : -1}
+                onKeyDown={tabKeys}
+                onClick={() => changeView("map")}
+              >
+                Grammar map
+              </button>
               <button
                 ref={readTab}
                 id="read-tab"
@@ -211,11 +256,14 @@ export default function App() {
             tabIndex={0}
             aria-labelledby={`${view}-tab`}
           >
-            {view === "read" ? (
+            {view === "map" ? (
+              <GrammarMap onOpen={select} />
+            ) : view === "read" ? (
               <TopicReader
                 key={topic.slug}
                 topic={topic}
                 onPractice={practise}
+                onNext={nextTopic ? () => select(nextTopic.slug) : undefined}
               />
             ) : (
               <PracticePanel
@@ -241,7 +289,8 @@ export default function App() {
               <p>
                 {topics.length} chapters and{" "}
                 {(topics.length * 200).toLocaleString()} questions cover the
-                main standard-English grammar families, from sentence
+                standard-English grammar course. The Grammar map shows every
+                reading section across 20 subject areas, from sentence
                 foundations to advanced clauses and style. Each practice draws
                 20 questions randomly, balancing skills and prioritising unseen
                 items.

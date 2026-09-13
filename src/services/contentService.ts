@@ -1,5 +1,5 @@
 import rawSnapshot from "../generated/catalog.json?raw";
-import type { GrammarTopic } from "../types/grammar";
+import type { GrammarTopic, GrammarMap } from "../types/grammar";
 
 type SourceReference = {
   id: string;
@@ -15,9 +15,11 @@ const snapshot = JSON.parse(rawSnapshot) as {
   contentHash: string;
   sources: SourceReference[];
   topics: GrammarTopic[];
+  grammarMap: GrammarMap;
 };
 
 // Immutable build snapshot: no client credentials, remote content or runtime AI.
+export const grammarMap = snapshot.grammarMap;
 export const catalogVersion = snapshot.version;
 export const progressVersion = snapshot.progressVersion;
 export const catalogHash = snapshot.contentHash;

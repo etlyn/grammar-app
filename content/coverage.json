@@ -1,6 +1,6 @@
 {
-  "version": "core-2026-09-v3",
-  "contentHash": "e49c6c64b6333354230b05b223ded19e0e7519c1828bf3f36aee778f9f3f39c4",
+  "version": "core-2026-09-v4",
+  "contentHash": "87b630c771d79eac83e3be02f06e226cf9455e201ca4d4e9ebd574542396373d",
   "totalQuestions": 13400,
   "authorship": "Original, generated offline with AI assistance; not copied or endorsed official exercises.",
   "reviewStatus": "Automated structural checks complete; independent educator review pending.",
@@ -21,7 +21,118 @@
       },
       "referenceIds": [
         "dfe-grammar",
-        "bc-verbs-reference"
+        "bc-verbs-reference",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "sentence-structure-foundation-1",
+          "title": "Find the subject and the verb",
+          "domain": "foundations",
+          "referenceIds": [
+            "dfe-grammar",
+            "bc-verbs-reference"
+          ]
+        },
+        {
+          "id": "sentence-structure-foundation-2",
+          "title": "Objects and complements",
+          "domain": "foundations",
+          "referenceIds": [
+            "dfe-grammar",
+            "bc-verbs-reference"
+          ]
+        },
+        {
+          "id": "sentence-structure-foundation-3",
+          "title": "Word class depends on its job",
+          "domain": "foundations",
+          "referenceIds": [
+            "dfe-grammar",
+            "bc-verbs-reference"
+          ]
+        },
+        {
+          "id": "sentence-structure-foundation-4",
+          "title": "A complete written sentence",
+          "domain": "foundations",
+          "referenceIds": [
+            "dfe-grammar",
+            "bc-verbs-reference"
+          ]
+        },
+        {
+          "id": "form-and-function",
+          "title": "Word class is different from sentence function",
+          "domain": "foundations",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "phrases-and-heads",
+          "title": "Phrases, heads and dependents",
+          "domain": "foundations",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "finite-subordinate-clauses",
+          "title": "Main, subordinate, finite and non-finite clauses",
+          "domain": "foundations",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "sentence-architectures",
+          "title": "Simple, compound and complex sentences",
+          "domain": "foundations",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "clause-complements",
+          "title": "Subjects, objects and subject complements",
+          "domain": "clause-patterns",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "transitivity-and-valency",
+          "title": "Transitive, intransitive and required complements",
+          "domain": "clause-patterns",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "two-object-patterns",
+          "title": "Indirect objects, two objects and to/for phrases",
+          "domain": "clause-patterns",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "object-complements",
+          "title": "Object complements and resultative patterns",
+          "domain": "clause-patterns",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "grammar-meaning-context",
+          "title": "Grammatical form, meaning and context",
+          "domain": "foundations",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -1243,7 +1354,66 @@
         "plural-possession": 50
       },
       "referenceIds": [
-        "bc-nouns"
+        "bc-nouns",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "nouns-and-plurals-foundation-1",
+          "title": "Regular plural endings",
+          "domain": "inflection",
+          "referenceIds": [
+            "bc-nouns"
+          ]
+        },
+        {
+          "id": "nouns-and-plurals-foundation-2",
+          "title": "Irregular and unchanged plurals",
+          "domain": "inflection",
+          "referenceIds": [
+            "bc-nouns"
+          ]
+        },
+        {
+          "id": "nouns-and-plurals-foundation-3",
+          "title": "Agreement around the noun",
+          "domain": "inflection",
+          "referenceIds": [
+            "bc-nouns"
+          ]
+        },
+        {
+          "id": "nouns-and-plurals-foundation-4",
+          "title": "Plural form is not possession",
+          "domain": "inflection",
+          "referenceIds": [
+            "bc-nouns"
+          ]
+        },
+        {
+          "id": "noun-categories",
+          "title": "Common, proper, concrete, abstract and collective nouns",
+          "domain": "noun-phrases",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "plural-only-and-singular-looking",
+          "title": "Plural-only nouns and misleading endings",
+          "domain": "inflection",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "compound-and-borrowed-plurals",
+          "title": "Compound nouns and borrowed plurals",
+          "domain": "inflection",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -2467,7 +2637,74 @@
       "referenceIds": [
         "bc-pronouns",
         "bc-possessives",
-        "pcc-esol"
+        "pcc-esol",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "pronouns-and-possessive-determiners-foundation-1",
+          "title": "Subject and object",
+          "domain": "reference",
+          "referenceIds": [
+            "bc-pronouns",
+            "bc-possessives",
+            "pcc-esol"
+          ]
+        },
+        {
+          "id": "pronouns-and-possessive-determiners-foundation-2",
+          "title": "Before a noun",
+          "domain": "reference",
+          "referenceIds": [
+            "bc-pronouns",
+            "bc-possessives",
+            "pcc-esol"
+          ]
+        },
+        {
+          "id": "pronouns-and-possessive-determiners-foundation-3",
+          "title": "Replacing a noun phrase",
+          "domain": "reference",
+          "referenceIds": [
+            "bc-pronouns",
+            "bc-possessives",
+            "pcc-esol"
+          ]
+        },
+        {
+          "id": "pronouns-and-possessive-determiners-foundation-4",
+          "title": "Contrasts and edge cases",
+          "domain": "reference",
+          "referenceIds": [
+            "bc-pronouns",
+            "bc-possessives",
+            "pcc-esol"
+          ]
+        },
+        {
+          "id": "pronoun-reference-and-case",
+          "title": "Pronoun case, antecedents and clear reference",
+          "domain": "reference",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "singular-they-generic-reference",
+          "title": "Singular they, generic you and indefinite reference",
+          "domain": "reference",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "dummy-it-and-reference",
+          "title": "Referential it, weather it and anticipatory it",
+          "domain": "reference",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -3690,7 +3927,62 @@
       },
       "referenceIds": [
         "bc-be",
-        "pcc-esol"
+        "pcc-esol",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "present-simple-be-foundation-1",
+          "title": "Present forms",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-be",
+            "pcc-esol"
+          ]
+        },
+        {
+          "id": "present-simple-be-foundation-2",
+          "title": "Negatives and questions",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-be",
+            "pcc-esol"
+          ]
+        },
+        {
+          "id": "present-simple-be-foundation-3",
+          "title": "Contractions",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-be",
+            "pcc-esol"
+          ]
+        },
+        {
+          "id": "present-simple-be-foundation-4",
+          "title": "Contrasts and edge cases",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-be",
+            "pcc-esol"
+          ]
+        },
+        {
+          "id": "auxiliary-and-lexical-verbs",
+          "title": "Main verbs, auxiliaries and the first auxiliary",
+          "domain": "verbs",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "contraction-ambiguity",
+          "title": "Contractions, strong forms and ambiguity",
+          "domain": "inflection",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -4912,7 +5204,50 @@
         "far-plural": 50
       },
       "referenceIds": [
-        "bc-determiners"
+        "bc-determiners",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "demonstratives-foundation-1",
+          "title": "Near and far",
+          "domain": "reference",
+          "referenceIds": [
+            "bc-determiners"
+          ]
+        },
+        {
+          "id": "demonstratives-foundation-2",
+          "title": "Plural demonstratives",
+          "domain": "reference",
+          "referenceIds": [
+            "bc-determiners"
+          ]
+        },
+        {
+          "id": "demonstratives-foundation-3",
+          "title": "Pointing without a following noun",
+          "domain": "reference",
+          "referenceIds": [
+            "bc-determiners"
+          ]
+        },
+        {
+          "id": "demonstratives-foundation-4",
+          "title": "Referring to ideas and time",
+          "domain": "reference",
+          "referenceIds": [
+            "bc-determiners"
+          ]
+        },
+        {
+          "id": "deixis-and-viewpoint",
+          "title": "Deixis: here, there, now, then, come and go",
+          "domain": "reference",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -6135,7 +6470,62 @@
       },
       "referenceIds": [
         "bc-articles",
-        "pcc-esol"
+        "pcc-esol",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "articles-foundation-1",
+          "title": "One nonspecific item",
+          "domain": "noun-phrases",
+          "referenceIds": [
+            "bc-articles",
+            "pcc-esol"
+          ]
+        },
+        {
+          "id": "articles-foundation-2",
+          "title": "An identified item",
+          "domain": "noun-phrases",
+          "referenceIds": [
+            "bc-articles",
+            "pcc-esol"
+          ]
+        },
+        {
+          "id": "articles-foundation-3",
+          "title": "General plural nouns",
+          "domain": "noun-phrases",
+          "referenceIds": [
+            "bc-articles",
+            "pcc-esol"
+          ]
+        },
+        {
+          "id": "articles-foundation-4",
+          "title": "Contrasts and edge cases",
+          "domain": "noun-phrases",
+          "referenceIds": [
+            "bc-articles",
+            "pcc-esol"
+          ]
+        },
+        {
+          "id": "generic-reference",
+          "title": "General reference: a tiger, the tiger and tigers",
+          "domain": "noun-phrases",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "definiteness-beyond-mention",
+          "title": "Shared knowledge, unique reference and associative the",
+          "domain": "noun-phrases",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -7357,7 +7747,58 @@
         "apostrophe-rule": 50
       },
       "referenceIds": [
-        "bc-possessive-s"
+        "bc-possessive-s",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "possessive-s-foundation-1",
+          "title": "One owner",
+          "domain": "noun-phrases",
+          "referenceIds": [
+            "bc-possessive-s"
+          ]
+        },
+        {
+          "id": "possessive-s-foundation-2",
+          "title": "Plural owners",
+          "domain": "noun-phrases",
+          "referenceIds": [
+            "bc-possessive-s"
+          ]
+        },
+        {
+          "id": "possessive-s-foundation-3",
+          "title": "Read the whole phrase",
+          "domain": "noun-phrases",
+          "referenceIds": [
+            "bc-possessive-s"
+          ]
+        },
+        {
+          "id": "possessive-s-foundation-4",
+          "title": "Contrasts and edge cases",
+          "domain": "noun-phrases",
+          "referenceIds": [
+            "bc-possessive-s"
+          ]
+        },
+        {
+          "id": "genitive-alternatives",
+          "title": "Possessive forms, of-phrases and double genitives",
+          "domain": "noun-phrases",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "joint-and-independent-possession",
+          "title": "Joint owners, separate owners and omitted nouns",
+          "domain": "noun-phrases",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -8579,7 +9020,50 @@
         "short-answer": 50
       },
       "referenceIds": [
-        "bc-there-is-there-are"
+        "bc-there-is-there-are",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "there-is-there-are-foundation-1",
+          "title": "Existence and number",
+          "domain": "information",
+          "referenceIds": [
+            "bc-there-is-there-are"
+          ]
+        },
+        {
+          "id": "there-is-there-are-foundation-2",
+          "title": "Questions and negatives",
+          "domain": "information",
+          "referenceIds": [
+            "bc-there-is-there-are"
+          ]
+        },
+        {
+          "id": "there-is-there-are-foundation-3",
+          "title": "Short answers",
+          "domain": "information",
+          "referenceIds": [
+            "bc-there-is-there-are"
+          ]
+        },
+        {
+          "id": "there-is-there-are-foundation-4",
+          "title": "Contrasts and edge cases",
+          "domain": "information",
+          "referenceIds": [
+            "bc-there-is-there-are"
+          ]
+        },
+        {
+          "id": "existential-presentational-there",
+          "title": "Existential there, agreement and presentational constructions",
+          "domain": "information",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -9803,6 +10287,40 @@
       "referenceIds": [
         "bc-have-got"
       ],
+      "readingSections": [
+        {
+          "id": "have-got-foundation-1",
+          "title": "Have or has",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-have-got"
+          ]
+        },
+        {
+          "id": "have-got-foundation-2",
+          "title": "Negative and question forms",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-have-got"
+          ]
+        },
+        {
+          "id": "have-got-foundation-3",
+          "title": "Short answers and time",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-have-got"
+          ]
+        },
+        {
+          "id": "have-got-foundation-4",
+          "title": "Contrasts and edge cases",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-have-got"
+          ]
+        }
+      ],
       "questions": [
         {
           "id": "0ed1bdd7-9570-55c4-aedb-45fd47383582",
@@ -11024,7 +11542,62 @@
       },
       "referenceIds": [
         "bc-present",
-        "pcc-esol"
+        "pcc-esol",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "present-simple-foundation-1",
+          "title": "Habits and facts",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-present",
+            "pcc-esol"
+          ]
+        },
+        {
+          "id": "present-simple-foundation-2",
+          "title": "Spelling",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-present",
+            "pcc-esol"
+          ]
+        },
+        {
+          "id": "present-simple-foundation-3",
+          "title": "Do and does",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-present",
+            "pcc-esol"
+          ]
+        },
+        {
+          "id": "present-simple-foundation-4",
+          "title": "Contrasts and edge cases",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-present",
+            "pcc-esol"
+          ]
+        },
+        {
+          "id": "tense-aspect-time",
+          "title": "Tense, aspect and time are different dimensions",
+          "domain": "verbs",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "verb-form-paradigms",
+          "title": "The five main verb forms and irregular families",
+          "domain": "inflection",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -12246,7 +12819,66 @@
         "matching-short-answer": 50
       },
       "referenceIds": [
-        "bc-question-forms"
+        "bc-question-forms",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "question-forms-foundation-1",
+          "title": "Use the existing auxiliary",
+          "domain": "sentence-types",
+          "referenceIds": [
+            "bc-question-forms"
+          ]
+        },
+        {
+          "id": "question-forms-foundation-2",
+          "title": "Add do when needed",
+          "domain": "sentence-types",
+          "referenceIds": [
+            "bc-question-forms"
+          ]
+        },
+        {
+          "id": "question-forms-foundation-3",
+          "title": "Subject questions",
+          "domain": "sentence-types",
+          "referenceIds": [
+            "bc-question-forms"
+          ]
+        },
+        {
+          "id": "question-forms-foundation-4",
+          "title": "Short answers",
+          "domain": "sentence-types",
+          "referenceIds": [
+            "bc-question-forms"
+          ]
+        },
+        {
+          "id": "question-word-range",
+          "title": "What, which, whose, who and how",
+          "domain": "sentence-types",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "negative-and-alternative-questions",
+          "title": "Negative questions, alternatives and replies",
+          "domain": "sentence-types",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "echo-rhetorical-questions",
+          "title": "Echo, checking and rhetorical questions",
+          "domain": "sentence-types",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -13468,7 +14100,58 @@
         "polite-modal-request": 50
       },
       "referenceIds": [
-        "bc-verbs-reference"
+        "bc-verbs-reference",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "imperatives-foundation-1",
+          "title": "The unspoken subject",
+          "domain": "sentence-types",
+          "referenceIds": [
+            "bc-verbs-reference"
+          ]
+        },
+        {
+          "id": "imperatives-foundation-2",
+          "title": "Negative instructions",
+          "domain": "sentence-types",
+          "referenceIds": [
+            "bc-verbs-reference"
+          ]
+        },
+        {
+          "id": "imperatives-foundation-3",
+          "title": "Suggestions with let’s",
+          "domain": "sentence-types",
+          "referenceIds": [
+            "bc-verbs-reference"
+          ]
+        },
+        {
+          "id": "imperatives-foundation-4",
+          "title": "Polite requests",
+          "domain": "sentence-types",
+          "referenceIds": [
+            "bc-verbs-reference"
+          ]
+        },
+        {
+          "id": "exclamative-clauses",
+          "title": "Exclamations with what and how",
+          "domain": "sentence-types",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "imperative-subjects-and-let",
+          "title": "Imperatives with subjects, do and let",
+          "domain": "sentence-types",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -14691,7 +15374,62 @@
       },
       "referenceIds": [
         "bc-continuous",
-        "pcc-esol"
+        "pcc-esol",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "present-continuous-foundation-1",
+          "title": "Actions in progress",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-continuous",
+            "pcc-esol"
+          ]
+        },
+        {
+          "id": "present-continuous-foundation-2",
+          "title": "Building the verb",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-continuous",
+            "pcc-esol"
+          ]
+        },
+        {
+          "id": "present-continuous-foundation-3",
+          "title": "Questions and negatives",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-continuous",
+            "pcc-esol"
+          ]
+        },
+        {
+          "id": "present-continuous-foundation-4",
+          "title": "Contrasts and edge cases",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-continuous",
+            "pcc-esol"
+          ]
+        },
+        {
+          "id": "progressive-viewpoint",
+          "title": "Progressive aspect: activity, temporary situation and repeated irritation",
+          "domain": "verbs",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "spelling-endings",
+          "title": "Spelling changes with -s, -ed and -ing",
+          "domain": "inflection",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -15913,7 +16651,58 @@
         "quantity-phrase": 50
       },
       "referenceIds": [
-        "bc-countable-uncountable"
+        "bc-countable-uncountable",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "countable-uncountable-foundation-1",
+          "title": "Count the things or measure an amount",
+          "domain": "noun-phrases",
+          "referenceIds": [
+            "bc-countable-uncountable"
+          ]
+        },
+        {
+          "id": "countable-uncountable-foundation-2",
+          "title": "Asking about quantity",
+          "domain": "noun-phrases",
+          "referenceIds": [
+            "bc-countable-uncountable"
+          ]
+        },
+        {
+          "id": "countable-uncountable-foundation-3",
+          "title": "Some and individual units",
+          "domain": "noun-phrases",
+          "referenceIds": [
+            "bc-countable-uncountable"
+          ]
+        },
+        {
+          "id": "countable-uncountable-foundation-4",
+          "title": "Contrasts and edge cases",
+          "domain": "noun-phrases",
+          "referenceIds": [
+            "bc-countable-uncountable"
+          ]
+        },
+        {
+          "id": "countability-shifts",
+          "title": "When a noun changes between count and non-count uses",
+          "domain": "noun-phrases",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "partitives-and-measures",
+          "title": "Pieces, pairs, quantities and partitive expressions",
+          "domain": "noun-phrases",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -17137,6 +17926,40 @@
       "referenceIds": [
         "bc-small-quantities"
       ],
+      "readingSections": [
+        {
+          "id": "small-quantities-foundation-1",
+          "title": "A positive small amount",
+          "domain": "noun-phrases",
+          "referenceIds": [
+            "bc-small-quantities"
+          ]
+        },
+        {
+          "id": "small-quantities-foundation-2",
+          "title": "Emphasising a shortage",
+          "domain": "noun-phrases",
+          "referenceIds": [
+            "bc-small-quantities"
+          ]
+        },
+        {
+          "id": "small-quantities-foundation-3",
+          "title": "Read the meaning as well as the noun",
+          "domain": "noun-phrases",
+          "referenceIds": [
+            "bc-small-quantities"
+          ]
+        },
+        {
+          "id": "small-quantities-foundation-4",
+          "title": "Contrasts and edge cases",
+          "domain": "noun-phrases",
+          "referenceIds": [
+            "bc-small-quantities"
+          ]
+        }
+      ],
       "questions": [
         {
           "id": "4a919d93-8087-5b2e-a944-fb544ad4e6af",
@@ -18357,7 +19180,93 @@
         "neither-meaning": 50
       },
       "referenceIds": [
-        "bc-determiners"
+        "bc-determiners",
+        "cambridge-comprehensive-scope",
+        "cambridge-negation"
+      ],
+      "readingSections": [
+        {
+          "id": "determiners-quantifiers-foundation-1",
+          "title": "Some and any",
+          "domain": "noun-phrases",
+          "referenceIds": [
+            "bc-determiners"
+          ]
+        },
+        {
+          "id": "determiners-quantifiers-foundation-2",
+          "title": "Every and each",
+          "domain": "noun-phrases",
+          "referenceIds": [
+            "bc-determiners"
+          ]
+        },
+        {
+          "id": "determiners-quantifiers-foundation-3",
+          "title": "Both, either and neither",
+          "domain": "noun-phrases",
+          "referenceIds": [
+            "bc-determiners"
+          ]
+        },
+        {
+          "id": "determiners-quantifiers-foundation-4",
+          "title": "All, most and of",
+          "domain": "noun-phrases",
+          "referenceIds": [
+            "bc-determiners"
+          ]
+        },
+        {
+          "id": "determiner-order",
+          "title": "Determiner slots, numbers and predeterminers",
+          "domain": "noun-phrases",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "some-any-context",
+          "title": "Some, any and their compound pronouns",
+          "domain": "noun-phrases",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "quantifier-range",
+          "title": "Much, many, a lot, enough, several and plenty",
+          "domain": "noun-phrases",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "distributive-partitive-numbers",
+          "title": "Each, every, all, whole, half and percentages",
+          "domain": "noun-phrases",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "no-none-not-any",
+          "title": "No, none, nobody and not…any",
+          "domain": "negation",
+          "referenceIds": [
+            "cambridge-negation",
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "negative-scope",
+          "title": "The scope of a negative",
+          "domain": "negation",
+          "referenceIds": [
+            "cambridge-negation",
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -19580,7 +20489,54 @@
       },
       "referenceIds": [
         "bc-time",
-        "pcc-esol"
+        "pcc-esol",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "prepositions-of-time-foundation-1",
+          "title": "At",
+          "domain": "prepositions",
+          "referenceIds": [
+            "bc-time",
+            "pcc-esol"
+          ]
+        },
+        {
+          "id": "prepositions-of-time-foundation-2",
+          "title": "On and in",
+          "domain": "prepositions",
+          "referenceIds": [
+            "bc-time",
+            "pcc-esol"
+          ]
+        },
+        {
+          "id": "prepositions-of-time-foundation-3",
+          "title": "No preposition",
+          "domain": "prepositions",
+          "referenceIds": [
+            "bc-time",
+            "pcc-esol"
+          ]
+        },
+        {
+          "id": "prepositions-of-time-foundation-4",
+          "title": "Contrasts and edge cases",
+          "domain": "prepositions",
+          "referenceIds": [
+            "bc-time",
+            "pcc-esol"
+          ]
+        },
+        {
+          "id": "time-preposition-contrasts",
+          "title": "During, for, since, by, until, within and throughout",
+          "domain": "prepositions",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -20802,7 +21758,50 @@
         "static-correction": 50
       },
       "referenceIds": [
-        "bc-prepositions-of-place"
+        "bc-prepositions-of-place",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "prepositions-of-place-foundation-1",
+          "title": "Inside a space",
+          "domain": "prepositions",
+          "referenceIds": [
+            "bc-prepositions-of-place"
+          ]
+        },
+        {
+          "id": "prepositions-of-place-foundation-2",
+          "title": "On a surface",
+          "domain": "prepositions",
+          "referenceIds": [
+            "bc-prepositions-of-place"
+          ]
+        },
+        {
+          "id": "prepositions-of-place-foundation-3",
+          "title": "At a point or activity",
+          "domain": "prepositions",
+          "referenceIds": [
+            "bc-prepositions-of-place"
+          ]
+        },
+        {
+          "id": "prepositions-of-place-foundation-4",
+          "title": "Contrasts and edge cases",
+          "domain": "prepositions",
+          "referenceIds": [
+            "bc-prepositions-of-place"
+          ]
+        },
+        {
+          "id": "preposition-complements",
+          "title": "Prepositions with nouns, pronouns and clauses",
+          "domain": "prepositions",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -22024,7 +23023,50 @@
         "direction-no-arrival": 50
       },
       "referenceIds": [
-        "bc-prepositions-reference"
+        "bc-prepositions-reference",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "movement-prepositions-foundation-1",
+          "title": "A destination or entry",
+          "domain": "prepositions",
+          "referenceIds": [
+            "bc-prepositions-reference"
+          ]
+        },
+        {
+          "id": "movement-prepositions-foundation-2",
+          "title": "Leaving and crossing",
+          "domain": "prepositions",
+          "referenceIds": [
+            "bc-prepositions-reference"
+          ]
+        },
+        {
+          "id": "movement-prepositions-foundation-3",
+          "title": "Following or approaching",
+          "domain": "prepositions",
+          "referenceIds": [
+            "bc-prepositions-reference"
+          ]
+        },
+        {
+          "id": "movement-prepositions-foundation-4",
+          "title": "Read the whole route",
+          "domain": "prepositions",
+          "referenceIds": [
+            "bc-prepositions-reference"
+          ]
+        },
+        {
+          "id": "spatial-relations-contrasts",
+          "title": "Across, through, over, along, beyond and past",
+          "domain": "prepositions",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -23246,7 +24288,58 @@
         "complete-name-phrase": 50
       },
       "referenceIds": [
-        "bc-zero-articles"
+        "bc-zero-articles",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "articles-place-names-foundation-1",
+          "title": "Names that usually take no article",
+          "domain": "noun-phrases",
+          "referenceIds": [
+            "bc-zero-articles"
+          ]
+        },
+        {
+          "id": "articles-place-names-foundation-2",
+          "title": "Names that commonly take the",
+          "domain": "noun-phrases",
+          "referenceIds": [
+            "bc-zero-articles"
+          ]
+        },
+        {
+          "id": "articles-place-names-foundation-3",
+          "title": "Institutional purpose and the building",
+          "domain": "noun-phrases",
+          "referenceIds": [
+            "bc-zero-articles"
+          ]
+        },
+        {
+          "id": "articles-place-names-foundation-4",
+          "title": "Names inside larger noun phrases",
+          "domain": "noun-phrases",
+          "referenceIds": [
+            "bc-zero-articles"
+          ]
+        },
+        {
+          "id": "institutional-articles",
+          "title": "Institutional purpose, locations and activities",
+          "domain": "noun-phrases",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "article-conventions",
+          "title": "Meals, transport, illnesses, languages and titles",
+          "domain": "noun-phrases",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -24468,7 +25561,66 @@
         "predicative-adjective": 50
       },
       "referenceIds": [
-        "bc-adjectives"
+        "bc-adjectives",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "adjective-order-foundation-1",
+          "title": "Before a noun or after a linking verb",
+          "domain": "modifiers",
+          "referenceIds": [
+            "bc-adjectives"
+          ]
+        },
+        {
+          "id": "adjective-order-foundation-2",
+          "title": "Usual adjective order",
+          "domain": "modifiers",
+          "referenceIds": [
+            "bc-adjectives"
+          ]
+        },
+        {
+          "id": "adjective-order-foundation-3",
+          "title": "Linking verbs take descriptive adjectives",
+          "domain": "modifiers",
+          "referenceIds": [
+            "bc-adjectives"
+          ]
+        },
+        {
+          "id": "adjective-order-foundation-4",
+          "title": "Restricted positions",
+          "domain": "modifiers",
+          "referenceIds": [
+            "bc-adjectives"
+          ]
+        },
+        {
+          "id": "adjective-complements",
+          "title": "Adjectives with complements and position restrictions",
+          "domain": "modifiers",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "postpositive-and-substantive-adjectives",
+          "title": "Adjectives after nouns and adjectives naming groups",
+          "domain": "modifiers",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "adjective-position-meaning",
+          "title": "When adjective position changes meaning",
+          "domain": "modifiers",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -25690,7 +26842,50 @@
         "meaning": 50
       },
       "referenceIds": [
-        "bc-ed-ing-adjectives"
+        "bc-ed-ing-adjectives",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "ed-ing-adjectives-foundation-1",
+          "title": "The experienced feeling",
+          "domain": "modifiers",
+          "referenceIds": [
+            "bc-ed-ing-adjectives"
+          ]
+        },
+        {
+          "id": "ed-ing-adjectives-foundation-2",
+          "title": "The cause of the feeling",
+          "domain": "modifiers",
+          "referenceIds": [
+            "bc-ed-ing-adjectives"
+          ]
+        },
+        {
+          "id": "ed-ing-adjectives-foundation-3",
+          "title": "Connect cause and effect",
+          "domain": "modifiers",
+          "referenceIds": [
+            "bc-ed-ing-adjectives"
+          ]
+        },
+        {
+          "id": "ed-ing-adjectives-foundation-4",
+          "title": "Contrasts and edge cases",
+          "domain": "modifiers",
+          "referenceIds": [
+            "bc-ed-ing-adjectives"
+          ]
+        },
+        {
+          "id": "participial-adjective-versus-verb",
+          "title": "Participles as adjectives or parts of verb phrases",
+          "domain": "modifiers",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -26913,7 +28108,62 @@
       },
       "referenceIds": [
         "bc-comparisons",
-        "pcc-esol"
+        "pcc-esol",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "comparatives-and-superlatives-foundation-1",
+          "title": "Comparing two",
+          "domain": "comparison",
+          "referenceIds": [
+            "bc-comparisons",
+            "pcc-esol"
+          ]
+        },
+        {
+          "id": "comparatives-and-superlatives-foundation-2",
+          "title": "Comparing a group",
+          "domain": "comparison",
+          "referenceIds": [
+            "bc-comparisons",
+            "pcc-esol"
+          ]
+        },
+        {
+          "id": "comparatives-and-superlatives-foundation-3",
+          "title": "Equal degree",
+          "domain": "comparison",
+          "referenceIds": [
+            "bc-comparisons",
+            "pcc-esol"
+          ]
+        },
+        {
+          "id": "comparatives-and-superlatives-foundation-4",
+          "title": "Contrasts and edge cases",
+          "domain": "comparison",
+          "referenceIds": [
+            "bc-comparisons",
+            "pcc-esol"
+          ]
+        },
+        {
+          "id": "comparative-clauses-ellipsis",
+          "title": "Comparative clauses and omitted material",
+          "domain": "comparison",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "less-fewer-superlative-scope",
+          "title": "Less, fewer and the comparison set",
+          "domain": "comparison",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -28135,7 +29385,68 @@
         "manner-word-order": 50
       },
       "referenceIds": [
-        "bc-adverbials"
+        "bc-adverbials",
+        "cambridge-negation",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "adverbs-position-foundation-1",
+          "title": "Frequency before the main verb",
+          "domain": "modifiers",
+          "referenceIds": [
+            "bc-adverbials"
+          ]
+        },
+        {
+          "id": "adverbs-position-foundation-2",
+          "title": "After be and after the first auxiliary",
+          "domain": "modifiers",
+          "referenceIds": [
+            "bc-adverbials"
+          ]
+        },
+        {
+          "id": "adverbs-position-foundation-3",
+          "title": "Manner and adjective forms",
+          "domain": "modifiers",
+          "referenceIds": [
+            "bc-adverbials"
+          ]
+        },
+        {
+          "id": "adverbs-position-foundation-4",
+          "title": "Keep the object beside its verb",
+          "domain": "modifiers",
+          "referenceIds": [
+            "bc-adverbials"
+          ]
+        },
+        {
+          "id": "near-negatives-polarity",
+          "title": "Hardly, scarcely, seldom and negative-polarity words",
+          "domain": "negation",
+          "referenceIds": [
+            "cambridge-negation",
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "adverb-scope-and-focus",
+          "title": "Only, even, also and the reach of an adverb",
+          "domain": "modifiers",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "sentence-adverbs-and-flat-adverbs",
+          "title": "Sentence adverbs, viewpoint adverbs and flat forms",
+          "domain": "modifiers",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -29358,6 +30669,40 @@
       },
       "referenceIds": [
         "bc-past-ability"
+      ],
+      "readingSections": [
+        {
+          "id": "modals-ability-foundation-1",
+          "title": "A modal keeps the next verb simple",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-past-ability"
+          ]
+        },
+        {
+          "id": "modals-ability-foundation-2",
+          "title": "Questions and negatives",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-past-ability"
+          ]
+        },
+        {
+          "id": "modals-ability-foundation-3",
+          "title": "General past ability",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-past-ability"
+          ]
+        },
+        {
+          "id": "modals-ability-foundation-4",
+          "title": "Permission and polite requests",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-past-ability"
+          ]
+        }
       ],
       "questions": [
         {
@@ -30582,6 +31927,44 @@
         "bc-past",
         "pcc-esol"
       ],
+      "readingSections": [
+        {
+          "id": "past-simple-foundation-1",
+          "title": "Completed past events",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-past",
+            "pcc-esol"
+          ]
+        },
+        {
+          "id": "past-simple-foundation-2",
+          "title": "Questions and negatives",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-past",
+            "pcc-esol"
+          ]
+        },
+        {
+          "id": "past-simple-foundation-3",
+          "title": "Spelling and unchanged forms",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-past",
+            "pcc-esol"
+          ]
+        },
+        {
+          "id": "past-simple-foundation-4",
+          "title": "Contrasts and edge cases",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-past",
+            "pcc-esol"
+          ]
+        }
+      ],
       "questions": [
         {
           "id": "16af8157-f8e9-5ceb-a576-64e06bcaeddb",
@@ -31804,6 +33187,40 @@
       "referenceIds": [
         "bc-past-continuous"
       ],
+      "readingSections": [
+        {
+          "id": "past-continuous-foundation-1",
+          "title": "A past activity in progress",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-past-continuous"
+          ]
+        },
+        {
+          "id": "past-continuous-foundation-2",
+          "title": "Negatives and questions",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-past-continuous"
+          ]
+        },
+        {
+          "id": "past-continuous-foundation-3",
+          "title": "A background and an event",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-past-continuous"
+          ]
+        },
+        {
+          "id": "past-continuous-foundation-4",
+          "title": "Contrasts and edge cases",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-past-continuous"
+          ]
+        }
+      ],
       "questions": [
         {
           "id": "7f7f4a14-1502-57a3-a20c-d403d2125d33",
@@ -33024,7 +34441,58 @@
         "future-time-clause": 50
       },
       "referenceIds": [
-        "bc-future-forms"
+        "bc-future-forms",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "future-forms-foundation-1",
+          "title": "Decisions and promises",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-future-forms"
+          ]
+        },
+        {
+          "id": "future-forms-foundation-2",
+          "title": "Prior intentions",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-future-forms"
+          ]
+        },
+        {
+          "id": "future-forms-foundation-3",
+          "title": "Arranged future events",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-future-forms"
+          ]
+        },
+        {
+          "id": "future-forms-foundation-4",
+          "title": "Timetables and future time clauses",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-future-forms"
+          ]
+        },
+        {
+          "id": "future-in-the-past",
+          "title": "Future in the past: would and was going to",
+          "domain": "verbs",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "future-periphrases",
+          "title": "Be about to, be due to, be to and likely to",
+          "domain": "verbs",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -34246,7 +35714,66 @@
         "perfect-participle": 50
       },
       "referenceIds": [
-        "bc-present-perfect"
+        "bc-present-perfect",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "present-perfect-foundation-1",
+          "title": "Connect two points in time",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-present-perfect"
+          ]
+        },
+        {
+          "id": "present-perfect-foundation-2",
+          "title": "Build the perfect verb",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-present-perfect"
+          ]
+        },
+        {
+          "id": "present-perfect-foundation-3",
+          "title": "Negatives and questions",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-present-perfect"
+          ]
+        },
+        {
+          "id": "present-perfect-foundation-4",
+          "title": "Time expressions and short answers",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-present-perfect"
+          ]
+        },
+        {
+          "id": "perfect-versus-past",
+          "title": "Present perfect versus a finished past",
+          "domain": "verbs",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "perfect-adverbs-duration",
+          "title": "For, since, ever, never, just, already, yet and still",
+          "domain": "verbs",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "been-gone-and-continuing-states",
+          "title": "Been, gone, finished events and continuing states",
+          "domain": "verbs",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -35468,7 +36995,50 @@
         "temporary-behaviour": 50
       },
       "referenceIds": [
-        "bc-stative"
+        "bc-stative",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "stative-dynamic-foundation-1",
+          "title": "States are not normally continuous",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-stative"
+          ]
+        },
+        {
+          "id": "stative-dynamic-foundation-2",
+          "title": "A verb can change meaning",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-stative"
+          ]
+        },
+        {
+          "id": "stative-dynamic-foundation-3",
+          "title": "Temporary behaviour with being",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-stative"
+          ]
+        },
+        {
+          "id": "stative-dynamic-foundation-4",
+          "title": "Perception and deliberate activity",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-stative"
+          ]
+        },
+        {
+          "id": "lexical-aspect-and-states",
+          "title": "States, activities, accomplishments and punctual events",
+          "domain": "verbs",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -36692,6 +38262,40 @@
       "referenceIds": [
         "bc-perfect-continuous"
       ],
+      "readingSections": [
+        {
+          "id": "present-perfect-continuous-foundation-1",
+          "title": "Focus on the activity",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-perfect-continuous"
+          ]
+        },
+        {
+          "id": "present-perfect-continuous-foundation-2",
+          "title": "Keep both auxiliaries",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-perfect-continuous"
+          ]
+        },
+        {
+          "id": "present-perfect-continuous-foundation-3",
+          "title": "Questions and negatives",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-perfect-continuous"
+          ]
+        },
+        {
+          "id": "present-perfect-continuous-foundation-4",
+          "title": "State verbs and completed quantities",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-perfect-continuous"
+          ]
+        }
+      ],
       "questions": [
         {
           "id": "63cc1802-69e7-5d2c-a105-61e98500e6d3",
@@ -37912,7 +39516,50 @@
         "perfect-participle": 50
       },
       "referenceIds": [
-        "bc-past-perfect"
+        "bc-past-perfect",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "past-perfect-foundation-1",
+          "title": "Connect two points in time",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-past-perfect"
+          ]
+        },
+        {
+          "id": "past-perfect-foundation-2",
+          "title": "Build the perfect verb",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-past-perfect"
+          ]
+        },
+        {
+          "id": "past-perfect-foundation-3",
+          "title": "Negatives and questions",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-past-perfect"
+          ]
+        },
+        {
+          "id": "past-perfect-foundation-4",
+          "title": "Time expressions and short answers",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-past-perfect"
+          ]
+        },
+        {
+          "id": "narrative-time-frames",
+          "title": "Narrative sequencing and optional past perfect",
+          "domain": "verbs",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -39136,6 +40783,40 @@
       "referenceIds": [
         "bc-past-perfect"
       ],
+      "readingSections": [
+        {
+          "id": "past-perfect-continuous-foundation-1",
+          "title": "Focus on the activity",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-past-perfect"
+          ]
+        },
+        {
+          "id": "past-perfect-continuous-foundation-2",
+          "title": "Keep both auxiliaries",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-past-perfect"
+          ]
+        },
+        {
+          "id": "past-perfect-continuous-foundation-3",
+          "title": "Questions and negatives",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-past-perfect"
+          ]
+        },
+        {
+          "id": "past-perfect-continuous-foundation-4",
+          "title": "State verbs and completed quantities",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-past-perfect"
+          ]
+        }
+      ],
       "questions": [
         {
           "id": "53181c33-954f-5080-a59b-e3f2228e90a2",
@@ -40358,6 +42039,40 @@
       "referenceIds": [
         "bc-future-perfect"
       ],
+      "readingSections": [
+        {
+          "id": "future-perfect-continuous-foundation-1",
+          "title": "An activity at a future moment",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-future-perfect"
+          ]
+        },
+        {
+          "id": "future-perfect-continuous-foundation-2",
+          "title": "Completion by a future deadline",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-future-perfect"
+          ]
+        },
+        {
+          "id": "future-perfect-continuous-foundation-3",
+          "title": "Duration up to a future point",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-future-perfect"
+          ]
+        },
+        {
+          "id": "future-perfect-continuous-foundation-4",
+          "title": "Questions and negatives",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-future-perfect"
+          ]
+        }
+      ],
       "questions": [
         {
           "id": "6fafba9a-88cb-5fa6-a1ec-107ba158eccc",
@@ -41579,7 +43294,54 @@
       },
       "referenceIds": [
         "bc-past-habits",
-        "bc-used-to"
+        "bc-used-to",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "past-habits-foundation-1",
+          "title": "Former habits and states",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-past-habits",
+            "bc-used-to"
+          ]
+        },
+        {
+          "id": "past-habits-foundation-2",
+          "title": "Repeated past actions with would",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-past-habits",
+            "bc-used-to"
+          ]
+        },
+        {
+          "id": "past-habits-foundation-3",
+          "title": "Being accustomed to something",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-past-habits",
+            "bc-used-to"
+          ]
+        },
+        {
+          "id": "past-habits-foundation-4",
+          "title": "The process of adapting",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-past-habits",
+            "bc-used-to"
+          ]
+        },
+        {
+          "id": "habit-state-would-used",
+          "title": "Used to, would and past simple: meaning choices",
+          "domain": "verbs",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -42801,7 +44563,52 @@
         "link-action-goal": 50
       },
       "referenceIds": [
-        "bc-infinitive-of-purpose"
+        "bc-infinitive-of-purpose",
+        "cambridge-nonfinite-scope",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "infinitive-of-purpose-foundation-1",
+          "title": "Answering why",
+          "domain": "nonfinite",
+          "referenceIds": [
+            "bc-infinitive-of-purpose"
+          ]
+        },
+        {
+          "id": "infinitive-of-purpose-foundation-2",
+          "title": "Keep the base form",
+          "domain": "nonfinite",
+          "referenceIds": [
+            "bc-infinitive-of-purpose"
+          ]
+        },
+        {
+          "id": "infinitive-of-purpose-foundation-3",
+          "title": "Link the action and its aim",
+          "domain": "nonfinite",
+          "referenceIds": [
+            "bc-infinitive-of-purpose"
+          ]
+        },
+        {
+          "id": "infinitive-of-purpose-foundation-4",
+          "title": "Contrasts and edge cases",
+          "domain": "nonfinite",
+          "referenceIds": [
+            "bc-infinitive-of-purpose"
+          ]
+        },
+        {
+          "id": "for-subject-and-tough",
+          "title": "For + subject, infinitival relatives and tough constructions",
+          "domain": "nonfinite",
+          "referenceIds": [
+            "cambridge-nonfinite-scope",
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -44023,7 +45830,70 @@
         "correction": 50
       },
       "referenceIds": [
-        "bc-verb-patterns"
+        "bc-verb-patterns",
+        "cambridge-nonfinite-scope",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "verb-patterns-foundation-1",
+          "title": "Verbs with -ing",
+          "domain": "nonfinite",
+          "referenceIds": [
+            "bc-verb-patterns"
+          ]
+        },
+        {
+          "id": "verb-patterns-foundation-2",
+          "title": "Verbs with to",
+          "domain": "nonfinite",
+          "referenceIds": [
+            "bc-verb-patterns"
+          ]
+        },
+        {
+          "id": "verb-patterns-foundation-3",
+          "title": "Preserve the pattern",
+          "domain": "nonfinite",
+          "referenceIds": [
+            "bc-verb-patterns"
+          ]
+        },
+        {
+          "id": "verb-patterns-foundation-4",
+          "title": "Contrasts and edge cases",
+          "domain": "nonfinite",
+          "referenceIds": [
+            "bc-verb-patterns"
+          ]
+        },
+        {
+          "id": "control-understood-subjects",
+          "title": "Who does the action in an infinitive?",
+          "domain": "nonfinite",
+          "referenceIds": [
+            "cambridge-nonfinite-scope",
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "raising-seem-appear",
+          "title": "Seem, appear and raising constructions",
+          "domain": "nonfinite",
+          "referenceIds": [
+            "cambridge-nonfinite-scope",
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "bare-infinitives-perception-causation",
+          "title": "Bare infinitives after modals, let, make and perception verbs",
+          "domain": "nonfinite",
+          "referenceIds": [
+            "cambridge-nonfinite-scope",
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -45245,7 +47115,50 @@
         "relative-preposition": 50
       },
       "referenceIds": [
-        "bc-dependent-prepositions"
+        "bc-dependent-prepositions",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "dependent-prepositions-foundation-1",
+          "title": "Learn complete combinations",
+          "domain": "prepositions",
+          "referenceIds": [
+            "bc-dependent-prepositions"
+          ]
+        },
+        {
+          "id": "dependent-prepositions-foundation-2",
+          "title": "Prepositions take noun-like complements",
+          "domain": "prepositions",
+          "referenceIds": [
+            "bc-dependent-prepositions"
+          ]
+        },
+        {
+          "id": "dependent-prepositions-foundation-3",
+          "title": "Questions can leave the preposition at the end",
+          "domain": "prepositions",
+          "referenceIds": [
+            "bc-dependent-prepositions"
+          ]
+        },
+        {
+          "id": "dependent-prepositions-foundation-4",
+          "title": "Keep the preposition in relative clauses",
+          "domain": "prepositions",
+          "referenceIds": [
+            "bc-dependent-prepositions"
+          ]
+        },
+        {
+          "id": "stranding-and-fronting",
+          "title": "Preposition stranding and formal fronting",
+          "domain": "prepositions",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -46467,7 +48380,77 @@
         "obligation-question": 50
       },
       "referenceIds": [
-        "bc-obligation"
+        "bc-obligation",
+        "cambridge-comprehensive-scope",
+        "cambridge-negation"
+      ],
+      "readingSections": [
+        {
+          "id": "modal-obligation-foundation-1",
+          "title": "Must and have to",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-obligation"
+          ]
+        },
+        {
+          "id": "modal-obligation-foundation-2",
+          "title": "Forbidden is different from optional",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-obligation"
+          ]
+        },
+        {
+          "id": "modal-obligation-foundation-3",
+          "title": "Advice and expectations",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-obligation"
+          ]
+        },
+        {
+          "id": "modal-obligation-foundation-4",
+          "title": "Form questions and negatives correctly",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-obligation"
+          ]
+        },
+        {
+          "id": "modal-meanings-and-semi-modals",
+          "title": "Modal meanings and semi-modal expressions",
+          "domain": "verbs",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "ought-need-dare-had-better",
+          "title": "Ought to, need, dare, had better and would rather",
+          "domain": "verbs",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "negation-auxiliaries",
+          "title": "Building negatives with and without auxiliaries",
+          "domain": "negation",
+          "referenceIds": [
+            "cambridge-negation",
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "modal-negative-scope",
+          "title": "Mustn’t, don’t have to and can’t: what is negated?",
+          "domain": "negation",
+          "referenceIds": [
+            "cambridge-negation",
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -47689,7 +49672,50 @@
         "deduction-continuous-form": 50
       },
       "referenceIds": [
-        "bc-deduction"
+        "bc-deduction",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "modal-deduction-foundation-1",
+          "title": "A strong positive conclusion",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-deduction"
+          ]
+        },
+        {
+          "id": "modal-deduction-foundation-2",
+          "title": "A strong negative conclusion",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-deduction"
+          ]
+        },
+        {
+          "id": "modal-deduction-foundation-3",
+          "title": "An uncertain possibility",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-deduction"
+          ]
+        },
+        {
+          "id": "modal-deduction-foundation-4",
+          "title": "Match the verb form to the time",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-deduction"
+          ]
+        },
+        {
+          "id": "modal-ambiguity-and-strength",
+          "title": "Possibility, deduction, permission and ability",
+          "domain": "verbs",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -48911,7 +50937,50 @@
         "past-continuous-deduction": 50
       },
       "referenceIds": [
-        "bc-past-deduction"
+        "bc-past-deduction",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "past-modals-foundation-1",
+          "title": "Deductions about the past",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-past-deduction"
+          ]
+        },
+        {
+          "id": "past-modals-foundation-2",
+          "title": "Criticism and regret",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-past-deduction"
+          ]
+        },
+        {
+          "id": "past-modals-foundation-3",
+          "title": "Past possibility and opportunity",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-past-deduction"
+          ]
+        },
+        {
+          "id": "past-modals-foundation-4",
+          "title": "No need versus an unnecessary completed action",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-past-deduction"
+          ]
+        },
+        {
+          "id": "could-have-didnt-need",
+          "title": "Could have, might have and didn’t need to",
+          "domain": "verbs",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -50135,6 +52204,40 @@
       "referenceIds": [
         "bc-conditionals"
       ],
+      "readingSections": [
+        {
+          "id": "conditionals-foundation-1",
+          "title": "General conditions",
+          "domain": "adjuncts",
+          "referenceIds": [
+            "bc-conditionals"
+          ]
+        },
+        {
+          "id": "conditionals-foundation-2",
+          "title": "A realistic future possibility",
+          "domain": "adjuncts",
+          "referenceIds": [
+            "bc-conditionals"
+          ]
+        },
+        {
+          "id": "conditionals-foundation-3",
+          "title": "An imagined present or future",
+          "domain": "adjuncts",
+          "referenceIds": [
+            "bc-conditionals"
+          ]
+        },
+        {
+          "id": "conditionals-foundation-4",
+          "title": "Clause order and unless",
+          "domain": "adjuncts",
+          "referenceIds": [
+            "bc-conditionals"
+          ]
+        }
+      ],
       "questions": [
         {
           "id": "1194163c-0479-54ec-ac4a-d3b4379dc842",
@@ -51356,6 +53459,40 @@
       },
       "referenceIds": [
         "bc-third-conditionals"
+      ],
+      "readingSections": [
+        {
+          "id": "third-mixed-conditionals-foundation-1",
+          "title": "An unreal past condition",
+          "domain": "adjuncts",
+          "referenceIds": [
+            "bc-third-conditionals"
+          ]
+        },
+        {
+          "id": "third-mixed-conditionals-foundation-2",
+          "title": "Possible and certain imagined results",
+          "domain": "adjuncts",
+          "referenceIds": [
+            "bc-third-conditionals"
+          ]
+        },
+        {
+          "id": "third-mixed-conditionals-foundation-3",
+          "title": "Past condition, present result",
+          "domain": "adjuncts",
+          "referenceIds": [
+            "bc-third-conditionals"
+          ]
+        },
+        {
+          "id": "third-mixed-conditionals-foundation-4",
+          "title": "Present condition, past result",
+          "domain": "adjuncts",
+          "referenceIds": [
+            "bc-third-conditionals"
+          ]
+        }
       ],
       "questions": [
         {
@@ -52579,6 +54716,40 @@
       "referenceIds": [
         "bc-wishes"
       ],
+      "readingSections": [
+        {
+          "id": "wishes-foundation-1",
+          "title": "An unreal present wish",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-wishes"
+          ]
+        },
+        {
+          "id": "wishes-foundation-2",
+          "title": "Regret about the past",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-wishes"
+          ]
+        },
+        {
+          "id": "wishes-foundation-3",
+          "title": "A wish for changed behaviour",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-wishes"
+          ]
+        },
+        {
+          "id": "wishes-foundation-4",
+          "title": "Ability and wishes",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-wishes"
+          ]
+        }
+      ],
       "questions": [
         {
           "id": "97226c2d-d301-55b9-aab0-213ef8ddbab8",
@@ -53799,7 +55970,82 @@
         "during-while": 50
       },
       "referenceIds": [
-        "dfe-grammar"
+        "dfe-grammar",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "linking-clauses-foundation-1",
+          "title": "Coordinating complete ideas",
+          "domain": "adjuncts",
+          "referenceIds": [
+            "dfe-grammar"
+          ]
+        },
+        {
+          "id": "linking-clauses-foundation-2",
+          "title": "Reasons: because and because of",
+          "domain": "adjuncts",
+          "referenceIds": [
+            "dfe-grammar"
+          ]
+        },
+        {
+          "id": "linking-clauses-foundation-3",
+          "title": "Purpose and result",
+          "domain": "adjuncts",
+          "referenceIds": [
+            "dfe-grammar"
+          ]
+        },
+        {
+          "id": "linking-clauses-foundation-4",
+          "title": "Time clauses and sequence",
+          "domain": "adjuncts",
+          "referenceIds": [
+            "dfe-grammar"
+          ]
+        },
+        {
+          "id": "coordination-and-parallelism",
+          "title": "Coordinating words, phrases and clauses",
+          "domain": "coordination",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "correlative-coordination",
+          "title": "Both…and, either…or, neither…nor",
+          "domain": "coordination",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "shared-material-coordination",
+          "title": "Sharing and omitting repeated material",
+          "domain": "coordination",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "adjunct-types-and-position",
+          "title": "Manner, means, accompaniment, viewpoint and stance",
+          "domain": "adjuncts",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "time-clause-relations",
+          "title": "Before, after, until, by the time, once and whenever",
+          "domain": "adjuncts",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -55021,7 +57267,58 @@
         "however-punctuation": 50
       },
       "referenceIds": [
-        "bc-contrast"
+        "bc-contrast",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "contrast-concession-foundation-1",
+          "title": "Although and even though",
+          "domain": "adjuncts",
+          "referenceIds": [
+            "bc-contrast"
+          ]
+        },
+        {
+          "id": "contrast-concession-foundation-2",
+          "title": "Despite and in spite of",
+          "domain": "adjuncts",
+          "referenceIds": [
+            "bc-contrast"
+          ]
+        },
+        {
+          "id": "contrast-concession-foundation-3",
+          "title": "Whereas and while",
+          "domain": "adjuncts",
+          "referenceIds": [
+            "bc-contrast"
+          ]
+        },
+        {
+          "id": "contrast-concession-foundation-4",
+          "title": "However and nevertheless",
+          "domain": "adjuncts",
+          "referenceIds": [
+            "bc-contrast"
+          ]
+        },
+        {
+          "id": "conditional-alternatives",
+          "title": "Unless, provided that, as long as and in case",
+          "domain": "adjuncts",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "even-if-even-though",
+          "title": "Even if, even though and whether…or",
+          "domain": "adjuncts",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -56246,7 +58543,78 @@
         "bc-degree",
         "bc-so-such",
         "bc-comparison-modifiers",
-        "bc-gradability"
+        "bc-gradability",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "degree-comparison-foundation-1",
+          "title": "Too means more than wanted",
+          "domain": "comparison",
+          "referenceIds": [
+            "bc-degree",
+            "bc-so-such",
+            "bc-comparison-modifiers",
+            "bc-gradability"
+          ]
+        },
+        {
+          "id": "degree-comparison-foundation-2",
+          "title": "Enough has two positions",
+          "domain": "comparison",
+          "referenceIds": [
+            "bc-degree",
+            "bc-so-such",
+            "bc-comparison-modifiers",
+            "bc-gradability"
+          ]
+        },
+        {
+          "id": "degree-comparison-foundation-3",
+          "title": "So and such",
+          "domain": "comparison",
+          "referenceIds": [
+            "bc-degree",
+            "bc-so-such",
+            "bc-comparison-modifiers",
+            "bc-gradability"
+          ]
+        },
+        {
+          "id": "degree-comparison-foundation-4",
+          "title": "Modify comparisons and adjective strength",
+          "domain": "comparison",
+          "referenceIds": [
+            "bc-degree",
+            "bc-so-such",
+            "bc-comparison-modifiers",
+            "bc-gradability"
+          ]
+        },
+        {
+          "id": "gradable-nongradable",
+          "title": "Gradable adjectives, extremes and intensifiers",
+          "domain": "comparison",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "progressive-proportional-comparison",
+          "title": "More and more, the more…the more and proportions",
+          "domain": "comparison",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "too-enough-result-infinitives",
+          "title": "Too and enough with result infinitives",
+          "domain": "comparison",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -57468,7 +59836,50 @@
         "modal-passive": 50
       },
       "referenceIds": [
-        "bc-passives"
+        "bc-passives",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "passive-voice-foundation-1",
+          "title": "Change the starting point",
+          "domain": "information",
+          "referenceIds": [
+            "bc-passives"
+          ]
+        },
+        {
+          "id": "passive-voice-foundation-2",
+          "title": "Keep the original tense",
+          "domain": "information",
+          "referenceIds": [
+            "bc-passives"
+          ]
+        },
+        {
+          "id": "passive-voice-foundation-3",
+          "title": "Continuous and perfect passives",
+          "domain": "information",
+          "referenceIds": [
+            "bc-passives"
+          ]
+        },
+        {
+          "id": "passive-voice-foundation-4",
+          "title": "Negatives, questions and modals",
+          "domain": "information",
+          "referenceIds": [
+            "bc-passives"
+          ]
+        },
+        {
+          "id": "passive-agent-and-focus",
+          "title": "Choosing active or passive and including the agent",
+          "domain": "information",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -58691,7 +61102,86 @@
       },
       "referenceIds": [
         "bc-relative",
-        "bc-nondefining"
+        "bc-nondefining",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "relative-clauses-foundation-1",
+          "title": "Defining information",
+          "domain": "relatives",
+          "referenceIds": [
+            "bc-relative",
+            "bc-nondefining"
+          ]
+        },
+        {
+          "id": "relative-clauses-foundation-2",
+          "title": "Extra information",
+          "domain": "relatives",
+          "referenceIds": [
+            "bc-relative",
+            "bc-nondefining"
+          ]
+        },
+        {
+          "id": "relative-clauses-foundation-3",
+          "title": "Possession and place",
+          "domain": "relatives",
+          "referenceIds": [
+            "bc-relative",
+            "bc-nondefining"
+          ]
+        },
+        {
+          "id": "relative-clauses-foundation-4",
+          "title": "When omission is possible",
+          "domain": "relatives",
+          "referenceIds": [
+            "bc-relative",
+            "bc-nondefining"
+          ]
+        },
+        {
+          "id": "relative-gap-functions",
+          "title": "Relative pronouns as subjects, objects and complements",
+          "domain": "relatives",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "whole-clause-relative",
+          "title": "Relative clauses referring to a whole situation",
+          "domain": "relatives",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "fused-free-relatives",
+          "title": "What, whoever and fused relative constructions",
+          "domain": "relatives",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "relative-quantifiers-and-whereby",
+          "title": "Quantified relatives, whose for things and whereby",
+          "domain": "relatives",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "long-distance-dependencies",
+          "title": "Long-distance questions and relative links",
+          "domain": "relatives",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -59913,7 +62403,60 @@
         "past-backshift": 50
       },
       "referenceIds": [
-        "bc-reported-statements"
+        "bc-reported-statements",
+        "cambridge-negation",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "reported-statements-foundation-1",
+          "title": "Reporting is a change of viewpoint",
+          "domain": "content-clauses",
+          "referenceIds": [
+            "bc-reported-statements"
+          ]
+        },
+        {
+          "id": "reported-statements-foundation-2",
+          "title": "Backshift after a past reporting verb",
+          "domain": "content-clauses",
+          "referenceIds": [
+            "bc-reported-statements"
+          ]
+        },
+        {
+          "id": "reported-statements-foundation-3",
+          "title": "Say and tell",
+          "domain": "content-clauses",
+          "referenceIds": [
+            "bc-reported-statements"
+          ]
+        },
+        {
+          "id": "reported-statements-foundation-4",
+          "title": "Modals and continuing truth",
+          "domain": "content-clauses",
+          "referenceIds": [
+            "bc-reported-statements"
+          ]
+        },
+        {
+          "id": "negative-raising",
+          "title": "I don’t think and the location of the negative",
+          "domain": "negation",
+          "referenceIds": [
+            "cambridge-negation",
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "reporting-reference-backshift",
+          "title": "Backshift, pronouns and reporting perspective",
+          "domain": "content-clauses",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -61137,6 +63680,40 @@
       "referenceIds": [
         "bc-reported-questions"
       ],
+      "readingSections": [
+        {
+          "id": "reported-questions-foundation-1",
+          "title": "Yes/no questions use if or whether",
+          "domain": "content-clauses",
+          "referenceIds": [
+            "bc-reported-questions"
+          ]
+        },
+        {
+          "id": "reported-questions-foundation-2",
+          "title": "Wh-questions keep the question word",
+          "domain": "content-clauses",
+          "referenceIds": [
+            "bc-reported-questions"
+          ]
+        },
+        {
+          "id": "reported-questions-foundation-3",
+          "title": "Commands use an infinitive pattern",
+          "domain": "content-clauses",
+          "referenceIds": [
+            "bc-reported-questions"
+          ]
+        },
+        {
+          "id": "reported-questions-foundation-4",
+          "title": "Adjust viewpoint carefully",
+          "domain": "content-clauses",
+          "referenceIds": [
+            "bc-reported-questions"
+          ]
+        }
+      ],
       "questions": [
         {
           "id": "90f4c17a-f2f8-572d-a7b7-9d130ddd7918",
@@ -62357,7 +64934,52 @@
         "suggestion-tag": 50
       },
       "referenceIds": [
-        "bc-question-tags"
+        "bc-question-tags",
+        "cambridge-spoken",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "question-tags-foundation-1",
+          "title": "Opposite polarity in a checking tag",
+          "domain": "sentence-types",
+          "referenceIds": [
+            "bc-question-tags"
+          ]
+        },
+        {
+          "id": "question-tags-foundation-2",
+          "title": "Reuse the auxiliary",
+          "domain": "sentence-types",
+          "referenceIds": [
+            "bc-question-tags"
+          ]
+        },
+        {
+          "id": "question-tags-foundation-3",
+          "title": "Keep number and person",
+          "domain": "sentence-types",
+          "referenceIds": [
+            "bc-question-tags"
+          ]
+        },
+        {
+          "id": "question-tags-foundation-4",
+          "title": "Requests and special tags",
+          "domain": "sentence-types",
+          "referenceIds": [
+            "bc-question-tags"
+          ]
+        },
+        {
+          "id": "tags-intonation-and-response",
+          "title": "Question-tag intonation, checking and social meaning",
+          "domain": "usage",
+          "referenceIds": [
+            "cambridge-spoken",
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -63579,7 +66201,50 @@
         "ordinary-object-pronoun": 50
       },
       "referenceIds": [
-        "bc-reflexive"
+        "bc-reflexive",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "reflexive-reciprocal-foundation-1",
+          "title": "The same participant twice",
+          "domain": "reference",
+          "referenceIds": [
+            "bc-reflexive"
+          ]
+        },
+        {
+          "id": "reflexive-reciprocal-foundation-2",
+          "title": "Emphasis and independence",
+          "domain": "reference",
+          "referenceIds": [
+            "bc-reflexive"
+          ]
+        },
+        {
+          "id": "reflexive-reciprocal-foundation-3",
+          "title": "Reciprocal actions",
+          "domain": "reference",
+          "referenceIds": [
+            "bc-reflexive"
+          ]
+        },
+        {
+          "id": "reflexive-reciprocal-foundation-4",
+          "title": "Use a reflexive only when its role needs one",
+          "domain": "reference",
+          "referenceIds": [
+            "bc-reflexive"
+          ]
+        },
+        {
+          "id": "reflexive-emphasis-and-by",
+          "title": "Reflexive, emphatic and by-myself meanings",
+          "domain": "reference",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -64801,7 +67466,61 @@
         "stop-purpose": 50
       },
       "referenceIds": [
-        "bc-verb-meaning"
+        "bc-verb-meaning",
+        "cambridge-nonfinite-scope",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "verb-pattern-meaning-foundation-1",
+          "title": "Remember a duty or recall an experience",
+          "domain": "nonfinite",
+          "referenceIds": [
+            "bc-verb-meaning"
+          ]
+        },
+        {
+          "id": "verb-pattern-meaning-foundation-2",
+          "title": "Stop one activity or pause for another",
+          "domain": "nonfinite",
+          "referenceIds": [
+            "bc-verb-meaning"
+          ]
+        },
+        {
+          "id": "verb-pattern-meaning-foundation-3",
+          "title": "Try a method or attempt a difficult action",
+          "domain": "nonfinite",
+          "referenceIds": [
+            "bc-verb-meaning"
+          ]
+        },
+        {
+          "id": "verb-pattern-meaning-foundation-4",
+          "title": "Go on and regret",
+          "domain": "nonfinite",
+          "referenceIds": [
+            "bc-verb-meaning"
+          ]
+        },
+        {
+          "id": "remember-forget-regret",
+          "title": "Remember, forget and regret: time and meaning",
+          "domain": "nonfinite",
+          "referenceIds": [
+            "cambridge-nonfinite-scope",
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "try-go-on-mean",
+          "title": "Try, go on, mean and need with different complements",
+          "domain": "nonfinite",
+          "referenceIds": [
+            "cambridge-nonfinite-scope",
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -66023,7 +68742,50 @@
         "phrasal-after-did": 50
       },
       "referenceIds": [
-        "bc-phrasal-order"
+        "bc-phrasal-order",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "phrasal-verbs-foundation-1",
+          "title": "A verb plus particle can have a new meaning",
+          "domain": "prepositions",
+          "referenceIds": [
+            "bc-phrasal-order"
+          ]
+        },
+        {
+          "id": "phrasal-verbs-foundation-2",
+          "title": "Separable transitive phrasal verbs",
+          "domain": "prepositions",
+          "referenceIds": [
+            "bc-phrasal-order"
+          ]
+        },
+        {
+          "id": "phrasal-verbs-foundation-3",
+          "title": "Pronoun objects go in the middle",
+          "domain": "prepositions",
+          "referenceIds": [
+            "bc-phrasal-order"
+          ]
+        },
+        {
+          "id": "phrasal-verbs-foundation-4",
+          "title": "Inseparable and three-part verbs",
+          "domain": "prepositions",
+          "referenceIds": [
+            "bc-phrasal-order"
+          ]
+        },
+        {
+          "id": "multiword-verb-types",
+          "title": "Phrasal, prepositional and phrasal-prepositional verbs",
+          "domain": "prepositions",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -67246,7 +70008,70 @@
       },
       "referenceIds": [
         "bc-questions-reference",
-        "dfe-grammar"
+        "dfe-grammar",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "noun-clauses-foundation-1",
+          "title": "Clauses can fill noun-like roles",
+          "domain": "content-clauses",
+          "referenceIds": [
+            "bc-questions-reference",
+            "dfe-grammar"
+          ]
+        },
+        {
+          "id": "noun-clauses-foundation-2",
+          "title": "Polite indirect questions",
+          "domain": "content-clauses",
+          "referenceIds": [
+            "bc-questions-reference",
+            "dfe-grammar"
+          ]
+        },
+        {
+          "id": "noun-clauses-foundation-3",
+          "title": "Whether before an infinitive",
+          "domain": "content-clauses",
+          "referenceIds": [
+            "bc-questions-reference",
+            "dfe-grammar"
+          ]
+        },
+        {
+          "id": "noun-clauses-foundation-4",
+          "title": "Preparatory it",
+          "domain": "content-clauses",
+          "referenceIds": [
+            "bc-questions-reference",
+            "dfe-grammar"
+          ]
+        },
+        {
+          "id": "content-clause-functions",
+          "title": "Content clauses as subjects, complements and explanations",
+          "domain": "content-clauses",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "embedded-if-whether",
+          "title": "Whether, if and embedded alternatives",
+          "domain": "content-clauses",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "extraposition-object-it",
+          "title": "Anticipatory subjects and objects with it",
+          "domain": "content-clauses",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -68468,7 +71293,90 @@
         "its-contraction": 50
       },
       "referenceIds": [
-        "dfe-grammar"
+        "dfe-grammar",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "punctuation-clauses-foundation-1",
+          "title": "Independent clauses need a real boundary",
+          "domain": "punctuation",
+          "referenceIds": [
+            "dfe-grammar"
+          ]
+        },
+        {
+          "id": "punctuation-clauses-foundation-2",
+          "title": "Colons and introductory material",
+          "domain": "punctuation",
+          "referenceIds": [
+            "dfe-grammar"
+          ]
+        },
+        {
+          "id": "punctuation-clauses-foundation-3",
+          "title": "Direct speech",
+          "domain": "punctuation",
+          "referenceIds": [
+            "dfe-grammar"
+          ]
+        },
+        {
+          "id": "punctuation-clauses-foundation-4",
+          "title": "Apostrophes and capitals",
+          "domain": "punctuation",
+          "referenceIds": [
+            "dfe-grammar"
+          ]
+        },
+        {
+          "id": "sentence-boundaries-fragments",
+          "title": "Full stops, fragments and comma splices",
+          "domain": "punctuation",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "commas-and-clause-relations",
+          "title": "Commas with clauses, lists and supplementary information",
+          "domain": "punctuation",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "colons-semicolons-dashes",
+          "title": "Colons, semicolons and dashes",
+          "domain": "punctuation",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "quotation-and-dialogue",
+          "title": "Quotation marks, reporting clauses and quoted punctuation",
+          "domain": "punctuation",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "apostrophes-hyphens-brackets",
+          "title": "Apostrophes, hyphens, parentheses and ellipsis marks",
+          "domain": "punctuation",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "capitals-numerals-abbreviations",
+          "title": "Capitalisation, numbers, abbreviations and typography",
+          "domain": "punctuation",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -69691,7 +72599,62 @@
       },
       "referenceIds": [
         "bc-agreement",
-        "dfe-grammar"
+        "dfe-grammar",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "agreement-advanced-foundation-1",
+          "title": "The head controls agreement",
+          "domain": "clause-patterns",
+          "referenceIds": [
+            "bc-agreement",
+            "dfe-grammar"
+          ]
+        },
+        {
+          "id": "agreement-advanced-foundation-2",
+          "title": "Indefinite pronouns",
+          "domain": "clause-patterns",
+          "referenceIds": [
+            "bc-agreement",
+            "dfe-grammar"
+          ]
+        },
+        {
+          "id": "agreement-advanced-foundation-3",
+          "title": "Coordinated subjects and quantities",
+          "domain": "clause-patterns",
+          "referenceIds": [
+            "bc-agreement",
+            "dfe-grammar"
+          ]
+        },
+        {
+          "id": "agreement-advanced-foundation-4",
+          "title": "Collective nouns and variation",
+          "domain": "clause-patterns",
+          "referenceIds": [
+            "bc-agreement",
+            "dfe-grammar"
+          ]
+        },
+        {
+          "id": "notional-proximity-agreement",
+          "title": "Grammatical, notional and proximity agreement",
+          "domain": "clause-patterns",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "agreement-special-subjects",
+          "title": "Subjects that are clauses, titles and coordinated ideas",
+          "domain": "clause-patterns",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -70913,7 +73876,58 @@
         "perfect-passive-infinitive": 50
       },
       "referenceIds": [
-        "bc-advanced-passives"
+        "bc-advanced-passives",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "advanced-passives-foundation-1",
+          "title": "Impersonal reporting",
+          "domain": "information",
+          "referenceIds": [
+            "bc-advanced-passives"
+          ]
+        },
+        {
+          "id": "advanced-passives-foundation-2",
+          "title": "Earlier events after a reporting passive",
+          "domain": "information",
+          "referenceIds": [
+            "bc-advanced-passives"
+          ]
+        },
+        {
+          "id": "advanced-passives-foundation-3",
+          "title": "Arrange for someone else to do something",
+          "domain": "information",
+          "referenceIds": [
+            "bc-advanced-passives"
+          ]
+        },
+        {
+          "id": "advanced-passives-foundation-4",
+          "title": "Get-passives and affected experiences",
+          "domain": "information",
+          "referenceIds": [
+            "bc-advanced-passives"
+          ]
+        },
+        {
+          "id": "get-passive-prepositional-passive",
+          "title": "Get-passives and prepositional passives",
+          "domain": "information",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "passive-chains-and-causatives",
+          "title": "Passive infinitives, perfect forms and causative meanings",
+          "domain": "information",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -72137,6 +75151,40 @@
       "referenceIds": [
         "bc-reporting-patterns"
       ],
+      "readingSections": [
+        {
+          "id": "reporting-verb-patterns-foundation-1",
+          "title": "Verb plus to-infinitive",
+          "domain": "content-clauses",
+          "referenceIds": [
+            "bc-reporting-patterns"
+          ]
+        },
+        {
+          "id": "reporting-verb-patterns-foundation-2",
+          "title": "Verb plus object and infinitive",
+          "domain": "content-clauses",
+          "referenceIds": [
+            "bc-reporting-patterns"
+          ]
+        },
+        {
+          "id": "reporting-verb-patterns-foundation-3",
+          "title": "Verb plus -ing",
+          "domain": "content-clauses",
+          "referenceIds": [
+            "bc-reporting-patterns"
+          ]
+        },
+        {
+          "id": "reporting-verb-patterns-foundation-4",
+          "title": "Prepositions before -ing",
+          "domain": "content-clauses",
+          "referenceIds": [
+            "bc-reporting-patterns"
+          ]
+        }
+      ],
       "questions": [
         {
           "id": "9b29d6f1-5de1-58fd-a072-77a5df7ac44d",
@@ -73357,7 +76405,70 @@
         "shared-participle-subject": 50
       },
       "referenceIds": [
-        "bc-participles"
+        "bc-participles",
+        "cambridge-nonfinite-scope",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "participle-clauses-foundation-1",
+          "title": "An active -ing clause",
+          "domain": "nonfinite",
+          "referenceIds": [
+            "bc-participles"
+          ]
+        },
+        {
+          "id": "participle-clauses-foundation-2",
+          "title": "A passive participle clause",
+          "domain": "nonfinite",
+          "referenceIds": [
+            "bc-participles"
+          ]
+        },
+        {
+          "id": "participle-clauses-foundation-3",
+          "title": "A completed earlier action",
+          "domain": "nonfinite",
+          "referenceIds": [
+            "bc-participles"
+          ]
+        },
+        {
+          "id": "participle-clauses-foundation-4",
+          "title": "Reduced relative clauses",
+          "domain": "nonfinite",
+          "referenceIds": [
+            "bc-participles"
+          ]
+        },
+        {
+          "id": "nonfinite-forms-functions",
+          "title": "Infinitival, -ing and past-participial clauses",
+          "domain": "nonfinite",
+          "referenceIds": [
+            "cambridge-nonfinite-scope",
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "absolute-and-verbless-clauses",
+          "title": "Absolute constructions and clauses without a verb",
+          "domain": "nonfinite",
+          "referenceIds": [
+            "cambridge-nonfinite-scope",
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "dangling-and-perfect-participles",
+          "title": "Participial attachment, anteriority and passive meaning",
+          "domain": "nonfinite",
+          "referenceIds": [
+            "cambridge-nonfinite-scope",
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -74580,7 +77691,54 @@
       },
       "referenceIds": [
         "bc-inversion",
-        "bc-inverted-conditions"
+        "bc-inverted-conditions",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "inversion-foundation-1",
+          "title": "Negative or limiting openings",
+          "domain": "information",
+          "referenceIds": [
+            "bc-inversion",
+            "bc-inverted-conditions"
+          ]
+        },
+        {
+          "id": "inversion-foundation-2",
+          "title": "Move only the first auxiliary",
+          "domain": "information",
+          "referenceIds": [
+            "bc-inversion",
+            "bc-inverted-conditions"
+          ]
+        },
+        {
+          "id": "inversion-foundation-3",
+          "title": "Conditional inversion without if",
+          "domain": "information",
+          "referenceIds": [
+            "bc-inversion",
+            "bc-inverted-conditions"
+          ]
+        },
+        {
+          "id": "inversion-foundation-4",
+          "title": "Scope of only and not until",
+          "domain": "information",
+          "referenceIds": [
+            "bc-inversion",
+            "bc-inverted-conditions"
+          ]
+        },
+        {
+          "id": "locative-and-conditional-inversion",
+          "title": "Locative inversion and conditional alternatives",
+          "domain": "information",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -75802,7 +78960,58 @@
         "what-cleft-agreement": 50
       },
       "referenceIds": [
-        "bc-emphasis"
+        "bc-emphasis",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "clefts-emphasis-foundation-1",
+          "title": "It-clefts",
+          "domain": "information",
+          "referenceIds": [
+            "bc-emphasis"
+          ]
+        },
+        {
+          "id": "clefts-emphasis-foundation-2",
+          "title": "What-clefts",
+          "domain": "information",
+          "referenceIds": [
+            "bc-emphasis"
+          ]
+        },
+        {
+          "id": "clefts-emphasis-foundation-3",
+          "title": "Emphatic do",
+          "domain": "information",
+          "referenceIds": [
+            "bc-emphasis"
+          ]
+        },
+        {
+          "id": "clefts-emphasis-foundation-4",
+          "title": "Choose emphasis for a reason",
+          "domain": "information",
+          "referenceIds": [
+            "bc-emphasis"
+          ]
+        },
+        {
+          "id": "fronting-and-end-focus",
+          "title": "Fronting, end focus and end weight",
+          "domain": "information",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "cleft-range",
+          "title": "It-clefts, what-clefts and reversed clefts",
+          "domain": "information",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -77024,7 +80233,68 @@
         "proposition-substitution": 50
       },
       "referenceIds": [
-        "bc-ellipsis"
+        "bc-ellipsis",
+        "cambridge-comprehensive-scope",
+        "cambridge-spoken"
+      ],
+      "readingSections": [
+        {
+          "id": "ellipsis-substitution-foundation-1",
+          "title": "Keep the auxiliary, omit repeated content",
+          "domain": "reference",
+          "referenceIds": [
+            "bc-ellipsis"
+          ]
+        },
+        {
+          "id": "ellipsis-substitution-foundation-2",
+          "title": "So and neither for shared experience",
+          "domain": "reference",
+          "referenceIds": [
+            "bc-ellipsis"
+          ]
+        },
+        {
+          "id": "ellipsis-substitution-foundation-3",
+          "title": "One and ones replace count nouns",
+          "domain": "reference",
+          "referenceIds": [
+            "bc-ellipsis"
+          ]
+        },
+        {
+          "id": "ellipsis-substitution-foundation-4",
+          "title": "Substitute for whole propositions",
+          "domain": "reference",
+          "referenceIds": [
+            "bc-ellipsis"
+          ]
+        },
+        {
+          "id": "one-ones-and-other",
+          "title": "One, ones, other, another and the others",
+          "domain": "reference",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "anaphora-cataphora",
+          "title": "Looking backward and forward in a text",
+          "domain": "reference",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "spoken-ellipsis",
+          "title": "Conversational ellipsis and recoverable subjects",
+          "domain": "usage",
+          "referenceIds": [
+            "cambridge-spoken",
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -78247,7 +81517,62 @@
       },
       "referenceIds": [
         "bc-unreal",
-        "dfe-grammar"
+        "dfe-grammar",
+        "cambridge-comprehensive-scope"
+      ],
+      "readingSections": [
+        {
+          "id": "unreal-subjunctive-foundation-1",
+          "title": "The mandative subjunctive",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-unreal",
+            "dfe-grammar"
+          ]
+        },
+        {
+          "id": "unreal-subjunctive-foundation-2",
+          "title": "Negative subjunctives",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-unreal",
+            "dfe-grammar"
+          ]
+        },
+        {
+          "id": "unreal-subjunctive-foundation-3",
+          "title": "Would rather and it is time",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-unreal",
+            "dfe-grammar"
+          ]
+        },
+        {
+          "id": "unreal-subjunctive-foundation-4",
+          "title": "As if and hypothetical were",
+          "domain": "verbs",
+          "referenceIds": [
+            "bc-unreal",
+            "dfe-grammar"
+          ]
+        },
+        {
+          "id": "indicative-imperative-subjunctive",
+          "title": "Mood: statements, directives and subjunctive patterns",
+          "domain": "verbs",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "as-if-rather-and-formulae",
+          "title": "As if, would rather, it’s time and fixed subjunctives",
+          "domain": "verbs",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -79469,7 +82794,105 @@
         "nominalisation-agent": 50
       },
       "referenceIds": [
-        "bc-noun-modifiers"
+        "bc-noun-modifiers",
+        "cambridge-comprehensive-scope",
+        "cambridge-word-formation"
+      ],
+      "readingSections": [
+        {
+          "id": "noun-modifiers-foundation-1",
+          "title": "Nouns can modify other nouns",
+          "domain": "word-formation",
+          "referenceIds": [
+            "bc-noun-modifiers"
+          ]
+        },
+        {
+          "id": "noun-modifiers-foundation-2",
+          "title": "Measure compounds before nouns",
+          "domain": "word-formation",
+          "referenceIds": [
+            "bc-noun-modifiers"
+          ]
+        },
+        {
+          "id": "noun-modifiers-foundation-3",
+          "title": "Possessive relationships and of phrases",
+          "domain": "word-formation",
+          "referenceIds": [
+            "bc-noun-modifiers"
+          ]
+        },
+        {
+          "id": "noun-modifiers-foundation-4",
+          "title": "Nominalisation and clarity",
+          "domain": "word-formation",
+          "referenceIds": [
+            "bc-noun-modifiers"
+          ]
+        },
+        {
+          "id": "apposition-and-supplements",
+          "title": "Apposition, parenthetical additions and supplements",
+          "domain": "coordination",
+          "referenceIds": [
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "inflection-versus-derivation",
+          "title": "Inflection versus derivation",
+          "domain": "word-formation",
+          "referenceIds": [
+            "cambridge-word-formation",
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "prefixes-and-suffixes",
+          "title": "Prefixes, suffixes and word families",
+          "domain": "word-formation",
+          "referenceIds": [
+            "cambridge-word-formation",
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "conversion-compounding",
+          "title": "Conversion, compounds and the head of a compound",
+          "domain": "word-formation",
+          "referenceIds": [
+            "cambridge-word-formation",
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "clipping-blending-abbreviations",
+          "title": "Clipping, blending, acronyms and back-formation",
+          "domain": "word-formation",
+          "referenceIds": [
+            "cambridge-word-formation",
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "nominalisation-and-complements",
+          "title": "Nominalisation, agents and dense noun phrases",
+          "domain": "word-formation",
+          "referenceIds": [
+            "cambridge-word-formation",
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "noun-modifier-number",
+          "title": "Nouns as modifiers and compound measurements",
+          "domain": "word-formation",
+          "referenceIds": [
+            "cambridge-word-formation",
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {
@@ -80691,7 +84114,118 @@
         "polite-request-register": 50
       },
       "referenceIds": [
-        "bc-varieties"
+        "bc-varieties",
+        "cambridge-negation",
+        "cambridge-comprehensive-scope",
+        "cambridge-hedges",
+        "cambridge-headers-tails",
+        "cambridge-spoken"
+      ],
+      "readingSections": [
+        {
+          "id": "register-variation-foundation-1",
+          "title": "Contractions and formality",
+          "domain": "usage",
+          "referenceIds": [
+            "bc-varieties"
+          ]
+        },
+        {
+          "id": "register-variation-foundation-2",
+          "title": "Standard varieties differ",
+          "domain": "usage",
+          "referenceIds": [
+            "bc-varieties"
+          ]
+        },
+        {
+          "id": "register-variation-foundation-3",
+          "title": "Speech leaves more recoverable material unstated",
+          "domain": "usage",
+          "referenceIds": [
+            "bc-varieties"
+          ]
+        },
+        {
+          "id": "register-variation-foundation-4",
+          "title": "Grammar supports a purpose",
+          "domain": "usage",
+          "referenceIds": [
+            "bc-varieties"
+          ]
+        },
+        {
+          "id": "double-negation-and-concord",
+          "title": "Double negation, negative concord and litotes",
+          "domain": "negation",
+          "referenceIds": [
+            "cambridge-negation",
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "hedging-and-stance",
+          "title": "Hedging: expressing uncertainty and softening a claim",
+          "domain": "usage",
+          "referenceIds": [
+            "cambridge-hedges",
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "spoken-headers-tails",
+          "title": "Headers and tails in spoken English",
+          "domain": "usage",
+          "referenceIds": [
+            "cambridge-headers-tails",
+            "cambridge-spoken"
+          ]
+        },
+        {
+          "id": "discourse-markers-response-tokens",
+          "title": "Discourse markers, response tokens and interjections",
+          "domain": "usage",
+          "referenceIds": [
+            "cambridge-spoken",
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "politeness-distance-indirectness",
+          "title": "Politeness, grammatical distance and indirect requests",
+          "domain": "usage",
+          "referenceIds": [
+            "cambridge-spoken",
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "regional-standard-variation",
+          "title": "British, American and other standard varieties",
+          "domain": "usage",
+          "referenceIds": [
+            "cambridge-spoken",
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "formal-informal-and-genres",
+          "title": "Formal writing, informal language and genre",
+          "domain": "usage",
+          "referenceIds": [
+            "cambridge-spoken",
+            "cambridge-comprehensive-scope"
+          ]
+        },
+        {
+          "id": "grammar-conventions-and-change",
+          "title": "Rules, preferences, variation and language change",
+          "domain": "usage",
+          "referenceIds": [
+            "cambridge-spoken",
+            "cambridge-comprehensive-scope"
+          ]
+        }
       ],
       "questions": [
         {

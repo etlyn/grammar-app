@@ -36,3 +36,11 @@ Apply consolidation migration `004_grammar_catalog_snapshots.sql` once after ver
 The v3 release ledger counts added normalized rows (49 topics / 9,800 questions). The manifest and full archive describe the complete offline course (67 topics / 13,400 questions). Read the archive only for a version whose `content_releases.content_hash` matches its `catalog_hash`; staged topic imports do not constitute a published release.
 
 Run the generated `verify.sql` to compare all full JSONB payload digests and every field of the newly normalized lessons/questions. Null normalized comparison values for the 18 earlier banks are deliberate: their teaching revisions live in the archive, while earlier normalized releases remain immutable. Independently compare pre/post full-row digests of the retained rows, private grants and learner counts, and save the verification receipt. MD5 checks JSONB equality; SHA-256 identifies the whole release.
+
+## Whole-subject reading archive (v4)
+
+Apply `005_grammar_reading_only_releases.sql` once. It permits zero newly inserted normalized topics/questions in the ledger, which keeps the existing meaning of those counts for a release that changes reading only. It changes no content rows, roles or policies.
+
+The v4 manifest contains the 20-area grammar map and 67 full-topic archive transactions plus a finalizer. Each transaction checks the v3 base payload digest and unchanged quiz-array digest, then combines that verified array with the new complete topic metadata and reading. It verifies the resulting full JSONB digest before committing. This avoids duplicating the question text in the SQL files while producing the identical complete topic snapshot in Supabase.
+
+Ledger additions are **0 topics / 0 questions**; total published coverage is **67 chapters / 403 reading sections / 13,400 questions**. All normalized v1/v2/v3 rows and the entire v3 archive remain unchanged. Run the generated verification query and compare pre/post retained-row digests. The map is reconstructible from the manifest and domain authoring metadata; the web continues to use its build snapshot with no runtime Supabase or AI requests.

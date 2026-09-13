@@ -1062,3 +1062,29 @@ body:has(.topics-dialog[open]) {
   .question-actions > .primary { flex-basis: 100%; justify-content: center; }
   .stage-toggle { min-height: 44px; font-size: .88rem; }
 }
+
+/* The grammar map is a table of contents, with progressive detail. */
+.grammar-map { max-width: 860px; margin: 0 auto; }
+.map-counts { font-size: .87rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.5rem; }
+.map-scope { max-width: 65ch; color: var(--muted); font-size: .9rem; line-height: 1.7; margin: 1rem 0 1.5rem; }
+.map-search-controls { margin: 3rem 0 1rem; }
+.map-search-controls > label { display: block; font-size: .86rem; font-weight: 600; margin-bottom: .65rem; }
+.map-search-controls .topic-search { margin: 0; width: 100%; }
+.map-search-controls .contents-controls { margin-top: .7rem; }
+.map-search-controls .contents-controls p { margin: 0; }
+.grammar-area { border-bottom: 1px solid var(--line); }
+.grammar-area h2 { margin: 0; font-size: 1rem; }
+.grammar-area-toggle { display: flex; align-items: center; gap: 1rem; justify-content: space-between; width: 100%; padding: 1.4rem 0; text-align: left; border: 0; background: transparent; color: var(--ink); cursor: pointer; }
+.grammar-area-toggle:disabled { opacity: 1; cursor: default; }
+.grammar-area-toggle small { display: block; font-weight: 400; font-size: .85rem; line-height: 1.6; color: var(--muted); margin-top: .4rem; }
+.map-area-count { flex: 0 0 auto; color: var(--muted); font-size: .8rem; font-weight: 400; }
+.concept-list { padding: 0 0 1rem; margin: 0; list-style: none; }
+.concept-list button { position: relative; width: 100%; border: 0; border-left: 2px solid var(--line); background: transparent; color: var(--ink); text-align: left; padding: .85rem 2rem .85rem 1rem; cursor: pointer; line-height: 1.5; transition: background .18s ease-in-out; }
+.concept-list button:hover { background: #f8f6fc; }
+.concept-list small { display: block; color: var(--muted); font-size: .74rem; margin-top: .3rem; }
+.concept-arrow { position: absolute; right: .3rem; top: 1rem; color: var(--muted); }
+.map-rail-link { display: flex; justify-content: space-between; gap: .5rem; background: none; border: 0; padding: .65rem 0; margin: 1rem 0; color: var(--purple); font-size: .82rem; text-align: left; cursor: pointer; width: 100%; }
+.next-reading { display: flex; gap: 1rem; justify-content: space-between; width: 100%; border: 0; border-bottom: 1px solid var(--line); padding: 1.4rem 0; margin: 1rem 0; background: transparent; color: var(--purple); cursor: pointer; text-align: left; }
+.grammar-map .grammar-area > div:not([hidden]) { animation: panel-enter .2s ease-in-out; }
+@media (max-width: 680px) { .map-counts { font-size: .78rem; gap: .4rem; } .grammar-area-toggle { padding: 1.2rem 0; } .map-search-controls { margin-top: 2rem; } }
+@media (prefers-reduced-motion: reduce) { .grammar-map .grammar-area > div:not([hidden]) { animation: none; } }

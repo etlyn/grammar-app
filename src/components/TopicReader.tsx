@@ -1,8 +1,12 @@
 import { contentSources } from "../services/contentService";
 import type { GrammarTopic } from "../types/grammar";
 import { RichText } from "./RichText";
-type Props = { topic: GrammarTopic; onPractice: () => void };
-export function TopicReader({ topic, onPractice }: Props) {
+type Props = {
+  topic: GrammarTopic;
+  onPractice: () => void;
+  onNext?: () => void;
+};
+export function TopicReader({ topic, onPractice, onNext }: Props) {
   const chapter = topic.chapter;
   const rules = chapter?.rules ?? topic.rules;
   const skills = [...new Set(topic.quizItems.map((q) => q.skill))];
@@ -29,6 +33,7 @@ export function TopicReader({ topic, onPractice }: Props) {
         <h1>{topic.title}</h1>
         <p className="lead">{topic.summary}</p>
         <div className="reading-meta">
+          <span>{rules.length} reading sections</span>
           <span>About {minutes} minutes to read</span>
           <span>{topic.quizItems.length} practice questions</span>
         </div>
@@ -38,7 +43,7 @@ export function TopicReader({ topic, onPractice }: Props) {
         <ol>
           {rules.map((rule, index) => (
             <li key={rule.title}>
-              <a href={`#rule-${index}`}>
+              <a href={rule.id ? `#concept-${rule.id}` : `#rule-${index}`}>
                 <span aria-hidden="true">{index + 1}</span>
                 {rule.title}
               </a>
@@ -60,10 +65,11 @@ export function TopicReader({ topic, onPractice }: Props) {
         {rules.map((rule, index) => (
           <section
             className="reading-rule"
-            id={`rule-${index}`}
+            id={rule.id ? `concept-${rule.id}` : `rule-${index}`}
             key={rule.title}
             tabIndex={-1}
           >
+            {rule.id && <span id={`rule-${index}`} aria-hidden="true" />}
             <p className="eyebrow">{String(index + 1).padStart(2, "0")}</p>
             <h2>{rule.title}</h2>
             <p>
@@ -155,6 +161,11 @@ export function TopicReader({ topic, onPractice }: Props) {
           Practise this topic <span aria-hidden="true">→</span>
         </button>
       </div>
+      {onNext && (
+        <button type="button" className="next-reading" onClick={onNext}>
+          Continue reading: next chapter <span aria-hidden="true">→</span>
+        </button>
+      )}
       <details className="reading-details">
         <summary>Study guide & learning goals</summary>
         <div className="disclosure-content">
@@ -177,7 +188,9 @@ export function TopicReader({ topic, onPractice }: Props) {
           <ul>
             {contentSources
               .filter((source) =>
-                topic.provenance?.referenceIds.includes(source.id),
+                (
+                  topic.readingReferenceIds ?? topic.provenance?.referenceIds
+                )?.includes(source.id),
               )
               .map((source) => (
                 <li key={source.id}>

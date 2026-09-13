@@ -19,6 +19,17 @@ for (const t of snapshot.topics)
       await readFile(`supabase/content/${v}/manifest.json`, "utf8"),
     );
   }
+// The v4 reading-only release reuses exactly the verified v3 quiz arrays.
+// Structural tests compare all question payloads to the immutable v3 authoring.
+const baseArchive =
+  snapshot.version === "core-2026-09-v4"
+    ? JSON.parse(
+        await readFile(
+          "supabase/content/core-2026-09-v3/manifest.json",
+          "utf8",
+        ),
+      )
+    : null;
 // PostgreSQL jsonb canonical ordering: byte length first, then bytewise key order.
 export function canonical(v) {
   if (Array.isArray(v)) return "[" + v.map(canonical).join(", ") + "]";
@@ -50,6 +61,25 @@ for (const t of snapshot.topics) {
     ),
   };
   let sql = `-- ${t.title}: immutable full teaching payload; ${newTopic ? "new normalized bank" : "retained normalized bank is unchanged"}.\nBEGIN;\nSET LOCAL lock_timeout='3s';\nSET LOCAL statement_timeout='30s';\nSELECT pg_advisory_xact_lock(hashtext('grammar-content-import'));\nDO $guard$ BEGIN\n IF EXISTS(SELECT 1 FROM grammar.content_releases WHERE version=${version} AND content_hash<>${hash}) THEN RAISE EXCEPTION 'Published release is immutable'; END IF;\n IF EXISTS(SELECT 1 FROM grammar.content_catalog_topics WHERE version=${version} AND slug=${slug} AND (catalog_hash<>${hash} OR payload_md5<>${literal(digest)})) THEN RAISE EXCEPTION 'Catalog payload conflict: use a new version'; END IF;\nEND $guard$;\nINSERT INTO grammar.content_catalog_topics(version,slug,catalog_hash,payload) VALUES(${version},${slug},${hash},${json(t)}) ON CONFLICT(version,slug) DO NOTHING;\n`;
+  if (baseArchive) {
+    const expectedBase = baseArchive.topicDigests.find(
+      (d) => d.slug === t.slug,
+    );
+    if (!expectedBase || newTopic)
+      throw Error("Reading-only archive requires a retained topic");
+    const { quizItems, ...readingPayload } = t;
+    const questionsDigest = createHash("md5")
+      .update(canonical(quizItems))
+      .digest("hex");
+    const fullInsert = `INSERT INTO grammar.content_catalog_topics(version,slug,catalog_hash,payload) VALUES(${version},${slug},${hash},${json(t)}) ON CONFLICT(version,slug) DO NOTHING;`;
+    const cloneInsert = `DO $base$ BEGIN
+ IF NOT EXISTS(SELECT 1 FROM grammar.content_catalog_topics WHERE version=${literal(baseArchive.version)} AND slug=${slug} AND catalog_hash=${literal(baseArchive.contentHash)} AND payload_md5=${literal(expectedBase.md5)} AND md5((payload->'quizItems')::text)=${literal(questionsDigest)}) THEN RAISE EXCEPTION 'Base archive or retained questions differ'; END IF;
+END $base$;
+INSERT INTO grammar.content_catalog_topics(version,slug,catalog_hash,payload)
+SELECT ${version},${slug},${hash},payload || ${json(readingPayload)} FROM grammar.content_catalog_topics WHERE version=${literal(baseArchive.version)} AND slug=${slug}
+ON CONFLICT(version,slug) DO NOTHING;`;
+    sql = sql.replace(fullInsert, cloneInsert);
+  }
   if (newTopic)
     sql += `DO $guard$ BEGIN\n IF EXISTS(SELECT 1 FROM grammar.grammar_topics WHERE slug=${slug} AND source_metadata->>'version' IS DISTINCT FROM ${version}) THEN RAISE EXCEPTION 'Topic belongs to another release'; END IF;\n IF EXISTS(SELECT 1 FROM grammar.grammar_quiz_items WHERE topic_slug=${slug} AND source_metadata->>'version' IS DISTINCT FROM ${version}) THEN RAISE EXCEPTION 'Questions belong to another release'; END IF;\nEND $guard$;\nINSERT INTO grammar.grammar_topics(slug,title,level,order_index,summary,guidance,learning_goals,rules,tips,source,source_metadata)\nSELECT j->>'slug',j->>'title',j->>'level',(j->>'order')::integer,j->>'summary',j->>'guidance',ARRAY(SELECT jsonb_array_elements_text(j->'learningGoals')),j->'rules',ARRAY(SELECT jsonb_array_elements_text(j->'tips')),'seed',${json(metadata)} FROM (SELECT payload j FROM grammar.content_catalog_topics WHERE version=${version} AND slug=${slug}) p\nON CONFLICT(slug) DO NOTHING;\nINSERT INTO grammar.grammar_quiz_items(id,topic_slug,level,prompt,choices,answer_id,hint,explanation,keywords,source,fingerprint,source_metadata)\nSELECT (q->>'id')::uuid,q->>'topicSlug',q->>'level',q->>'prompt',q->'choices',q->>'answerId',q->>'hint',q->>'explanation',ARRAY(SELECT jsonb_array_elements_text(q->'keywords')),'seed',q->>'fingerprint',(q->'provenance')||jsonb_build_object('contentHash',${hash},'skill',q->>'skill','contextKey',q->>'contextKey','teaching',q->'teaching')\nFROM grammar.content_catalog_topics t CROSS JOIN LATERAL jsonb_array_elements(t.payload->'quizItems') q WHERE t.version=${version} AND t.slug=${slug}\nON CONFLICT(id) DO NOTHING;\n`;
   sql += `DO $verify$ BEGIN\n IF NOT EXISTS(SELECT 1 FROM grammar.content_catalog_topics WHERE version=${version} AND slug=${slug} AND payload_md5=${literal(digest)}) THEN RAISE EXCEPTION 'Full payload mismatch'; END IF;\n IF (SELECT count(*) FROM grammar.grammar_quiz_items WHERE topic_slug=${slug})<>200 THEN RAISE EXCEPTION 'Question count mismatch'; END IF;\nEND $verify$;\nCOMMIT;\n`;
@@ -110,6 +140,10 @@ await writeFile(
       retainedReleases: Object.fromEntries(
         Object.entries(retained).map(([v, r]) => [v, r.contentHash]),
       ),
+      archiveDependency: baseArchive
+        ? { version: baseArchive.version, contentHash: baseArchive.contentHash }
+        : undefined,
+      grammarMap: snapshot.grammarMap,
       topicDigests: digests,
       files,
     },

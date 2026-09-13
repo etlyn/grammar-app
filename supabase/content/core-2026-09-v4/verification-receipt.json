@@ -1,0 +1,531 @@
+{
+  "verifiedOn": "2026-09-13",
+  "contentHash": "87b630c771d79eac83e3be02f06e226cf9455e201ca4d4e9ebd574542396373d",
+  "matchedTopics": 67,
+  "totalQuestions": 13400,
+  "readingSections": 403,
+  "prePostRetainedRowsIdentical": true,
+  "rls": true,
+  "release": {
+    "version": "core-2026-09-v4",
+    "imported_at": "2026-09-13T23:38:06.715259+00:00",
+    "topic_count": 0,
+    "content_hash": "87b630c771d79eac83e3be02f06e226cf9455e201ca4d4e9ebd574542396373d",
+    "review_status": "automated-checked; educator-review-pending",
+    "question_count": 0
+  },
+  "retainedRows": [
+    {
+      "kind": "topics",
+      "count": 67,
+      "digest": "175a8c130940904f891643e6b3f5ea5b"
+    },
+    {
+      "kind": "questions",
+      "count": 13400,
+      "digest": "966146a53efa3739efdd954664d0de16"
+    },
+    {
+      "kind": "v3Archive",
+      "count": 67,
+      "digest": "04a2e121287e97c2f97d7495582932cf"
+    }
+  ],
+  "privateAccess": [
+    {
+      "role": "anon",
+      "schemaUsage": false,
+      "archiveInsert": false,
+      "archiveSelect": false
+    },
+    {
+      "role": "authenticated",
+      "schemaUsage": false,
+      "archiveInsert": false,
+      "archiveSelect": false
+    },
+    {
+      "role": "service_role",
+      "schemaUsage": false,
+      "archiveInsert": false,
+      "archiveSelect": false
+    },
+    {
+      "role": "etlyn_grammar_runtime",
+      "schemaUsage": true,
+      "archiveInsert": false,
+      "archiveSelect": false
+    }
+  ],
+  "topicVerification": [
+    {
+      "slug": "adjective-order",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "advanced-passives",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "adverbs-position",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "agreement-advanced",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "articles",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "articles-place-names",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "clefts-emphasis",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "comparatives-and-superlatives",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "conditionals",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "contrast-concession",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "countable-uncountable",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "degree-comparison",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "demonstratives",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "dependent-prepositions",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "determiners-quantifiers",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "ed-ing-adjectives",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "ellipsis-substitution",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "future-forms",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "future-perfect-continuous",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "have-got",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "imperatives",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "infinitive-of-purpose",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "inversion",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "linking-clauses",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "modal-deduction",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "modal-obligation",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "modals-ability",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "movement-prepositions",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "noun-clauses",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "noun-modifiers",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "nouns-and-plurals",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "participle-clauses",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "passive-voice",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "past-continuous",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "past-habits",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "past-modals",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "past-perfect",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "past-perfect-continuous",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "past-simple",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "phrasal-verbs",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "possessive-s",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "prepositions-of-place",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "prepositions-of-time",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "present-continuous",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "present-perfect",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "present-perfect-continuous",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "present-simple",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "present-simple-be",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "pronouns-and-possessive-determiners",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "punctuation-clauses",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "question-forms",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "question-tags",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "reflexive-reciprocal",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "register-variation",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "relative-clauses",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "reported-questions",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "reported-statements",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "reporting-verb-patterns",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "sentence-structure",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "small-quantities",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "stative-dynamic",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "there-is-there-are",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "third-mixed-conditionals",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "unreal-subjunctive",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "verb-pattern-meaning",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "verb-patterns",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    },
+    {
+      "slug": "wishes",
+      "payload_matches": true,
+      "questions": 200,
+      "normalized_topic_matches": null,
+      "normalized_questions_matching": null
+    }
+  ]
+}

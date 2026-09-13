@@ -6,6 +6,7 @@ type Props = {
   progress: ProgressByTopic;
   onSelect: (slug: string) => void;
   onClose?: () => void;
+  onMap?: () => void;
 };
 export function TopicSidebar({
   topics,
@@ -13,6 +14,7 @@ export function TopicSidebar({
   progress,
   onSelect,
   onClose,
+  onMap,
 }: Props) {
   const searchId = useId();
   const [query, setQuery] = useState("");
@@ -24,7 +26,7 @@ export function TopicSidebar({
   }, [activeStage]);
   const stages = [...new Set(topics.map((t) => t.stage ?? "Foundations"))];
   const filtered = topics.filter((t) =>
-    `${t.title} ${t.summary} ${t.level}`
+    `${t.title} ${t.summary} ${t.level} ${t.chapter?.rules.map((r) => r.title).join(" ")}`
       .toLowerCase()
       .includes(query.trim().toLowerCase()),
   );
@@ -49,6 +51,11 @@ export function TopicSidebar({
         <br />
         {completed} complete · {topics.length - completed} to explore
       </p>
+      {onMap && (
+        <button type="button" className="map-rail-link" onClick={onMap}>
+          Explore the grammar map <span aria-hidden="true">↗</span>
+        </button>
+      )}
       <label className="sr-only" htmlFor={searchId}>
         Search topics
       </label>

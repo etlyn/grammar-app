@@ -1,10 +1,10 @@
 # Grammacho web curriculum coverage
 
-Version: core-2026-09-v3
+Version: core-2026-09-v4
 
-Scope: broad standard-English grammar, approximate A1–C1 learning stages. This is a prerequisite-based Grammacho sequence informed by British Council levels and England’s school grammar scope, not an official prescribed order or an exhaustive grammar certification.
+Scope: contemporary standard-English grammar with a full subject-area map across 20 domains. See [all reading sections](CONCEPTS.md) and [scope crosswalk](scope/README.md). Existing chapter levels are approximate teaching labels, not the limit of the reading syllabus. This is a prerequisite-based Grammacho sequence informed by British Council levels and England’s school grammar scope, not an official prescribed order or an exhaustive grammar certification.
 
-Content SHA-256: e49c6c64b6333354230b05b223ded19e0e7519c1828bf3f36aee778f9f3f39c4
+Content SHA-256: 87b630c771d79eac83e3be02f06e226cf9455e201ca4d4e9ebd574542396373d
 
 Original, generated offline with AI assistance; not copied or endorsed official exercises.
 
@@ -84,8 +84,8 @@ Automated structural checks complete; independent educator review pending.
 
 ## Expand without duplication
 
-1. Read this index and coverage.json before authoring. The legacy mobile topics are not part of this web release. Read content/core/README.md for the scope, sequence rationale and chapter-only subtopics.
-2. Use content/catalog.mjs to compose the immutable foundations and extension modules with content/core/. The v3 teaching layer enriches earlier lessons without changing question IDs or answer choices. Preserve existing topic slugs, skill identifiers and context keys; these derive stable UUIDs. Do not regenerate covered topics to add a new topic.
+1. Read this index and coverage.json before authoring. The legacy mobile topics are not part of this web release. Read content/scope/README.md and CONCEPTS.json for current reading coverage, and content/core/README.md for the existing practice banks.
+2. Use content/catalog.mjs to compose the immutable foundations and extension modules with content/core/ and content/scope/. The v4 reading layer preserves the v3 catalog and every question. The v3 teaching layer enriches earlier lessons without changing question IDs or answer choices. Preserve existing topic slugs, skill identifiers and context keys; these derive stable UUIDs. Do not regenerate covered topics to add a new topic.
 3. For genuinely new exercises, add unique context keys and new skill coverage, not option-order or name-only variations. To correct an existing answer, review progress compatibility and intentionally version the release.
 4. Verify authoritative references, reuse licences and ambiguity. Distinguish reproduced, adapted and newly authored material. Never claim school/CEFR approval or educator review that has not occurred. Third-party videos and commercial workbooks require separate rights.
 5. Run yarn content:build, yarn test and yarn build. The generator fails on duplicate prompts, duplicate fingerprints, invalid choices or absent provenance. Update the 200-item gate deliberately when expanding an existing bank.
@@ -167,3 +167,10 @@ Automated structural checks complete; independent educator review pending.
 - [British Council LearnEnglish: Adjectives: gradable and non-gradable](https://learnenglish.britishcouncil.org/free-resources/grammar/b1-b2/adjectives-gradable-non-gradable) — Grammar guidance and scope only. Original explanations and practice; no publisher exercise reproduced..
 - [Department for Education: National curriculum in England: English programmes of study](https://www.gov.uk/government/publications/national-curriculum-in-england-english-programmes-of-study/national-curriculum-in-england-english-programmes-of-study) — School curriculum scope: clauses, word classes, agreement, cohesion and punctuation. Original practice; this EFL sequence is not the statutory year-by-year programme.. Crown material is generally available under the Open Government Licence unless otherwise stated; no assessment questions reproduced..
 - [English Profile: English Profile: what the CEFR means for English](https://englishprofile.org/) — Level interpretation background. Labels are approximate course labels, not an English Grammar Profile item-by-item validation or a CEFR certification..
+- [Cambridge University Press: The Cambridge Grammar of the English Language: contents](https://www.cambridge.org/features/linguistics/cgel/contents.htm) — Published subject-area crosswalk only. Original learner explanations; no textbook chapter or exercise reproduced. The crosswalk is not publisher approval..
+- [Cambridge English Grammar Today: Spoken English](https://dictionary.cambridge.org/grammar/british-grammar/spoken-english) — Guidance on spoken grammatical structures; original explanations and examples..
+- [Cambridge English Grammar Today: Hedges](https://dictionary.cambridge.org/grammar/british-grammar/hedges-just) — Guidance on softening and stance; original explanations and examples..
+- [Cambridge English Grammar Today: Headers and tails](https://dictionary.cambridge.org/grammar/british-grammar/headers-and-tails) — Guidance on spoken information structure; original explanations and examples..
+- [Cambridge English Grammar Today: Negation](https://dictionary.cambridge.org/grammar/british-grammar/negation_2) — Guidance on negative constructions; original explanations and examples..
+- [Cambridge English Grammar Today: Word formation](https://dictionary.cambridge.org/us/grammar/british-grammar/word-formation) — Scope and terminology for morphological processes; original explanations and examples..
+- [Cambridge University Press: Non-finite and verbless clauses: chapter contents](https://www.cambridge.org/assets/linguistics/cgel/chap14_contents.pdf) — Published subtopic crosswalk only; original learner explanations and examples..

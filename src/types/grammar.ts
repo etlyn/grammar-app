@@ -3,6 +3,10 @@ export type CEFRLevel = "A1" | "A2" | "B1" | "B2" | "C1";
 export type ContentSource = "seed" | "ai" | "supabase";
 
 export type GrammarRule = {
+  id?: string;
+  domain?: string;
+  referenceIds?: string[];
+  readingVersion?: string;
   title: string;
   explanation: string;
   examples: string[];
@@ -51,7 +55,13 @@ export type GrammarTopic = {
   summary: string;
   stage?: string;
   prerequisites?: string[];
-  chapter?: { introduction: string[]; rules: GrammarRule[]; recap: string[] };
+  readingReferenceIds?: string[];
+  chapter?: {
+    readingVersion?: string;
+    introduction: string[];
+    rules: GrammarRule[];
+    recap: string[];
+  };
   learningGoals: string[];
   guidance: string;
   rules: GrammarRule[];
@@ -82,4 +92,26 @@ export type QuizAttempt = {
   selectedAnswer: QuizChoice["id"];
   correctAnswer: QuizChoice["id"];
   isCorrect: boolean;
+};
+
+export type GrammarMap = {
+  title: string;
+  scope: string;
+  description: string;
+  referenceIds: string[];
+  domains: {
+    id: string;
+    title: string;
+    summary: string;
+    referenceChapters: string;
+    concepts: {
+      id: string;
+      title: string;
+      topicSlug: string;
+      topicTitle: string;
+      order: number;
+      stage: string;
+      referenceIds: string[];
+    }[];
+  }[];
 };
