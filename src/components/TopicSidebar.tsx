@@ -1,5 +1,4 @@
 import { useId, useMemo, useState } from "react";
-import { REQUIRED_QUIZ_ITEMS } from "../constants/learning";
 import type { GrammarTopic, ProgressByTopic } from "../types/grammar";
 
 type TopicSidebarProps = {
@@ -77,7 +76,7 @@ export function TopicSidebar({
           className="mt-2 w-full rounded-2xl border border-indigo-100 bg-indigo-50/50 px-4 py-3 text-sm outline-none transition placeholder:text-slate-400 focus:border-indigo-300 focus:bg-white focus:ring-4 focus:ring-indigo-100"
           id={searchId}
           onChange={(event) => setQuery(event.target.value)}
-          placeholder="Try ‘perfect’, ‘articles’, ‘modal’..."
+          placeholder="Try ‘past’, ‘articles’, ‘pronouns’..."
           type="search"
           value={query}
         />
@@ -88,10 +87,6 @@ export function TopicSidebar({
           const accuracy = topicProgress?.total
             ? Math.round((topicProgress.correct / topicProgress.total) * 100)
             : 0;
-          const answered = Math.min(
-            topicProgress?.total ?? 0,
-            REQUIRED_QUIZ_ITEMS,
-          );
           const isCompleted = Boolean(topicProgress?.isCompleted);
 
           return (
@@ -116,10 +111,14 @@ export function TopicSidebar({
                   <span
                     className={`mt-1 block text-xs ${activeSlug === topic.slug ? "text-indigo-100" : "text-slate-400"}`}
                   >
-                    {topic.level} ·{" "}
+                    Foundation ·{" "}
                     {isCompleted
                       ? "Complete"
-                      : `${answered}/${REQUIRED_QUIZ_ITEMS}`}
+                      : topicProgress?.completedSessions
+                        ? `Best session: ${topicProgress.bestScore ?? 0}%`
+                        : topicProgress?.total
+                          ? `${topicProgress.total} answers`
+                          : "Not started"}
                   </span>
                 </span>
                 {topicProgress?.total ? (

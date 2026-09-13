@@ -40,6 +40,11 @@ jobs:
             npm i
           fi
 
+      - name: Verify learning and content
+        run: |
+          yarn test
+          yarn content:check
+
       - name: Build
         run: |
           yarn build

@@ -1,45 +1,50 @@
-# Grammacho Grammar App
+# Grammacho web beta
 
-A minimal English grammar learning app built with Vite, React, TypeScript, Tailwind CSS, and optional Supabase.
+English foundation practice with Vite, React and TypeScript. Eight topics each include 200 original practice questions, short explanations and published learning references.
 
-## What it does
+The questions were generated offline with AI assistance using British Council grammar guidance and the structure of Portland Community College's _A Digital Workbook for Beginning ESOL_. They are **not copied publisher exercises, official test material, endorsed school content, or a calibrated CEFR assessment**. Automated checks have passed; independent educator review remains pending. Each bank has 50 lexical/situational contexts and four practice tasks per context. See [curriculum coverage and expansion rules](content/INDEX.md).
 
-- Read each grammar topic with simple, grammar-book-style guidance.
-- Practice 20 quiz items per topic.
-- Mark a topic complete by answering at least 80% correctly.
-- Track progress locally by default.
-- Sync progress with Supabase Auth when configured.
-- Reuse AI-generated explanations, tips, and quiz items by saving them into Supabase tables through an Edge Function.
+## Development
 
-## Setup
+Use Node 20 or later and Yarn 1:
 
-```bash
-yarn install
+```sh
+yarn install --frozen-lockfile
 yarn dev
-```
-
-Leave the Supabase environment variables unset to run in local learner mode with the seed curriculum. The existing direct-Supabase client is a legacy integration; it is not configured for the new private Grammar schema.
-
-## Supabase
-
-Grammar uses the private `grammar` schema in the shared **Etlyn Apps** project, alongside shared Supabase Auth and the existing Offtasks and analytics schemas. Its standalone Supabase project was retired on 2026-09-12.
-
-See [the consolidation runbook](supabase/consolidation/README.md) for applied migrations, permissions, identity handling, recovery, and the deferred FastAPI integration. Do not run the legacy migration in `supabase/migrations` against Etlyn Apps or deploy the legacy Edge Function there.
-
-## Production
-
-```bash
+yarn test
+yarn content:check
 yarn build
-yarn start
 yarn preview
 ```
 
-The production build is emitted to `dist`. GitHub Pages deployment is configured in `.github/workflows/main.yml`.
+`yarn build` deterministically generates and validates the committed content snapshot, typechecks the app, builds static assets and writes a versioned service-worker precache. No network, database connection or AI provider is required for content generation or the production build after dependencies are installed. Deploy `dist/` to the root of the web domain (the existing GitHub Pages workflow does this).
 
-Keep `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` unset until the FastAPI integration replaces direct table access. The old Grammar project URL no longer works. Without these variables, production works in local learner mode.
+All lessons and questions are bundled into the production app. After a successful first online visit and service-worker installation, the same build can reopen and start new practice sessions offline. Source-reference links require a network connection. Browser storage/cache clearing removes local progress/offline availability; local progress is not a cloud backup.
+
+## Learning behaviour
+
+- Practice 20 questions balanced across the bank's skills, prioritising unseen questions.
+- Answers, question order, current topic and unfinished sessions persist on the same browser.
+- A completed 16/20 session marks a topic complete. Failed earlier attempts do not block a later pass; later practice does not revoke a pass.
+- Overall accuracy includes all answers. Last/best session scores and completion are separate.
+- Reset clears only the selected topic after an in-app confirmation.
+- Previous prototype progress remains under its old local-storage key. It does not grant completion for the new curriculum.
+- The old CEFR placement test and account/generation UI are not part of this web beta. Historical modules are not imported into its runtime bundle.
+
+## Content and Supabase
+
+Read [content/INDEX.md](content/INDEX.md) before adding topics. [content/coverage.json](content/coverage.json) records each question's stable ID, skill and duplicate fingerprint. The generated [catalog](src/generated/catalog.json) is the build snapshot; the matching content is stored in Supabase's private `grammar` schema.
+
+```sh
+yarn content:build   # regenerate local snapshot and coverage index
+yarn content:check   # fail on drift, duplicates or invalid records
+yarn content:sql     # prepare transactional SQL; does not connect to Supabase
+```
+
+For database imports, see [the content release runbook](supabase/content/README.md). The browser does not fetch from Supabase or use API keys. No runtime AI function is enabled. Hosted accounts and progress synchronisation remain a separate future FastAPI project.
+
+The standalone Supabase project was retired on 2026-09-12. See [the consolidation runbook](supabase/consolidation/README.md); never point legacy clients at the shared private schema.
 
 ## Mobile
 
-The React Native scaffold lives in [mobile](mobile). It follows the shared mobile baseline used by Offtasks and Case Tracker: React Native 0.82, React 19.1, React Navigation, AsyncStorage, app-local providers, and a reusable glass theme.
-
-See [docs/mobile-infrastructure-guide.md](docs/mobile-infrastructure-guide.md) for the cross-app structure guide and native shell setup notes.
+`mobile/` retains the earlier React Native client and seed curriculum. This release changes the web app only, except for backward-compatible optional additions to shared types.

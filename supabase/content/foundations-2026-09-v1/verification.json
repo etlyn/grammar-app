@@ -1,0 +1,60 @@
+{
+  "verifiedAt": "2026-09-13 05:49:48 UTC",
+  "version": "foundations-2026-09-v1",
+  "contentHash": "80f731f032a9eb103f1c1ff16dbb914b3e725cae49cb122d7d4df0e44da9c096",
+  "topicCount": 8,
+  "questionCount": 1600,
+  "topics": [
+    {
+      "slug": "present-simple-be",
+      "questions": 200,
+      "allFieldsMatch": true
+    },
+    {
+      "slug": "present-simple",
+      "questions": 200,
+      "allFieldsMatch": true
+    },
+    {
+      "slug": "present-continuous",
+      "questions": 200,
+      "allFieldsMatch": true
+    },
+    {
+      "slug": "past-simple",
+      "questions": 200,
+      "allFieldsMatch": true
+    },
+    {
+      "slug": "articles",
+      "questions": 200,
+      "allFieldsMatch": true
+    },
+    {
+      "slug": "pronouns-and-possessive-determiners",
+      "questions": 200,
+      "allFieldsMatch": true
+    },
+    {
+      "slug": "prepositions-of-time",
+      "questions": 200,
+      "allFieldsMatch": true
+    },
+    {
+      "slug": "comparatives-and-superlatives",
+      "questions": 200,
+      "allFieldsMatch": true
+    }
+  ],
+  "browserSchemaGrants": {
+    "anon": false,
+    "service_role": false,
+    "authenticated": false
+  },
+  "learnerTableCounts": {
+    "attempts": 0,
+    "progress": 0
+  },
+  "reviewStatus": "automated-checked; educator-review-pending",
+  "verification": "Compared all lesson fields, question fields, answer choices, explanations, IDs, fingerprints and provenance with the committed build snapshot; created/updated timestamps excluded."
+}

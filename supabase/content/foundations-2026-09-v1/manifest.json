@@ -1,0 +1,15 @@
+{
+  "version": "foundations-2026-09-v1",
+  "contentHash": "80f731f032a9eb103f1c1ff16dbb914b3e725cae49cb122d7d4df0e44da9c096",
+  "files": [
+    "01-present-simple-be.sql",
+    "02-present-simple.sql",
+    "03-present-continuous.sql",
+    "04-past-simple.sql",
+    "05-articles.sql",
+    "06-pronouns-and-possessive-determiners.sql",
+    "07-prepositions-of-time.sql",
+    "08-comparatives-and-superlatives.sql",
+    "09-finalize.sql"
+  ]
+}

@@ -14,6 +14,15 @@ export type QuizChoice = {
   text: string;
 };
 
+export type ContentProvenance = {
+  version: string;
+  kind: string;
+  referenceIds: string[];
+  reviewStatus: string;
+  authorship?: string;
+  assessment?: string;
+};
+
 export type QuizItem = {
   id: string;
   topicSlug: string;
@@ -24,6 +33,10 @@ export type QuizItem = {
   hint: string;
   explanation: string;
   keywords: string[];
+  skill?: string;
+  contextKey?: string;
+  fingerprint?: string;
+  provenance?: ContentProvenance;
   source: ContentSource;
 };
 
@@ -38,10 +51,13 @@ export type GrammarTopic = {
   rules: GrammarRule[];
   tips: string[];
   quizItems: QuizItem[];
+  provenance?: ContentProvenance;
   source: ContentSource;
 };
 
 export type TopicProgress = {
+  bestScore?: number;
+  completedSessions?: number;
   completedLevels: number;
   isCompleted: boolean;
   correct: number;

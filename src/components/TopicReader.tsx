@@ -3,29 +3,25 @@ import {
   REQUIRED_CORRECT_ANSWERS,
   REQUIRED_QUIZ_ITEMS,
 } from "../constants/learning";
+import { contentSources } from "../services/contentService";
 import type { GrammarTopic, TopicProgress } from "../types/grammar";
 
 type TopicReaderProps = {
   topic: GrammarTopic;
   progress?: TopicProgress;
-  onGenerateMore: () => Promise<void>;
-  generating: boolean;
-  canGenerate: boolean;
 };
 
-export function TopicReader({
-  topic,
-  progress,
-  onGenerateMore,
-  generating,
-  canGenerate,
-}: TopicReaderProps) {
-  const answered = Math.min(progress?.total ?? 0, REQUIRED_QUIZ_ITEMS);
-  const completionProgress = Math.min(
-    100,
-    (answered / REQUIRED_QUIZ_ITEMS) * 100,
-  );
+export function TopicReader({ topic, progress }: TopicReaderProps) {
   const isCompleted = Boolean(progress?.isCompleted);
+  const bestScore = progress?.bestScore ?? 0;
+  const completionProgress = bestScore;
+  const status = isCompleted
+    ? "Complete"
+    : progress?.completedSessions
+      ? `${bestScore}% best`
+      : progress?.total
+        ? "Practising"
+        : "Not started";
 
   return (
     <section className="rounded-[2.25rem] border border-indigo-100 bg-white/75 p-5 shadow-sm shadow-indigo-100/70 backdrop-blur md:p-8">
@@ -33,7 +29,7 @@ export function TopicReader({
         <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.25em] text-indigo-500">
-              Read about · {topic.level} grammar
+              Read about · Foundation grammar
             </p>
             <h1 className="mt-3 text-3xl font-black tracking-tight text-slate-950 md:text-5xl">
               {topic.title}
@@ -46,9 +42,7 @@ export function TopicReader({
             <p className="text-xs font-semibold text-indigo-100">
               Topic status
             </p>
-            <p className="text-2xl font-black">
-              {isCompleted ? "Complete" : `${answered}/${REQUIRED_QUIZ_ITEMS}`}
-            </p>
+            <p className="text-2xl font-black">{status}</p>
           </div>
         </div>
 
@@ -84,29 +78,39 @@ export function TopicReader({
           </div>
         </div>
 
-        <div className="rounded-[2rem] border border-sky-100 bg-sky-50/70 p-5">
+        <aside className="rounded-[2rem] border border-sky-100 bg-sky-50/70 p-5">
           <h2 className="text-lg font-black text-slate-950">
-            Reusable content
+            Learning references
           </h2>
           <p className="mt-2 text-sm leading-6 text-slate-600">
-            Seed content works offline. With Supabase configured, AI-generated
-            explanations and quiz items are saved once and reused from your
-            content tables.
+            Original Grammacho practice follows these published learning
+            references. The questions are generated offline with AI assistance;
+            independent educator review is pending. These are not official exam
+            questions.
           </p>
-          <button
-            className="mt-4 w-full rounded-2xl bg-gradient-to-r from-indigo-600 to-sky-500 px-4 py-3 text-sm font-bold text-white shadow-sm shadow-sky-200 transition hover:-translate-y-0.5 hover:shadow-md disabled:cursor-not-allowed disabled:bg-none disabled:bg-slate-300 disabled:hover:translate-y-0"
-            disabled={!canGenerate || generating}
-            onClick={onGenerateMore}
-            type="button"
-          >
-            {generating ? "Generating…" : "Generate more practice"}
-          </button>
-          {!canGenerate && (
-            <p className="mt-3 text-xs text-slate-400">
-              Configure Supabase and deploy the edge function to enable this.
-            </p>
-          )}
-        </div>
+          <ul className="mt-4 space-y-3 text-sm">
+            {contentSources
+              .filter((source) =>
+                topic.provenance?.referenceIds.includes(source.id),
+              )
+              .map((source) => (
+                <li key={source.id}>
+                  <a
+                    className="font-semibold text-indigo-700 underline decoration-indigo-200 underline-offset-4"
+                    href={source.url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {source.publisher}: {source.title}
+                  </a>
+                </li>
+              ))}
+          </ul>
+          <p className="mt-4 text-xs leading-5 text-slate-500">
+            Practice levels are approximate teaching labels. Completing a topic
+            does not certify a CEFR level.
+          </p>
+        </aside>
       </div>
 
       <div className="mt-8 divide-y divide-indigo-100/80">

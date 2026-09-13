@@ -27,7 +27,9 @@ The runtime role is `NOLOGIN`, has no password, cannot bypass RLS, owns no table
 
 ## Backend contract
 
-FastAPI integration is intentionally deferred. Before enabling it:
+The web foundation beta now builds from a versioned local content snapshot, with a matching private Supabase content release. See [content imports](../content/README.md). Migration `003_grammar_content_provenance.sql` adds provenance and the private release ledger without changing learner policies.
+
+FastAPI integration for accounts/progress remains intentionally deferred. Before enabling it:
 
 - Verify the shared Supabase access token server-side, including its signature, issuer, audience, and expiry, and apply app authorization independently.
 - Use a dedicated restricted database login and verified TLS, not `postgres` or the generic service-role key.
@@ -35,7 +37,7 @@ FastAPI integration is intentionally deferred. Before enabling it:
 - Perform the app queries in that same transaction; commit or roll back before returning a pooled connection. Missing identity denies user rows. A trusted backend connection can set this context, so RLS does not replace token verification.
 - Keep AI generation, content writes, deletion, and business logic in etlyn-server. Do not deploy the legacy Grammar Edge Function into Etlyn Apps.
 
-The web/mobile direct-Supabase clients still address the legacy `public` tables. They have not been rewired or deployed against Etlyn Apps. Leave their Supabase variables unset and use local learner mode until the FastAPI work is complete.
+The mobile client and historical web auth modules still address legacy `public` tables. The current web beta does not import those modules: it uses a build snapshot and browser-local progress, with no runtime Supabase credentials. Leave mobile Supabase variables unset until FastAPI integration is complete.
 
 ## Retirement and recovery
 

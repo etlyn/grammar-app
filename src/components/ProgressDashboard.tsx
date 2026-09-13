@@ -17,7 +17,7 @@ export function ProgressDashboard({
     { label: "Completed", value: completedTopics },
     { label: "Answered", value: totalAnswers },
     { label: "Correct", value: correctAnswers },
-    { label: "Accuracy", value: `${accuracy}%` },
+    { label: "Overall accuracy", value: `${accuracy}%` },
   ];
 
   return (
