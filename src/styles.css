@@ -785,18 +785,18 @@ progress::-moz-progress-bar {
   padding: 0;
   font-size: 13px;
 }
-.review-item summary {
+.review-item > summary {
   padding: 18px 0;
   display: flex;
   align-items: baseline;
   gap: 12px;
   line-height: 1.6;
 }
-.review-item summary::after {
+.review-item > summary::after {
   content: "+";
   color: #8b8397;
 }
-.review-item[open] summary::after {
+.review-item[open] > summary::after {
   content: "−";
 }
 .review-number {
@@ -1011,4 +1011,54 @@ body:has(.topics-dialog[open]) {
 
 .review-item .disclosure-content {
   padding: 0 0 18px;
+}
+
+/* Book chapters: a quiet text column, with visual weight reserved for the rule. */
+.chapter-introduction, .reading-rule, .worked-example { font-size: 1.05rem; line-height: 1.8; }
+.chapter-introduction { margin: 2.5rem 0 3.5rem; }
+.topic-reader strong, .solution-explanation strong { font-weight: 700; color: #30233f; }
+.rule-pattern { margin: 1.4rem 0; padding: 1rem 1.25rem; border-left: 3px solid #7b61bb; background: #f7f5fb; font-size: 1.06rem; line-height: 1.7; }
+.reading-rule > p + p { margin-top: 1.1rem; }
+.worked-example { padding: 1.4rem 0; border-bottom: 1px solid var(--line, #e9e7ed); }
+.worked-example h3 { font-size: 1rem; margin-bottom: .8rem; }
+.worked-example ol, .solution-explanation ol { padding-left: 1.4rem; list-style: decimal; }
+.worked-example li, .solution-explanation li { padding-left: .3rem; margin: .65rem 0; }
+.worked-answer { margin: .8rem 0; }
+.chapter-recap { padding: 2rem 0; }
+.chapter-recap h2 { font-size: 1.25rem; }
+.chapter-recap ul { margin-top: 1rem; padding-left: 1.2rem; list-style: disc; }
+.chapter-recap li { margin: .8rem 0; line-height: 1.7; }
+.solution-explanation { font-size: .98rem; line-height: 1.7; }
+.solution-explanation .example-label { margin-top: 1.2rem; }
+.solution-explanation details { margin-top: 1.1rem; }
+.solution-explanation summary { cursor: pointer; font-size: .9rem; padding: .4rem 0; }
+.choice-reasons > div { padding: .9rem 0; border-bottom: 1px solid #ddd4cc; }
+.choice-reasons dt { font-weight: 650; }
+.choice-reasons dd { margin-top: .35rem; }
+.choice-diagnosis { border-left: 3px solid #bf852e; padding-left: .9rem; }
+.review-item.needs-review { background: #fff8e8; border: 1px solid #dfbd78; border-left: 4px solid #bb7e21; border-radius: 10px; margin: .9rem 0; padding: 0 1rem; }
+.needs-review .review-wrong { color: #795010; font-weight: 700; }
+.history-note { margin: 1rem 0; padding: .8rem 1rem; background: #f4f1fa; border-left: 3px solid #8068aa; font-size: .92rem; }
+.question-actions { flex-wrap: wrap; gap: .8rem 1.3rem; }
+.question-actions > .primary { margin-left: auto; }
+.text-button:disabled { opacity: .45; cursor: default; }
+.curriculum-count { color: #74717f; font-size: .79rem; line-height: 1.7; margin: .5rem 0 1rem; }
+.contents-controls { display: flex; justify-content: space-between; align-items: center; gap: .5rem; font-size: .72rem; color: #74717f; margin: 1.15rem 0 .5rem; }
+.contents-controls .text-button { font-size: .72rem; }
+.curriculum-stage { border-bottom: 1px solid #eeecf1; }
+.stage-toggle { width: 100%; display: flex; justify-content: space-between; gap: .5rem; text-align: left; padding: 1rem .25rem; font-size: .79rem; font-weight: 600; border-radius: 4px; }
+.stage-count { white-space: nowrap; color: #74717f; font-size: .7rem; font-weight: 400; }
+.stage-count span { margin-left: .35rem; }
+.curriculum-stage .topic-list { margin: 0 0 .7rem; }
+.curriculum-about { margin-bottom: 1.5rem; }
+.curriculum-about summary { cursor: pointer; color: #514963; padding: .5rem 0; }
+.app-footer p { margin: .8rem 0; line-height: 1.7; }
+.shared-learning-note { padding: 1.2rem 0; border-top: 1px solid #e9e7ed; }
+.shared-learning-note > strong { color: #514963; font-weight: 600; }
+.release-label { font-size: .7rem; }
+@media (max-width: 760px) {
+  .chapter-introduction, .reading-rule, .worked-example { font-size: 1rem; }
+  .rule-pattern { padding: .9rem 1rem; }
+  .question-actions > .primary { flex-basis: 100%; justify-content: center; }
+  .stage-toggle { min-height: 44px; font-size: .88rem; }
 }

@@ -1,6 +1,6 @@
 # Grammacho web beta
 
-English foundation practice with Vite, React and TypeScript. Eighteen topics each include 200 original practice questions, short explanations and published learning references.
+English foundation practice with Vite, React and TypeScript. 67 ordered chapters each include 200 original practice questions, extended explanations and published learning references: 13,400 questions in six stages from sentence foundations to advanced control.
 
 The questions were generated offline with AI assistance using British Council grammar guidance; the first eight topics also follow the structure of Portland Community College's _A Digital Workbook for Beginning ESOL_. They are **not copied publisher exercises, official test material, endorsed school content, or a calibrated CEFR assessment**. Automated checks have passed; independent educator review remains pending. Each bank has 50 lexical/situational contexts and four practice tasks per context. See [curriculum coverage and expansion rules](content/INDEX.md).
 
@@ -56,8 +56,11 @@ Read and Practice are separate views. Lessons use a single reading column with l
 Quiz choices stay editable until checked:
 
 - Tab / Shift+Tab: move between controls; the answers form one native radio group.
-- Arrow keys: move and select within the answers. Space also selects the focused choice.
-- Enter on an answer: check it and focus Next. Press Enter again to advance. The new question focuses its first answer; finishing focuses the result heading.
+- Up / Down: move and select within the answers. Space selects the focused choice.
+- Enter / Right: submit the selected answer, then advance after feedback. An unselected answer is never submitted.
+- Left: review the previous saved answer; Right returns toward the current question. Reviewing does not change scoring or discard the current selection.
+- Tap Shift alone: reveal the hint. Shift+Tab continues normal backward navigation.
+- Finishing focuses the result heading. Incorrect items have amber review containers with a specific diagnosis and a worked explanation.
 - Left / Right and Home / End: switch the Read / Practice tabs when a tab is focused.
 - Escape: close the mobile topic dialog and restore focus to Topics.
 
@@ -66,3 +69,9 @@ Hints, answer review, sources, and progress disclosures also work with Tab and E
 ## Additive curriculum release
 
 `foundations-2026-09-v2` adds ten topics and 2,000 questions: 18 topics and 3,600 questions in the combined offline catalog. The first eight banks remain unchanged. Each added lesson links to British Council guidance; the app does not claim an official school sequence or publisher approval. See [extension coverage and review boundaries](content/extension/README.md). The original browser progress key is retained so checked answers and sessions survive this expansion.
+
+## Core curriculum release
+
+`core-2026-09-v3` adds 49 banks (9,800 questions) and expands the reading and feedback for all 67 chapters. The original 3,600 prompts, choices, correct answers, IDs and fingerprints remain unchanged; their teaching and hints are explicitly revised in the complete v3 archive. All prior progress remains compatible.
+
+The six-stage sequence is our pedagogical synthesis of British Council level collections and Department for Education grammar scope. These institutions do not prescribe this exact sequence or certify this app. See [scope, skills and review boundaries](content/core/README.md). Completion records practice progress; it does not establish exhaustive mastery of every construction, dialect or usage in English.

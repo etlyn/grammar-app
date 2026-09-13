@@ -6,6 +6,17 @@ import { createHash } from "node:crypto";
 const catalog = JSON.parse(
   await readFile("src/generated/catalog.json", "utf8"),
 );
+if (catalog.version === "core-2026-09-v3") {
+  const destination = process.argv[2] || "/tmp/grammacho-verify-content.sql";
+  await writeFile(
+    destination,
+    await readFile(`supabase/content/${catalog.version}/verify.sql`, "utf8"),
+  );
+  console.log(
+    `Full archive and new normalized bank comparison: ${destination}. This release uses one combined read-only query; --split is unnecessary.`,
+  );
+  process.exit(0);
+}
 const literal = (s) => "'" + s.replaceAll("'", "''") + "'";
 const canonical = (value) => {
   if (Array.isArray(value)) return "[" + value.map(canonical).join(", ") + "]";

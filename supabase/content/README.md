@@ -28,3 +28,11 @@ Future revisions must explicitly decide whether to replace, retain or retire old
 ## Additive v2 release
 
 `foundations-2026-09-v2` imports only topics 9–18 (10 topics, 2,000 questions). The manifest records its dependency on the unchanged v1 hash. The v2 hash identifies the complete 18-topic web snapshot, while the v2 ledger counts describe only the newly imported rows. The finalizer checks both the retained v1 rows and the added v2 rows. There is no overwrite or reclassification of v1 content, no schema migration, and no learner-record mutation. Browser progress remains under the v1-compatible namespace.
+
+## Full core archive (v3)
+
+Apply consolidation migration `004_grammar_catalog_snapshots.sql` once after verifying it is absent. It adds a private, RLS-protected archive with no browser/runtime grants. Generate SQL with `yarn content:sql`: the manifest contains 67 topic transactions and one finalizer. Each file archives a complete topic payload, including chapter prose and per-choice feedback. Only the 49 new banks are inserted into normalized content tables; v1/v2 normalized records and release hashes remain unchanged. All imports are conflict-detecting and idempotent for identical payloads.
+
+The v3 release ledger counts added normalized rows (49 topics / 9,800 questions). The manifest and full archive describe the complete offline course (67 topics / 13,400 questions). Read the archive only for a version whose `content_releases.content_hash` matches its `catalog_hash`; staged topic imports do not constitute a published release.
+
+Run the generated `verify.sql` to compare all full JSONB payload digests and every field of the newly normalized lessons/questions. Null normalized comparison values for the 18 earlier banks are deliberate: their teaching revisions live in the archive, while earlier normalized releases remain immutable. Independently compare pre/post full-row digests of the retained rows, private grants and learner counts, and save the verification receipt. MD5 checks JSONB equality; SHA-256 identifies the whole release.

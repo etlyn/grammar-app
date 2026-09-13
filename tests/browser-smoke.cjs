@@ -22,9 +22,9 @@ const assert = require("node:assert/strict");
   await page
     .getByRole("tab", { name: "Read", exact: true })
     .press("ArrowRight");
-  await page.getByRole("tab", { name: "Practice", exact: true }).press("Tab");
-  await page.keyboard.press("Tab");
-  await page.keyboard.press("Enter");
+  await page
+    .getByRole("button", { name: "Start 20-question practice" })
+    .press("Enter");
   await page
     .getByRole("heading", { name: "Question 1 of 20", exact: true })
     .waitFor();
@@ -50,20 +50,39 @@ const assert = require("node:assert/strict");
     const q = topic.quizItems.find(
       (q) => q.id === session.itemIds[session.index],
     );
-    const correct = q.choices.find((c) => c.id === q.answerId);
+    const targetIndex =
+      i === 0
+        ? (q.choices.findIndex((c) => c.id === q.answerId) + 1) % 4
+        : q.choices.findIndex((c) => c.id === q.answerId);
+    const chosen = q.choices[targetIndex];
     // Start/Next focuses the first native radio. Arrow keys may change the
     // selection, but they must never save an answer until Enter checks it.
     assert.equal(
       await page.evaluate(() => document.activeElement.type),
       "radio",
     );
-    const correctIndex = q.choices.findIndex((c) => c.id === q.answerId);
+    if (i === 0) {
+      await page.keyboard.press("Enter");
+      await page.getByText("0 answers saved", { exact: true }).waitFor();
+      await page.keyboard.press("Shift+Tab");
+      assert.equal(
+        await page
+          .getByRole("button", { name: "Show hint", exact: true })
+          .getAttribute("aria-expanded"),
+        "false",
+      );
+      await page.keyboard.press("Tab");
+      await page.keyboard.press("Shift");
+      await page
+        .getByRole("button", { name: "Hide hint", exact: true })
+        .waitFor();
+    }
     await page.keyboard.press("Space");
-    for (let move = 0; move < correctIndex; move++)
+    for (let move = 0; move < targetIndex; move++)
       await page.keyboard.press("ArrowDown");
     assert.equal(
       await page
-        .getByRole("radio", { name: correct.text, exact: true })
+        .getByRole("radio", { name: chosen.text, exact: true })
         .isChecked(),
       true,
     );
@@ -72,7 +91,28 @@ const assert = require("node:assert/strict");
         exact: true,
       })
       .waitFor();
-    await page.keyboard.press("Enter");
+    if (i === 1) {
+      await page.keyboard.press("ArrowLeft");
+      await page
+        .getByText(
+          "Reviewing a saved answer. Your current question and selection are kept.",
+          { exact: true },
+        )
+        .waitFor();
+      await page.keyboard.press("ArrowRight");
+      assert.equal(
+        await page
+          .getByRole("radio", { name: chosen.text, exact: true })
+          .isChecked(),
+        true,
+      );
+      assert.equal(
+        await page.evaluate(() => document.activeElement.value),
+        chosen.id,
+      );
+      await page.getByText("1 answer saved", { exact: true }).waitFor();
+    }
+    await page.keyboard.press(i % 2 ? "ArrowRight" : "Enter");
     assert.match(
       await page.evaluate(() => document.activeElement.textContent),
       /Next question|Finish session/,
@@ -89,18 +129,21 @@ const assert = require("node:assert/strict");
       .press("Enter");
   }
   await page
-    .getByRole("heading", { name: "You scored 20/20 · 100%", exact: true })
+    .getByRole("heading", { name: "You scored 19/20 · 95%", exact: true })
     .waitFor();
+  assert.equal(await page.locator(".review-item.needs-review").count(), 1);
+  await page.locator(".review-item.needs-review > summary").press("Enter");
+  await page.getByText("How to find the answer", { exact: true }).waitFor();
   await page.reload();
   await page
-    .getByRole("heading", { name: "You scored 20/20 · 100%", exact: true })
+    .getByRole("heading", { name: "You scored 19/20 · 95%", exact: true })
     .waitFor();
   await page.evaluate(() => navigator.serviceWorker.ready);
   await page.waitForFunction(() => !!navigator.serviceWorker.controller);
   await context.setOffline(true);
   await page.reload();
   await page
-    .getByRole("heading", { name: "You scored 20/20 · 100%", exact: true })
+    .getByRole("heading", { name: "You scored 19/20 · 95%", exact: true })
     .waitFor();
   await page
     .getByRole("button", { name: "Next topic", exact: true })
@@ -148,7 +191,7 @@ const assert = require("node:assert/strict");
   console.log(
     JSON.stringify({
       journey:
-        "20 keyboard answers with explicit check and focus assertions, reload resume, completion persistence, offline new session, mobile topic search and Escape focus restoration",
+        "20 keyboard answers with Shift hint, preserved Shift+Tab, Left history, Enter/Right checks, focus assertions and amber incorrect review, reload resume, completion persistence, offline new session, mobile topic search and Escape focus restoration",
       runtimeErrors: errors,
       externalRequests: remote,
       screenshots: [desktopImage, mobileImage],

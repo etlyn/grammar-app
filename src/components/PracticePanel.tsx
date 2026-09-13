@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import type { GrammarTopic, QuizChoice, TopicProgress } from "../types/grammar";
+import { AnswerExplanation } from "./AnswerExplanation";
+import { RichText } from "./RichText";
 import type { PracticeSession } from "../utils/learningState";
 import { REQUIRED_QUIZ_ITEMS, PASSING_ACCURACY } from "../constants/learning";
 
@@ -17,11 +19,6 @@ type Props = {
   onReset: () => void;
   onContinue?: () => void;
 };
-// Holding Enter must not check a newly focused answer or skip its explanation.
-function preventHeldKey(event: KeyboardEvent<HTMLElement>) {
-  if (event.repeat && ["Enter", " "].includes(event.key))
-    event.preventDefault();
-}
 export function PracticePanel({
   topic,
   progress,
@@ -33,6 +30,8 @@ export function PracticePanel({
   onContinue,
 }: Props) {
   const [draft, setDraft] = useState<QuizChoice["id"] | null>(null);
+  const [reviewIndex, setReviewIndex] = useState<number | null>(null);
+  const shiftAlone = useRef(false);
   const [showHint, setShowHint] = useState(false);
   const [confirmReset, setConfirmReset] = useState(false);
   const panel = useRef<HTMLElement>(null);
@@ -42,19 +41,38 @@ export function PracticePanel({
   const heading = useRef<HTMLHeadingElement>(null);
   const resetButton = useRef<HTMLButtonElement>(null);
   const keepButton = useRef<HTMLButtonElement>(null);
-  const focusIntent = useRef<"question" | "action" | "start" | null>(null);
+  const focusIntent = useRef<
+    "question" | "restore" | "action" | "start" | null
+  >(null);
+  const displayIndex = reviewIndex ?? session?.index ?? 0;
   const item = session
-    ? topic.quizItems.find((q) => q.id === session.itemIds[session.index])
+    ? topic.quizItems.find((q) => q.id === session.itemIds[displayIndex])
     : undefined;
   const answer = session?.answers.find((a) => a.itemId === item?.id);
   useEffect(() => {
     setDraft(null);
     setShowHint(false);
     setConfirmReset(false);
-  }, [item?.id, session?.id]);
+  }, [session?.index, session?.id]);
   useEffect(() => {
-    if (focusIntent.current === "question") {
+    setShowHint(false);
+  }, [item?.id]);
+  useEffect(() => {
+    setReviewIndex(null);
+  }, [session?.id]);
+  useEffect(() => {
+    if (
+      focusIntent.current === "question" ||
+      focusIntent.current === "restore"
+    ) {
       if (session?.complete) heading.current?.focus();
+      else if (answer) action.current?.focus();
+      else if (focusIntent.current === "restore")
+        (
+          panel.current?.querySelector<HTMLInputElement>(
+            'input[type="radio"]:checked',
+          ) ?? firstChoice.current
+        )?.focus();
       else firstChoice.current?.focus();
       if (panel.current && panel.current.getBoundingClientRect().top < 80) {
         panel.current.scrollIntoView({
@@ -68,7 +86,7 @@ export function PracticePanel({
     } else if (focusIntent.current === "action") action.current?.focus();
     else if (focusIntent.current === "start") startButton.current?.focus();
     focusIntent.current = null;
-  }, [session, answer]);
+  }, [session, answer, reviewIndex]);
   useEffect(() => {
     if (confirmReset) keepButton.current?.focus();
   }, [confirmReset]);
@@ -83,6 +101,7 @@ export function PracticePanel({
     : 0;
   const start = () => {
     focusIntent.current = "question";
+    setReviewIndex(null);
     onStart();
   };
   const check = (choice = draft) => {
@@ -92,15 +111,90 @@ export function PracticePanel({
   };
   const next = () => {
     if (!session || !answer) return;
+    if (reviewIndex !== null) {
+      focusIntent.current = "restore";
+      setReviewIndex(reviewIndex + 1 < session.index ? reviewIndex + 1 : null);
+      return;
+    }
     focusIntent.current = "question";
     onNext(session.id);
+  };
+  const previous = () => {
+    if (!session || displayIndex === 0) return;
+    focusIntent.current = "action";
+    setReviewIndex(displayIndex - 1);
+  };
+  const keys = (event: KeyboardEvent<HTMLElement>) => {
+    if (event.key === "Shift") {
+      if (!event.repeat)
+        shiftAlone.current = !event.ctrlKey && !event.altKey && !event.metaKey;
+      return;
+    }
+    shiftAlone.current = false;
+    if (
+      event.repeat &&
+      ["Enter", " ", "ArrowRight", "ArrowLeft"].includes(event.key)
+    ) {
+      event.preventDefault();
+      return;
+    }
+    if (
+      !session ||
+      session.complete ||
+      confirmReset ||
+      !item ||
+      event.altKey ||
+      event.ctrlKey ||
+      event.metaKey ||
+      event.shiftKey
+    )
+      return;
+    const target = event.target as HTMLElement;
+    // Disclosure controls retain their standard Enter/Space behaviour.
+    if (
+      target.closest("details") ||
+      target.closest("a, textarea, select, input:not([type=radio])")
+    )
+      return;
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      previous();
+    }
+    if (
+      event.key === "ArrowRight" ||
+      (event.key === "Enter" &&
+        (target.matches("input[type=radio]") ||
+          target === action.current ||
+          target === panel.current))
+    ) {
+      event.preventDefault();
+      answer ? next() : check();
+    }
   };
   return (
     <section
       ref={panel}
       aria-label="Topic practice"
       className="practice-panel panel-enter"
-      onKeyDown={preventHeldKey}
+      onKeyDown={keys}
+      onKeyUp={(event) => {
+        if (event.key === "Shift") {
+          if (
+            shiftAlone.current &&
+            session &&
+            !session.complete &&
+            !answer &&
+            !confirmReset
+          )
+            setShowHint(true);
+          shiftAlone.current = false;
+        }
+      }}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node | null))
+          shiftAlone.current = false;
+      }}
+      tabIndex={-1}
     >
       {!session ? (
         <>
@@ -178,7 +272,10 @@ export function PracticePanel({
               )!;
               const expected = q.choices.find((c) => c.id === q.answerId)!;
               return (
-                <details className="review-item" key={q.id}>
+                <details
+                  className={`review-item ${a.selectedAnswer !== q.answerId ? "needs-review" : ""}`}
+                  key={q.id}
+                >
                   <summary>
                     <span className="review-number">{index + 1}</span>
                     <span>{q.prompt}</span>
@@ -197,7 +294,7 @@ export function PracticePanel({
                       Your answer: <strong>{selected.text}</strong>. Correct
                       answer: <strong>{expected.text}</strong>.
                     </p>
-                    <p>{q.explanation}</p>
+                    <AnswerExplanation item={q} selected={a.selectedAnswer} />
                   </div>
                 </details>
               );
@@ -249,13 +346,19 @@ export function PracticePanel({
           <p className="eyebrow">{topic.title}</p>
           <div className="question-meta">
             <h1 className="question-count">
-              Question {session.index + 1} <span>of {REQUIRED_QUIZ_ITEMS}</span>
+              Question {displayIndex + 1} <span>of {REQUIRED_QUIZ_ITEMS}</span>
             </h1>
             <span>
               {session.answers.length}{" "}
               {session.answers.length === 1 ? "answer" : "answers"} saved
             </span>
           </div>
+          {reviewIndex !== null && (
+            <p className="history-note" role="status">
+              Reviewing a saved answer. Your current question and selection are
+              kept.
+            </p>
+          )}
           <progress
             max={REQUIRED_QUIZ_ITEMS}
             value={session.answers.length}
@@ -285,18 +388,6 @@ export function PracticePanel({
                     checked={selected}
                     disabled={!!answer}
                     onChange={() => setDraft(choice.id)}
-                    onKeyDown={(event) => {
-                      if (
-                        event.key !== "Enter" ||
-                        event.altKey ||
-                        event.ctrlKey ||
-                        event.metaKey ||
-                        event.shiftKey
-                      )
-                        return;
-                      event.preventDefault();
-                      if (!event.repeat) check(choice.id);
-                    }}
                   />
                   <span className="choice-letter" aria-hidden="true">
                     {choice.id}
@@ -343,13 +434,30 @@ export function PracticePanel({
                           : "Not quite. Here’s why."
                         : "A little hint"}
                     </strong>
-                    <p>{answer ? item.explanation : item.hint}</p>
+                    {answer ? (
+                      <AnswerExplanation
+                        item={item}
+                        selected={answer.selectedAnswer}
+                      />
+                    ) : (
+                      <p>
+                        <RichText>{item.hint}</RichText>
+                      </p>
+                    )}
                   </>
                 )}
               </div>
             </div>
           </div>
           <div className="question-actions">
+            <button
+              className="text-button"
+              type="button"
+              onClick={previous}
+              disabled={displayIndex === 0}
+            >
+              ← Previous answer
+            </button>
             <button
               className="text-button"
               onClick={() => setShowHint((v) => !v)}
@@ -367,9 +475,13 @@ export function PracticePanel({
               type="button"
             >
               {answer
-                ? session.index === session.itemIds.length - 1
-                  ? "Finish session"
-                  : "Next question"
+                ? reviewIndex !== null
+                  ? reviewIndex + 1 === session.index
+                    ? "Return to current question"
+                    : "Next saved answer"
+                  : session.index === session.itemIds.length - 1
+                    ? "Finish session"
+                    : "Next question"
                 : "Check answer"}
               <span aria-hidden="true">{answer ? "→" : "↵"}</span>
             </button>
@@ -395,7 +507,13 @@ function KeyboardGuide({ answered = false }: { answered?: boolean }) {
         <kbd>↑</kbd> <kbd>↓</kbd> Choose
       </span>
       <span>
-        <kbd>Enter</kbd> {answered ? "Next" : "Check"}
+        <kbd>Enter</kbd> / <kbd>→</kbd> {answered ? "Next" : "Submit"}
+      </span>
+      <span>
+        <kbd>←</kbd> Previous answer
+      </span>
+      <span>
+        <kbd>Shift</kbd> Hint
       </span>
       <span>
         <kbd>Tab</kbd> Move between controls

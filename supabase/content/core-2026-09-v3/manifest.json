@@ -1,0 +1,354 @@
+{
+  "version": "core-2026-09-v3",
+  "contentHash": "e49c6c64b6333354230b05b223ded19e0e7519c1828bf3f36aee778f9f3f39c4",
+  "progressVersion": "foundations-2026-09-v1",
+  "archive": "grammar.content_catalog_topics",
+  "addedTopics": 49,
+  "addedQuestions": 9800,
+  "totalTopics": 67,
+  "totalQuestions": 13400,
+  "retainedReleases": {
+    "foundations-2026-09-v1": "80f731f032a9eb103f1c1ff16dbb914b3e725cae49cb122d7d4df0e44da9c096",
+    "foundations-2026-09-v2": "96c6d65cc82b241ec16c30e21e2355867131e9c8c0230502f0315bae0cab7edb"
+  },
+  "topicDigests": [
+    {
+      "slug": "sentence-structure",
+      "md5": "c4d0457178927afade8052f557e818d4"
+    },
+    {
+      "slug": "nouns-and-plurals",
+      "md5": "ec1e4e1c1bab04d0d82d4f1b45b00c71"
+    },
+    {
+      "slug": "pronouns-and-possessive-determiners",
+      "md5": "4aa28b149cc4e48d9f41d05b6c34e977"
+    },
+    {
+      "slug": "present-simple-be",
+      "md5": "9d88ac1eb638003ad85d569ca66a8baf"
+    },
+    {
+      "slug": "demonstratives",
+      "md5": "86cb00c2ee44b141baff79967c26f616"
+    },
+    {
+      "slug": "articles",
+      "md5": "e21135c051bcbfa81a2adebc1a1c5cd1"
+    },
+    {
+      "slug": "possessive-s",
+      "md5": "f1a18cd53cda00d95d12e35adc832ec0"
+    },
+    {
+      "slug": "there-is-there-are",
+      "md5": "1fb379ae9480df3d7b69a66cce9449d8"
+    },
+    {
+      "slug": "have-got",
+      "md5": "758a4c004bdc35968fb88995c298c116"
+    },
+    {
+      "slug": "present-simple",
+      "md5": "4fa256ba4d105fc323b15e60a564a121"
+    },
+    {
+      "slug": "question-forms",
+      "md5": "534a923baf16f637ddcf8b968fab8a51"
+    },
+    {
+      "slug": "imperatives",
+      "md5": "58d3b3edd785cea176d7b253b9dc5a61"
+    },
+    {
+      "slug": "present-continuous",
+      "md5": "bb3dbdb4e15560b228be91ddaff69058"
+    },
+    {
+      "slug": "countable-uncountable",
+      "md5": "83a629405b0c1efce9195d210f4038b6"
+    },
+    {
+      "slug": "small-quantities",
+      "md5": "1ed0e97d6dfbc46c838e80220af127a3"
+    },
+    {
+      "slug": "determiners-quantifiers",
+      "md5": "742b02b6dfac13ec2674e931a93c8780"
+    },
+    {
+      "slug": "prepositions-of-time",
+      "md5": "ee185b961d4853d4c4d0af20f4e4cc09"
+    },
+    {
+      "slug": "prepositions-of-place",
+      "md5": "aaae9d6d9b4d49862eecf46e46bacd8e"
+    },
+    {
+      "slug": "movement-prepositions",
+      "md5": "56c940ff66127b3e6e1ccccbd3ca07ca"
+    },
+    {
+      "slug": "articles-place-names",
+      "md5": "ddad3f3620c97ac48679dd0c00673ecb"
+    },
+    {
+      "slug": "adjective-order",
+      "md5": "870e8abf6e4502f31d7f1c3308702ec3"
+    },
+    {
+      "slug": "ed-ing-adjectives",
+      "md5": "1292038ffef0190a301f23f1854b05bc"
+    },
+    {
+      "slug": "comparatives-and-superlatives",
+      "md5": "2ee32156100d38bff2d891716bcdac9c"
+    },
+    {
+      "slug": "adverbs-position",
+      "md5": "b12f6355c592b6fe3591b7deb8c848b8"
+    },
+    {
+      "slug": "modals-ability",
+      "md5": "7ab686e0ab6ad8066c908478588c9840"
+    },
+    {
+      "slug": "past-simple",
+      "md5": "d2413d4274065564fa485a3c3aea2bdb"
+    },
+    {
+      "slug": "past-continuous",
+      "md5": "e66f362eccac5112f9e820d4f988dc08"
+    },
+    {
+      "slug": "future-forms",
+      "md5": "62841101aef1e05fbce45b0fda958047"
+    },
+    {
+      "slug": "present-perfect",
+      "md5": "f5d21568c92af011b086bed819e07020"
+    },
+    {
+      "slug": "stative-dynamic",
+      "md5": "4b75f16c00d380bd532fee0101016f6a"
+    },
+    {
+      "slug": "present-perfect-continuous",
+      "md5": "74296b5c1ad98376502bef5dc175177a"
+    },
+    {
+      "slug": "past-perfect",
+      "md5": "de65d8abb2d043fd8633de8635530d4e"
+    },
+    {
+      "slug": "past-perfect-continuous",
+      "md5": "63d57640774fb900af02362c68064e5f"
+    },
+    {
+      "slug": "future-perfect-continuous",
+      "md5": "ae61e2765310586012fde5bc4c649c76"
+    },
+    {
+      "slug": "past-habits",
+      "md5": "6b7d1cc2c638e5cce4939b033cc77a28"
+    },
+    {
+      "slug": "infinitive-of-purpose",
+      "md5": "9cc4caae4399ade07ee2e4f7690af846"
+    },
+    {
+      "slug": "verb-patterns",
+      "md5": "b3ea797586d01ee8f017200f61d0fee1"
+    },
+    {
+      "slug": "dependent-prepositions",
+      "md5": "cd2732e39e482c292d9df369b7e928d1"
+    },
+    {
+      "slug": "modal-obligation",
+      "md5": "403cbc1cbb37e88ce7eb15b822628ca4"
+    },
+    {
+      "slug": "modal-deduction",
+      "md5": "23ecb77726cdafb775e41d84804410d6"
+    },
+    {
+      "slug": "past-modals",
+      "md5": "07365ffc931e00f42a6b076208a052ce"
+    },
+    {
+      "slug": "conditionals",
+      "md5": "a83f3a80066959f00c90a64d16c65de5"
+    },
+    {
+      "slug": "third-mixed-conditionals",
+      "md5": "3ae1d8de68bdd82a65740c596f27fc1c"
+    },
+    {
+      "slug": "wishes",
+      "md5": "2df570fb05e93974e4b74ffbd5b9c5a5"
+    },
+    {
+      "slug": "linking-clauses",
+      "md5": "1f68964d4d4368764f0c99e7de3be5a7"
+    },
+    {
+      "slug": "contrast-concession",
+      "md5": "ec9eeb57e77eb2089298062117c7b867"
+    },
+    {
+      "slug": "degree-comparison",
+      "md5": "03e7a4aad731755a8a420234e90d8707"
+    },
+    {
+      "slug": "passive-voice",
+      "md5": "cf1e4cd399944950d321e557d29a41cc"
+    },
+    {
+      "slug": "relative-clauses",
+      "md5": "6e0528a07b22d2be282fb289d866abe8"
+    },
+    {
+      "slug": "reported-statements",
+      "md5": "240449ca1b613df5b215f5878410c9f7"
+    },
+    {
+      "slug": "reported-questions",
+      "md5": "123d18130398bcd0c34d9a7e2fc9e189"
+    },
+    {
+      "slug": "question-tags",
+      "md5": "d427fe2a67b8ad7dfd9ec924d7cb3052"
+    },
+    {
+      "slug": "reflexive-reciprocal",
+      "md5": "905f0c71382db09edc36c4b545622f44"
+    },
+    {
+      "slug": "verb-pattern-meaning",
+      "md5": "1c3d35ff685a3179c4bd66e689a22dd1"
+    },
+    {
+      "slug": "phrasal-verbs",
+      "md5": "2d0fb2fd563db25cf5ae5196e4358563"
+    },
+    {
+      "slug": "noun-clauses",
+      "md5": "bd9ebeada20156427df1a7141c4c5311"
+    },
+    {
+      "slug": "punctuation-clauses",
+      "md5": "8fe16c2a02583a4cbbe33d0ae773c13c"
+    },
+    {
+      "slug": "agreement-advanced",
+      "md5": "a207180e493b21c23102b3a72e40cb5d"
+    },
+    {
+      "slug": "advanced-passives",
+      "md5": "0bad31be5ddd3997e86f181db23d0742"
+    },
+    {
+      "slug": "reporting-verb-patterns",
+      "md5": "4ec924f19e0674ef1b9052275fd61b72"
+    },
+    {
+      "slug": "participle-clauses",
+      "md5": "825afeeea78d2e909a05eb64675c2bec"
+    },
+    {
+      "slug": "inversion",
+      "md5": "88d619c02bb8c5c6fe7e72fe3bfbc672"
+    },
+    {
+      "slug": "clefts-emphasis",
+      "md5": "cf2251a271d1387fdb56b02b1c861cdb"
+    },
+    {
+      "slug": "ellipsis-substitution",
+      "md5": "7f403ccd2e5ccd5e6e4b954670b00800"
+    },
+    {
+      "slug": "unreal-subjunctive",
+      "md5": "e907c8df6aab2f398ef035d2ab83d1b5"
+    },
+    {
+      "slug": "noun-modifiers",
+      "md5": "b1566479bce8052f7ba6fb19f3c4a879"
+    },
+    {
+      "slug": "register-variation",
+      "md5": "0238531137e604f547e6dd50d8bbe56e"
+    }
+  ],
+  "files": [
+    "01-sentence-structure.sql",
+    "02-nouns-and-plurals.sql",
+    "03-pronouns-and-possessive-determiners.sql",
+    "04-present-simple-be.sql",
+    "05-demonstratives.sql",
+    "06-articles.sql",
+    "07-possessive-s.sql",
+    "08-there-is-there-are.sql",
+    "09-have-got.sql",
+    "10-present-simple.sql",
+    "11-question-forms.sql",
+    "12-imperatives.sql",
+    "13-present-continuous.sql",
+    "14-countable-uncountable.sql",
+    "15-small-quantities.sql",
+    "16-determiners-quantifiers.sql",
+    "17-prepositions-of-time.sql",
+    "18-prepositions-of-place.sql",
+    "19-movement-prepositions.sql",
+    "20-articles-place-names.sql",
+    "21-adjective-order.sql",
+    "22-ed-ing-adjectives.sql",
+    "23-comparatives-and-superlatives.sql",
+    "24-adverbs-position.sql",
+    "25-modals-ability.sql",
+    "26-past-simple.sql",
+    "27-past-continuous.sql",
+    "28-future-forms.sql",
+    "29-present-perfect.sql",
+    "30-stative-dynamic.sql",
+    "31-present-perfect-continuous.sql",
+    "32-past-perfect.sql",
+    "33-past-perfect-continuous.sql",
+    "34-future-perfect-continuous.sql",
+    "35-past-habits.sql",
+    "36-infinitive-of-purpose.sql",
+    "37-verb-patterns.sql",
+    "38-dependent-prepositions.sql",
+    "39-modal-obligation.sql",
+    "40-modal-deduction.sql",
+    "41-past-modals.sql",
+    "42-conditionals.sql",
+    "43-third-mixed-conditionals.sql",
+    "44-wishes.sql",
+    "45-linking-clauses.sql",
+    "46-contrast-concession.sql",
+    "47-degree-comparison.sql",
+    "48-passive-voice.sql",
+    "49-relative-clauses.sql",
+    "50-reported-statements.sql",
+    "51-reported-questions.sql",
+    "52-question-tags.sql",
+    "53-reflexive-reciprocal.sql",
+    "54-verb-pattern-meaning.sql",
+    "55-phrasal-verbs.sql",
+    "56-noun-clauses.sql",
+    "57-punctuation-clauses.sql",
+    "58-agreement-advanced.sql",
+    "59-advanced-passives.sql",
+    "60-reporting-verb-patterns.sql",
+    "61-participle-clauses.sql",
+    "62-inversion.sql",
+    "63-clefts-emphasis.sql",
+    "64-ellipsis-substitution.sql",
+    "65-unreal-subjunctive.sql",
+    "66-noun-modifiers.sql",
+    "67-register-variation.sql",
+    "68-finalize.sql"
+  ]
+}

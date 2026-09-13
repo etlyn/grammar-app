@@ -12,7 +12,7 @@ const {
   path.join(process.env.LEARNING_BUILD_DIR, "utils/learningState.js"),
 );
 const { topics } = require("../src/generated/catalog.json");
-const topic = topics[0];
+const topic = topics.find((t) => t.slug === "present-simple-be");
 const slug = topic.slug;
 const now = "2026-09-13T00:00:00.000Z";
 function finish(state, count, id) {
@@ -161,7 +161,9 @@ test("corrupt and stale stored data cannot crash practice", () => {
 });
 
 test("adding topics preserves existing completed progress and an unfinished session", () => {
-  const before = topics.slice(0, 8);
+  const before = topics.filter((t) =>
+    t.provenance.version.startsWith("foundations-"),
+  );
   let state = finish(initialLearningState(), 18, "previous-release");
   const session = createSession(
     topic,
@@ -183,7 +185,9 @@ test("adding topics preserves existing completed progress and an unfinished sess
     before,
   );
   assert.deepEqual(restoreLearning(JSON.stringify(state), topics), state);
-  for (const added of topics.slice(8)) {
+  for (const added of topics.filter(
+    (t) => !t.provenance.version.startsWith("foundations-"),
+  )) {
     const next = createSession(added, [], added.slug);
     assert.equal(next.itemIds.length, 20);
     const skills = next.itemIds.map(

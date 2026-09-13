@@ -41,6 +41,8 @@ for (const topic of topics) {
       throw Error(`Invalid options: ${q.id}`);
     if (
       !q.explanation ||
+      q.teaching?.steps.length !== 3 ||
+      q.choices.some((c) => !q.teaching?.choiceReasons[c.id]) ||
       !q.skill ||
       !q.contextKey ||
       !q.provenance.referenceIds.length
@@ -72,6 +74,10 @@ const coverage = {
     "Automated structural checks complete; independent educator review pending.",
   topics: topics.map((t) => ({
     slug: t.slug,
+    stage: t.stage,
+    level: t.level,
+    order: t.order,
+    prerequisites: t.prerequisites,
     title: t.title,
     count: t.quizItems.length,
     skills: Object.fromEntries(
@@ -89,16 +95,18 @@ const coverage = {
     })),
   })),
 };
-const index = `# Grammacho web curriculum coverage\n\nVersion: ${VERSION}\n\nContent SHA-256: ${hash}\n\n${coverage.authorship}\n\n${coverage.reviewStatus}\n\n${topics.length} topics, 200 questions each, ${ids.size.toLocaleString("en-US")} total. Each bank uses 50 authored lexical/situational contexts with four tasks per context. These are structured form-practice banks, not ${ids.size.toLocaleString("en-US")} independent real-world situations or a calibrated assessment. Grammar facts and task formats follow the linked references; no publisher question bank is reproduced.\n\n| Topic | Questions | Skills |\n| --- | ---: | --- |\n${coverage.topics
+const index = `# Grammacho web curriculum coverage\n\nVersion: ${VERSION}\n\nScope: broad standard-English grammar, approximate A1–C1 learning stages. This is a prerequisite-based Grammacho sequence informed by British Council levels and England’s school grammar scope, not an official prescribed order or an exhaustive grammar certification.\n\nContent SHA-256: ${hash}\n\n${coverage.authorship}\n\n${coverage.reviewStatus}\n\n${topics.length} topics, 200 questions each, ${ids.size.toLocaleString("en-US")} total. Each bank uses 50 authored lexical/situational contexts with four tasks per context. These are structured form-practice banks, not ${ids.size.toLocaleString("en-US")} independent real-world situations or a calibrated assessment. Grammar facts and task formats follow the linked references; no publisher question bank is reproduced.\n\n| Order / stage | Topic | Questions | Skills |\n| --- | --- | ---: | --- |\n${coverage.topics
   .map(
     (t) =>
-      `| ${t.title} | ${t.count} | ${Object.entries(t.skills)
+      `| ${t.order} · ${t.stage} | ${t.title} | ${t.count} | ${Object.entries(
+        t.skills,
+      )
         .map(([s, n]) => `${s}: ${n}`)
         .join("; ")} |`,
   )
   .join(
     "\n",
-  )}\n\n## Expand without duplication\n\n1. Read this index and coverage.json before authoring. The 50 legacy mobile topics are not part of this web beta.\n2. Use content/catalog.mjs to compose immutable foundations.mjs/contexts.mjs with extension/index.mjs and extension/contexts.mjs. Preserve existing topic slugs, skill identifiers and context keys; these derive stable UUIDs. Do not regenerate covered topics to add a new topic.\n3. For genuinely new exercises, add unique context keys and new skill coverage, not option-order or name-only variations. To correct an existing answer, review progress compatibility and intentionally version the release.\n4. Verify authoritative references, reuse licences and ambiguity. Distinguish reproduced, adapted and newly authored material. Never claim school/CEFR approval or educator review that has not occurred. Third-party videos and commercial workbooks require separate rights.\n5. Run yarn content:build, yarn test and yarn build. The generator fails on duplicate prompts, duplicate fingerprints, invalid choices or absent provenance. Update the 200-item gate deliberately when expanding an existing bank.\n6. Review all question/answer exports. Human educator review is still needed; automated checks do not establish pedagogical validity.\n7. Create a versioned Supabase import with yarn content:sql. Apply only to the private grammar schema after reviewing the diff; never expose it through the Data API. User progress and auth are outside the content import. Verify database counts and fingerprints after import.\n8. Commit the authoring files, catalog, coverage and release provenance together. Rebuild/redeploy web to distribute new content. No network, database, or AI call is made during an ordinary build or learner session.\n\n## Sources\n\n${sources.map((s) => `- [${s.publisher}: ${s.title}](${s.url}) — ${s.use}${s.license ? `. ${s.license}.` : "."}`).join("\n")}\n`;
+  )}\n\n## Expand without duplication\n\n1. Read this index and coverage.json before authoring. The legacy mobile topics are not part of this web release. Read content/core/README.md for the scope, sequence rationale and chapter-only subtopics.\n2. Use content/catalog.mjs to compose the immutable foundations and extension modules with content/core/. The v3 teaching layer enriches earlier lessons without changing question IDs or answer choices. Preserve existing topic slugs, skill identifiers and context keys; these derive stable UUIDs. Do not regenerate covered topics to add a new topic.\n3. For genuinely new exercises, add unique context keys and new skill coverage, not option-order or name-only variations. To correct an existing answer, review progress compatibility and intentionally version the release.\n4. Verify authoritative references, reuse licences and ambiguity. Distinguish reproduced, adapted and newly authored material. Never claim school/CEFR approval or educator review that has not occurred. Third-party videos and commercial workbooks require separate rights.\n5. Run yarn content:build, yarn test and yarn build. The generator fails on duplicate prompts, duplicate fingerprints, invalid choices or absent provenance. Update the 200-item gate deliberately when expanding an existing bank.\n6. Review all question/answer exports. Human educator review is still needed; automated checks do not establish pedagogical validity.\n7. Create a versioned Supabase import with yarn content:sql. Apply only to the private grammar schema after reviewing the diff; never expose it through the Data API. User progress and auth are outside the content import. Verify database counts and fingerprints after import.\n8. Commit the authoring files, catalog, coverage and release provenance together. Rebuild/redeploy web to distribute new content. No network, database, or AI call is made during an ordinary build or learner session.\n\n## Sources\n\n${sources.map((s) => `- [${s.publisher}: ${s.title}](${s.url}) — ${s.use}${s.license ? `. ${s.license}.` : "."}`).join("\n")}\n`;
 const outputs = {
   "src/generated/catalog.json": JSON.stringify(catalog),
   "content/coverage.json": JSON.stringify(coverage, null, 2) + "\n",

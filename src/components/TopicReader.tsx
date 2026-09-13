@@ -1,22 +1,42 @@
 import { contentSources } from "../services/contentService";
 import type { GrammarTopic } from "../types/grammar";
-
+import { RichText } from "./RichText";
 type Props = { topic: GrammarTopic; onPractice: () => void };
 export function TopicReader({ topic, onPractice }: Props) {
+  const chapter = topic.chapter;
+  const rules = chapter?.rules ?? topic.rules;
+  const skills = [...new Set(topic.quizItems.map((q) => q.skill))];
+  const worked = skills.map(
+    (skill, i) => topic.quizItems.filter((q) => q.skill === skill)[i * 3],
+  );
+  const minutes = Math.max(
+    3,
+    Math.ceil(
+      (
+        JSON.stringify(chapter ?? rules) +
+        worked
+          .map((q) => (q ? q.prompt + q.teaching?.steps.join(" ") : ""))
+          .join(" ")
+      ).split(/\s+/).length / 180,
+    ),
+  );
   return (
     <article className="topic-reader panel-enter">
       <header className="topic-intro">
+        <p className="eyebrow">
+          Chapter {topic.order} · {topic.level}
+        </p>
         <h1>{topic.title}</h1>
         <p className="lead">{topic.summary}</p>
         <div className="reading-meta">
-          <span>{topic.rules.length} short lessons</span>
-          <span>200 practice questions</span>
+          <span>About {minutes} minutes to read</span>
+          <span>{topic.quizItems.length} practice questions</span>
         </div>
       </header>
       <nav className="lesson-outline" aria-label="In this topic">
-        <p className="eyebrow">In this topic</p>
+        <p className="eyebrow">In this chapter</p>
         <ol>
-          {topic.rules.map((rule, index) => (
+          {rules.map((rule, index) => (
             <li key={rule.title}>
               <a href={`#rule-${index}`}>
                 <span aria-hidden="true">{index + 1}</span>
@@ -24,48 +44,112 @@ export function TopicReader({ topic, onPractice }: Props) {
               </a>
             </li>
           ))}
+          <li>
+            <a href="#worked-examples">Worked examples</a>
+          </li>
         </ol>
       </nav>
+      <div className="chapter-introduction">
+        {chapter?.introduction.map((p, i) => (
+          <p key={i}>
+            <RichText>{p}</RichText>
+          </p>
+        ))}
+      </div>
       <div className="reading-rules">
-        {topic.rules.map((rule, index) => (
+        {rules.map((rule, index) => (
           <section
             className="reading-rule"
             id={`rule-${index}`}
             key={rule.title}
             tabIndex={-1}
           >
-            <p className="eyebrow">Lesson {index + 1}</p>
+            <p className="eyebrow">{String(index + 1).padStart(2, "0")}</p>
             <h2>{rule.title}</h2>
-            <p>{rule.explanation}</p>
+            <p>
+              <RichText>{rule.explanation}</RichText>
+            </p>
+            {rule.pattern && (
+              <p className="rule-pattern">
+                <RichText>{rule.pattern}</RichText>
+              </p>
+            )}
+            {rule.paragraphs?.map((p, i) => (
+              <p key={i}>
+                <RichText>{p}</RichText>
+              </p>
+            ))}
             <div className="examples">
               <p className="example-label">Examples</p>
-              {rule.examples.map((example) => (
-                <p key={example}>{example}</p>
+              {rule.examples.map((example, i) => (
+                <p key={i}>
+                  <RichText>{example}</RichText>
+                </p>
               ))}
             </div>
             {!!rule.commonMistakes?.length && (
               <div className="common-mistake">
-                <strong>Watch out</strong>
-                {rule.commonMistakes.map((mistake) => (
-                  <p key={mistake}>{mistake}</p>
+                <strong>A closer look</strong>
+                {rule.commonMistakes.map((mistake, i) => (
+                  <p key={i}>
+                    <RichText>{mistake}</RichText>
+                  </p>
                 ))}
               </div>
             )}
           </section>
         ))}
       </div>
-      <section className="reading-tips">
-        <h2>Keep in mind</h2>
-        <ul>
-          {topic.tips.map((tip) => (
-            <li key={tip}>{tip}</li>
-          ))}
-        </ul>
+      <section
+        className="reading-rule worked-examples"
+        id="worked-examples"
+        tabIndex={-1}
+      >
+        <p className="eyebrow">From the rule to the answer</p>
+        <h2>Worked examples</h2>
+        <p>
+          Read the question, notice the clue, then follow the explanation. Each
+          example practises a different part of this chapter.
+        </p>
+        {worked.map(
+          (q, i) =>
+            q && (
+              <div className="worked-example" key={q.id}>
+                <h3>Example {i + 1}</h3>
+                <p>{q.prompt}</p>
+                <p className="worked-answer">
+                  Answer:{" "}
+                  <strong>
+                    {q.choices.find((c) => c.id === q.answerId)?.text}
+                  </strong>
+                </p>
+                <ol>
+                  {q.teaching?.steps.slice(0, 2).map((step, j) => (
+                    <li key={j}>
+                      <RichText>{step}</RichText>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            ),
+        )}
       </section>
+      {!!chapter?.recap.length && (
+        <section className="chapter-recap">
+          <h2>The patterns to remember</h2>
+          <ul>
+            {chapter.recap.map((p, i) => (
+              <li key={i}>
+                <RichText>{p}</RichText>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
       <div className="practice-invitation">
         <div>
           <h2>Put it into practice</h2>
-          <p>20 questions. Take your time.</p>
+          <p>20 randomly selected questions. Take your time.</p>
         </div>
         <button type="button" className="button primary" onClick={onPractice}>
           Practise this topic <span aria-hidden="true">→</span>
@@ -83,13 +167,12 @@ export function TopicReader({ topic, onPractice }: Props) {
         </div>
       </details>
       <details className="reading-details">
-        <summary>Sources & how this content is made</summary>
+        <summary>Sources for this chapter</summary>
         <div className="disclosure-content">
           <p>
-            Original Grammacho practice follows these published learning
-            references. Questions are generated offline with AI assistance;
-            independent educator review is pending. These are not official exam
-            questions.
+            These published references inform the grammar and scope. The
+            explanations and practice are original; they are not official
+            examination items.
           </p>
           <ul>
             {contentSources
@@ -105,10 +188,6 @@ export function TopicReader({ topic, onPractice }: Props) {
                 </li>
               ))}
           </ul>
-          <p>
-            Practice levels are approximate teaching labels. Completing a topic
-            does not certify a CEFR level.
-          </p>
         </div>
       </details>
     </article>

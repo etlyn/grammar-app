@@ -9,6 +9,10 @@ if (check.status !== 0) process.exit(check.status ?? 1);
 const catalog = JSON.parse(
   await readFile("src/generated/catalog.json", "utf8"),
 );
+if (catalog.version.startsWith("core-")) {
+  await import("./export-core-sql.mjs");
+  process.exit(0);
+}
 const dir = "supabase/content/" + catalog.version;
 await mkdir(dir, { recursive: true });
 const literal = (value) => "'" + String(value).replaceAll("'", "''") + "'";

@@ -7,6 +7,8 @@ export type GrammarRule = {
   explanation: string;
   examples: string[];
   commonMistakes?: string[];
+  paragraphs?: string[];
+  pattern?: string;
 };
 
 export type QuizChoice = {
@@ -37,6 +39,7 @@ export type QuizItem = {
   contextKey?: string;
   fingerprint?: string;
   provenance?: ContentProvenance;
+  teaching?: { steps: string[]; choiceReasons: Record<string, string> };
   source: ContentSource;
 };
 
@@ -46,6 +49,9 @@ export type GrammarTopic = {
   level: CEFRLevel;
   order: number;
   summary: string;
+  stage?: string;
+  prerequisites?: string[];
+  chapter?: { introduction: string[]; rules: GrammarRule[]; recap: string[] };
   learningGoals: string[];
   guidance: string;
   rules: GrammarRule[];

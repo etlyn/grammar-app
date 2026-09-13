@@ -168,7 +168,8 @@ export default function App() {
           )}
           <div className="lesson-toolbar">
             <span className="topic-position">
-              Foundations <span aria-hidden="true">/</span>{" "}
+              {topic.stage?.split(" · ")[1] ?? "Grammar"}{" "}
+              <span aria-hidden="true">/</span>{" "}
               {String(topics.indexOf(topic) + 1).padStart(2, "0")}
             </span>
             <div
@@ -235,9 +236,42 @@ export default function App() {
             )}
           </div>
           <footer className="app-footer">
-            Original practice with published references.
-            <br />
-            Educator review pending · Curriculum {catalogVersion}
+            <details className="curriculum-about">
+              <summary>About this learning path</summary>
+              <p>
+                {topics.length} chapters and{" "}
+                {(topics.length * 200).toLocaleString()} questions cover the
+                main standard-English grammar families, from sentence
+                foundations to advanced clauses and style. Each practice draws
+                20 questions randomly, balancing skills and prioritising unseen
+                items.
+              </p>
+              <p>
+                The sequence follows prerequisites and draws on British Council
+                learning levels and England’s school grammar guidance. It is our
+                teaching sequence, not an institution’s prescribed syllabus.
+              </p>
+              <p>
+                Completing the course shows broad practice coverage. Lasting
+                mastery also needs varied reading, listening, speaking and
+                writing; no finite quiz bank covers every construction, idiom or
+                dialect.
+              </p>
+            </details>
+            <div className="shared-learning-note">
+              <strong>Keep in mind</strong>
+              <p>
+                Read for meaning, notice the highlighted pattern, and explain
+                your choice before checking it. Revisit mistakes and try another
+                session after a break. A score of 16/20 marks a chapter
+                complete; it is a practice milestone, not a CEFR certificate.
+              </p>
+            </div>
+            <p>
+              Original practice with published references. Independent educator
+              review pending. Your progress stays on this browser.
+            </p>
+            <p className="release-label">Curriculum {catalogVersion}</p>
           </footer>
         </main>
       </div>
