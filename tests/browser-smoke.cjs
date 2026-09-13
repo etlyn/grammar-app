@@ -20,8 +20,11 @@ const assert = require("node:assert/strict");
   });
   await page.goto(previewUrl);
   await page
-    .getByRole("button", { name: "Start 20-question practice" })
-    .click();
+    .getByRole("tab", { name: "Read", exact: true })
+    .press("ArrowRight");
+  await page.getByRole("tab", { name: "Practice", exact: true }).press("Tab");
+  await page.keyboard.press("Tab");
+  await page.keyboard.press("Enter");
   await page
     .getByRole("heading", { name: "Question 1 of 20", exact: true })
     .waitFor();
@@ -48,19 +51,42 @@ const assert = require("node:assert/strict");
       (q) => q.id === session.itemIds[session.index],
     );
     const correct = q.choices.find((c) => c.id === q.answerId);
+    // Start/Next focuses the first native radio. Arrow keys may change the
+    // selection, but they must never save an answer until Enter checks it.
+    assert.equal(
+      await page.evaluate(() => document.activeElement.type),
+      "radio",
+    );
+    const correctIndex = q.choices.findIndex((c) => c.id === q.answerId);
+    await page.keyboard.press("Space");
+    for (let move = 0; move < correctIndex; move++)
+      await page.keyboard.press("ArrowDown");
+    assert.equal(
+      await page
+        .getByRole("radio", { name: correct.text, exact: true })
+        .isChecked(),
+      true,
+    );
     await page
-      .getByRole("button", { name: q.answerId + correct.text, exact: true })
-      .click();
+      .getByText(`${i} ${i === 1 ? "answer" : "answers"} saved`, {
+        exact: true,
+      })
+      .waitFor();
+    await page.keyboard.press("Enter");
+    assert.match(
+      await page.evaluate(() => document.activeElement.textContent),
+      /Next question|Finish session/,
+    );
     if (i === 0) {
       await page.reload();
-      await page.getByText("1 answers saved", { exact: true }).waitFor();
+      await page.getByText("1 answer saved", { exact: true }).waitFor();
     }
     await page
       .getByRole("button", {
         name: i === 19 ? "Finish session" : "Next question",
         exact: true,
       })
-      .click();
+      .press("Enter");
   }
   await page
     .getByRole("heading", { name: "You scored 20/20 · 100%", exact: true })
@@ -76,7 +102,12 @@ const assert = require("node:assert/strict");
   await page
     .getByRole("heading", { name: "You scored 20/20 · 100%", exact: true })
     .waitFor();
-  await page.getByRole("button", { name: "Next topic", exact: true }).click();
+  await page
+    .getByRole("button", { name: "Next topic", exact: true })
+    .press("Enter");
+  await page
+    .getByRole("tab", { name: "Read", exact: true })
+    .press("ArrowRight");
   await page
     .getByRole("button", { name: "Start 20-question practice" })
     .click();
@@ -88,12 +119,23 @@ const assert = require("node:assert/strict");
   await context.setOffline(false);
   await page.setViewportSize({ width: 390, height: 844 });
   await page.reload();
-  await page.getByRole("button", { name: "Topics", exact: true }).click();
+  await page
+    .getByRole("button", { name: "Topics", exact: true })
+    .press("Enter");
+  await page.keyboard.press("Escape");
+  assert.equal(
+    await page.evaluate(() => document.activeElement.textContent),
+    "Topics",
+  );
+  await page.keyboard.press("Enter");
   await page.getByRole("searchbox").filter({ visible: true }).fill("articles");
   await page
     .getByRole("button", { name: /Articles: a, an and the/ })
     .filter({ visible: true })
     .click();
+  await page
+    .getByRole("tab", { name: "Read", exact: true })
+    .press("ArrowRight");
   await page
     .getByRole("button", { name: "Start 20-question practice" })
     .click();
@@ -106,7 +148,7 @@ const assert = require("node:assert/strict");
   console.log(
     JSON.stringify({
       journey:
-        "20 answers, reload resume, completion persistence, offline reload and new session, mobile topic search",
+        "20 keyboard answers with explicit check and focus assertions, reload resume, completion persistence, offline new session, mobile topic search and Escape focus restoration",
       runtimeErrors: errors,
       externalRequests: remote,
       screenshots: [desktopImage, mobileImage],

@@ -159,3 +159,38 @@ test("corrupt and stale stored data cannot crash practice", () => {
     initialLearningState(),
   );
 });
+
+test("adding topics preserves existing completed progress and an unfinished session", () => {
+  const before = topics.slice(0, 8);
+  let state = finish(initialLearningState(), 18, "previous-release");
+  const session = createSession(
+    topic,
+    state.progress[slug].answeredItemIds,
+    "unfinished",
+  );
+  state = reduceLearning(state, { type: "start", slug, session }, before);
+  const q = topic.quizItems.find((q) => q.id === session.itemIds[0]);
+  state = reduceLearning(
+    state,
+    {
+      type: "answer",
+      slug,
+      sessionId: session.id,
+      itemId: q.id,
+      choice: q.answerId,
+      now,
+    },
+    before,
+  );
+  assert.deepEqual(restoreLearning(JSON.stringify(state), topics), state);
+  for (const added of topics.slice(8)) {
+    const next = createSession(added, [], added.slug);
+    assert.equal(next.itemIds.length, 20);
+    const skills = next.itemIds.map(
+      (id) => added.quizItems.find((q) => q.id === id).skill,
+    );
+    assert.equal(new Set(skills).size, 4);
+    for (const skill of new Set(skills))
+      assert.equal(skills.filter((s) => s === skill).length, 5);
+  }
+});

@@ -1,0 +1,115 @@
+{
+  "verifiedAt": "2026-09-13 07:02:55 UTC",
+  "version": "foundations-2026-09-v2",
+  "contentHash": "96c6d65cc82b241ec16c30e21e2355867131e9c8c0230502f0315bae0cab7edb",
+  "addedTopicCount": 10,
+  "addedQuestionCount": 2000,
+  "topicCount": 18,
+  "questionCount": 3600,
+  "retainedReleases": {
+    "foundations-2026-09-v1": "80f731f032a9eb103f1c1ff16dbb914b3e725cae49cb122d7d4df0e44da9c096"
+  },
+  "topics": [
+    {
+      "slug": "present-simple-be",
+      "questions": 200,
+      "allFieldsMatch": true
+    },
+    {
+      "slug": "present-simple",
+      "questions": 200,
+      "allFieldsMatch": true
+    },
+    {
+      "slug": "present-continuous",
+      "questions": 200,
+      "allFieldsMatch": true
+    },
+    {
+      "slug": "past-simple",
+      "questions": 200,
+      "allFieldsMatch": true
+    },
+    {
+      "slug": "articles",
+      "questions": 200,
+      "allFieldsMatch": true
+    },
+    {
+      "slug": "pronouns-and-possessive-determiners",
+      "questions": 200,
+      "allFieldsMatch": true
+    },
+    {
+      "slug": "prepositions-of-time",
+      "questions": 200,
+      "allFieldsMatch": true
+    },
+    {
+      "slug": "comparatives-and-superlatives",
+      "questions": 200,
+      "allFieldsMatch": true
+    },
+    {
+      "slug": "there-is-there-are",
+      "questions": 200,
+      "allFieldsMatch": true
+    },
+    {
+      "slug": "have-got",
+      "questions": 200,
+      "allFieldsMatch": true
+    },
+    {
+      "slug": "countable-uncountable",
+      "questions": 200,
+      "allFieldsMatch": true
+    },
+    {
+      "slug": "small-quantities",
+      "questions": 200,
+      "allFieldsMatch": true
+    },
+    {
+      "slug": "possessive-s",
+      "questions": 200,
+      "allFieldsMatch": true
+    },
+    {
+      "slug": "prepositions-of-place",
+      "questions": 200,
+      "allFieldsMatch": true
+    },
+    {
+      "slug": "past-continuous",
+      "questions": 200,
+      "allFieldsMatch": true
+    },
+    {
+      "slug": "infinitive-of-purpose",
+      "questions": 200,
+      "allFieldsMatch": true
+    },
+    {
+      "slug": "verb-patterns",
+      "questions": 200,
+      "allFieldsMatch": true
+    },
+    {
+      "slug": "ed-ing-adjectives",
+      "questions": 200,
+      "allFieldsMatch": true
+    }
+  ],
+  "browserSchemaGrants": {
+    "anon": false,
+    "authenticated": false,
+    "service_role": false
+  },
+  "learnerTableCounts": {
+    "attempts": 0,
+    "progress": 0
+  },
+  "reviewStatus": "automated-checked; educator-review-pending",
+  "verification": "Compared all lesson and question fields (including choices, explanations, IDs, fingerprints and provenance) using PostgreSQL jsonb field digests; database timestamps and generated content_hash excluded. Both retained v1 and new v2 fields match. No learner records or access policies changed."
+}

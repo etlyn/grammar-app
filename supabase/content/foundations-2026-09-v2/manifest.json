@@ -1,0 +1,25 @@
+{
+  "version": "foundations-2026-09-v2",
+  "contentHash": "96c6d65cc82b241ec16c30e21e2355867131e9c8c0230502f0315bae0cab7edb",
+  "progressVersion": "foundations-2026-09-v1",
+  "addedTopics": 10,
+  "addedQuestions": 2000,
+  "retainedReleases": {
+    "foundations-2026-09-v1": "80f731f032a9eb103f1c1ff16dbb914b3e725cae49cb122d7d4df0e44da9c096"
+  },
+  "totalTopics": 18,
+  "totalQuestions": 3600,
+  "files": [
+    "09-there-is-there-are.sql",
+    "10-have-got.sql",
+    "11-countable-uncountable.sql",
+    "12-small-quantities.sql",
+    "13-possessive-s.sql",
+    "14-prepositions-of-place.sql",
+    "15-past-continuous.sql",
+    "16-infinitive-of-purpose.sql",
+    "17-verb-patterns.sql",
+    "18-ed-ing-adjectives.sql",
+    "19-finalize.sql"
+  ]
+}

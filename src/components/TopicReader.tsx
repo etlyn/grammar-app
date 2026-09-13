@@ -1,162 +1,116 @@
-import {
-  PASSING_ACCURACY,
-  REQUIRED_CORRECT_ANSWERS,
-  REQUIRED_QUIZ_ITEMS,
-} from "../constants/learning";
 import { contentSources } from "../services/contentService";
-import type { GrammarTopic, TopicProgress } from "../types/grammar";
+import type { GrammarTopic } from "../types/grammar";
 
-type TopicReaderProps = {
-  topic: GrammarTopic;
-  progress?: TopicProgress;
-};
-
-export function TopicReader({ topic, progress }: TopicReaderProps) {
-  const isCompleted = Boolean(progress?.isCompleted);
-  const bestScore = progress?.bestScore ?? 0;
-  const completionProgress = bestScore;
-  const status = isCompleted
-    ? "Complete"
-    : progress?.completedSessions
-      ? `${bestScore}% best`
-      : progress?.total
-        ? "Practising"
-        : "Not started";
-
+type Props = { topic: GrammarTopic; onPractice: () => void };
+export function TopicReader({ topic, onPractice }: Props) {
   return (
-    <section className="rounded-[2.25rem] border border-indigo-100 bg-white/75 p-5 shadow-sm shadow-indigo-100/70 backdrop-blur md:p-8">
-      <div>
-        <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-[0.25em] text-indigo-500">
-              Read about · Foundation grammar
-            </p>
-            <h1 className="mt-3 text-3xl font-black tracking-tight text-slate-950 md:text-5xl">
-              {topic.title}
-            </h1>
-            <p className="mt-4 max-w-3xl text-base leading-7 text-slate-600">
-              {topic.summary}
-            </p>
-          </div>
-          <div className="rounded-3xl bg-gradient-to-br from-indigo-600 to-sky-500 px-5 py-4 text-white shadow-md shadow-indigo-200">
-            <p className="text-xs font-semibold text-indigo-100">
-              Topic status
-            </p>
-            <p className="text-2xl font-black">{status}</p>
-          </div>
+    <article className="topic-reader panel-enter">
+      <header className="topic-intro">
+        <h1>{topic.title}</h1>
+        <p className="lead">{topic.summary}</p>
+        <div className="reading-meta">
+          <span>{topic.rules.length} short lessons</span>
+          <span>200 practice questions</span>
         </div>
-
-        <div className="mt-6 h-3 rounded-full bg-indigo-50 p-0.5">
-          <div
-            className="h-2 rounded-full bg-gradient-to-r from-indigo-500 to-sky-400 transition-all"
-            style={{ width: `${completionProgress}%` }}
-          />
-        </div>
-        <p className="mt-2 text-xs font-medium text-slate-500">
-          Complete {REQUIRED_QUIZ_ITEMS} quiz items and score at least{" "}
-          {PASSING_ACCURACY}% ({REQUIRED_CORRECT_ANSWERS} correct) to mark this
-          topic complete.
-        </p>
-      </div>
-
-      <div className="mt-8 grid gap-8 xl:grid-cols-[1fr_20rem]">
-        <div>
-          <h2 className="text-xl font-black text-slate-950">
-            How to study this topic
-          </h2>
-          <p className="mt-3 leading-7 text-slate-600">{topic.guidance}</p>
-
-          <div className="mt-6 grid gap-3 sm:grid-cols-2">
-            {topic.learningGoals.map((goal) => (
-              <div
-                className="rounded-3xl bg-indigo-50/70 p-4 text-sm font-medium text-indigo-950"
-                key={goal}
-              >
-                {goal}
+      </header>
+      <nav className="lesson-outline" aria-label="In this topic">
+        <p className="eyebrow">In this topic</p>
+        <ol>
+          {topic.rules.map((rule, index) => (
+            <li key={rule.title}>
+              <a href={`#rule-${index}`}>
+                <span aria-hidden="true">{index + 1}</span>
+                {rule.title}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+      <div className="reading-rules">
+        {topic.rules.map((rule, index) => (
+          <section
+            className="reading-rule"
+            id={`rule-${index}`}
+            key={rule.title}
+            tabIndex={-1}
+          >
+            <p className="eyebrow">Lesson {index + 1}</p>
+            <h2>{rule.title}</h2>
+            <p>{rule.explanation}</p>
+            <div className="examples">
+              <p className="example-label">Examples</p>
+              {rule.examples.map((example) => (
+                <p key={example}>{example}</p>
+              ))}
+            </div>
+            {!!rule.commonMistakes?.length && (
+              <div className="common-mistake">
+                <strong>Watch out</strong>
+                {rule.commonMistakes.map((mistake) => (
+                  <p key={mistake}>{mistake}</p>
+                ))}
               </div>
-            ))}
-          </div>
+            )}
+          </section>
+        ))}
+      </div>
+      <section className="reading-tips">
+        <h2>Keep in mind</h2>
+        <ul>
+          {topic.tips.map((tip) => (
+            <li key={tip}>{tip}</li>
+          ))}
+        </ul>
+      </section>
+      <div className="practice-invitation">
+        <div>
+          <h2>Put it into practice</h2>
+          <p>20 questions. Take your time.</p>
         </div>
-
-        <aside className="rounded-[2rem] border border-sky-100 bg-sky-50/70 p-5">
-          <h2 className="text-lg font-black text-slate-950">
-            Learning references
-          </h2>
-          <p className="mt-2 text-sm leading-6 text-slate-600">
+        <button type="button" className="button primary" onClick={onPractice}>
+          Practise this topic <span aria-hidden="true">→</span>
+        </button>
+      </div>
+      <details className="reading-details">
+        <summary>Study guide & learning goals</summary>
+        <div className="disclosure-content">
+          <p>{topic.guidance}</p>
+          <ul>
+            {topic.learningGoals.map((goal) => (
+              <li key={goal}>{goal}</li>
+            ))}
+          </ul>
+        </div>
+      </details>
+      <details className="reading-details">
+        <summary>Sources & how this content is made</summary>
+        <div className="disclosure-content">
+          <p>
             Original Grammacho practice follows these published learning
-            references. The questions are generated offline with AI assistance;
+            references. Questions are generated offline with AI assistance;
             independent educator review is pending. These are not official exam
             questions.
           </p>
-          <ul className="mt-4 space-y-3 text-sm">
+          <ul>
             {contentSources
               .filter((source) =>
                 topic.provenance?.referenceIds.includes(source.id),
               )
               .map((source) => (
                 <li key={source.id}>
-                  <a
-                    className="font-semibold text-indigo-700 underline decoration-indigo-200 underline-offset-4"
-                    href={source.url}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
+                  <a href={source.url} target="_blank" rel="noreferrer">
                     {source.publisher}: {source.title}
+                    <span className="sr-only"> (opens in a new tab)</span>
                   </a>
                 </li>
               ))}
           </ul>
-          <p className="mt-4 text-xs leading-5 text-slate-500">
+          <p>
             Practice levels are approximate teaching labels. Completing a topic
             does not certify a CEFR level.
           </p>
-        </aside>
-      </div>
-
-      <div className="mt-8 divide-y divide-indigo-100/80">
-        {topic.rules.map((rule) => (
-          <article className="py-7 first:pt-0 last:pb-0" key={rule.title}>
-            <h3 className="text-lg font-black text-slate-950">{rule.title}</h3>
-            <p className="mt-3 leading-7 text-slate-600">{rule.explanation}</p>
-            <div className="mt-4 grid gap-2 sm:grid-cols-3">
-              {rule.examples.map((example) => (
-                <p
-                  className="rounded-2xl bg-white/80 px-4 py-3 text-sm font-medium text-slate-700 shadow-sm shadow-indigo-100/40"
-                  key={example}
-                >
-                  {example}
-                </p>
-              ))}
-            </div>
-            {rule.commonMistakes?.length ? (
-              <div className="mt-4 rounded-2xl border border-orange-100 bg-orange-50 p-4">
-                <p className="text-sm font-black text-orange-700">
-                  Common mistake
-                </p>
-                {rule.commonMistakes.map((mistake) => (
-                  <p className="mt-1 text-sm text-orange-800" key={mistake}>
-                    {mistake}
-                  </p>
-                ))}
-              </div>
-            ) : null}
-          </article>
-        ))}
-      </div>
-
-      <div className="mt-8">
-        <h2 className="text-lg font-black text-slate-950">Practice tips</h2>
-        <ul className="mt-4 grid gap-3 md:grid-cols-2">
-          {topic.tips.map((tip) => (
-            <li
-              className="rounded-2xl bg-white/80 px-4 py-3 text-sm font-medium text-slate-700 shadow-sm shadow-indigo-100/40"
-              key={tip}
-            >
-              {tip}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
+        </div>
+      </details>
+    </article>
   );
 }

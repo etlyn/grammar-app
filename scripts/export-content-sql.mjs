@@ -14,7 +14,35 @@ await mkdir(dir, { recursive: true });
 const literal = (value) => "'" + String(value).replaceAll("'", "''") + "'";
 const json = (value) => literal(JSON.stringify(value)) + "::jsonb";
 const files = [];
+const addedTopics = catalog.topics.filter(
+  (t) => t.provenance.version === catalog.version,
+);
+const addedQuestions = addedTopics.reduce(
+  (sum, t) => sum + t.quizItems.length,
+  0,
+);
+const retainedTopics = catalog.topics.filter(
+  (t) => t.provenance.version !== catalog.version,
+);
+const retainedReleases = {};
+for (const topic of retainedTopics) {
+  const version = topic.provenance.version;
+  if (!retainedReleases[version])
+    retainedReleases[version] = JSON.parse(
+      await readFile(`supabase/content/${version}/manifest.json`, "utf8"),
+    );
+}
+const retainedChecks = Object.entries(retainedReleases)
+  .map(([version, release]) => {
+    const retained = retainedTopics.filter(
+      (t) => t.provenance.version === version,
+    );
+    const count = retained.reduce((sum, t) => sum + t.quizItems.length, 0);
+    return `IF NOT EXISTS(SELECT 1 FROM grammar.content_releases WHERE version=${literal(version)} AND content_hash=${literal(release.contentHash)}) OR (SELECT count(*) FROM grammar.grammar_topics WHERE source_metadata->>'contentHash'=${literal(release.contentHash)})<>${retained.length} OR (SELECT count(*) FROM grammar.grammar_quiz_items WHERE source_metadata->>'contentHash'=${literal(release.contentHash)})<>${count} THEN RAISE EXCEPTION 'Retained release missing or changed'; END IF;`;
+  })
+  .join("\n");
 for (const [index, topic] of catalog.topics.entries()) {
+  if (topic.provenance.version !== catalog.version) continue;
   const metadata = {
     ...topic.provenance,
     contentHash: catalog.contentHash,
@@ -47,13 +75,32 @@ for (const [index, topic] of catalog.topics.entries()) {
   files.push(name);
   await writeFile(dir + "/" + name, sql);
 }
-const final = `BEGIN;\nSET LOCAL lock_timeout='3s';\nSET LOCAL statement_timeout='30s';\nSELECT pg_advisory_xact_lock(hashtext('grammar-content-import'));\nDO $verify$ BEGIN\n IF (SELECT count(*) FROM grammar.grammar_topics WHERE source_metadata->>'contentHash'=${literal(catalog.contentHash)})<>8 OR (SELECT count(*) FROM grammar.grammar_quiz_items WHERE source_metadata->>'contentHash'=${literal(catalog.contentHash)})<>1600 THEN RAISE EXCEPTION 'Incomplete content release'; END IF;\n IF EXISTS(SELECT 1 FROM grammar.content_releases WHERE version=${literal(catalog.version)} AND content_hash<>${literal(catalog.contentHash)}) THEN RAISE EXCEPTION 'Release hash conflict'; END IF;\nEND $verify$;\nINSERT INTO grammar.content_releases(version,content_hash,topic_count,question_count,sources,review_status) VALUES(${literal(catalog.version)},${literal(catalog.contentHash)},8,1600,${json(catalog.sources)},'automated-checked; educator-review-pending') ON CONFLICT(version) DO NOTHING;\nCOMMIT;\n`;
-files.push("09-finalize.sql");
-await writeFile(dir + "/09-finalize.sql", final);
+const final = `BEGIN;\nSET LOCAL lock_timeout='3s';\nSET LOCAL statement_timeout='30s';\nSELECT pg_advisory_xact_lock(hashtext('grammar-content-import'));\nDO $verify$ BEGIN\n ${retainedChecks}\n IF (SELECT count(*) FROM grammar.grammar_topics WHERE source_metadata->>'contentHash'=${literal(catalog.contentHash)})<>${addedTopics.length} OR (SELECT count(*) FROM grammar.grammar_quiz_items WHERE source_metadata->>'contentHash'=${literal(catalog.contentHash)})<>${addedQuestions} THEN RAISE EXCEPTION 'Incomplete content release'; END IF;\n IF EXISTS(SELECT 1 FROM grammar.content_releases WHERE version=${literal(catalog.version)} AND content_hash<>${literal(catalog.contentHash)}) THEN RAISE EXCEPTION 'Release hash conflict'; END IF;\nEND $verify$;\nINSERT INTO grammar.content_releases(version,content_hash,topic_count,question_count,sources,review_status) VALUES(${literal(catalog.version)},${literal(catalog.contentHash)},${addedTopics.length},${addedQuestions},${json(catalog.sources)},'automated-checked; educator-review-pending') ON CONFLICT(version) DO NOTHING;\nCOMMIT;\n`;
+const finalizeName = `${String(catalog.topics.length + 1).padStart(2, "0")}-finalize.sql`;
+files.push(finalizeName);
+await writeFile(dir + "/" + finalizeName, final);
 await writeFile(
   dir + "/manifest.json",
   JSON.stringify(
-    { version: catalog.version, contentHash: catalog.contentHash, files },
+    {
+      version: catalog.version,
+      contentHash: catalog.contentHash,
+      progressVersion: catalog.progressVersion,
+      addedTopics: addedTopics.length,
+      addedQuestions,
+      retainedReleases: Object.fromEntries(
+        Object.entries(retainedReleases).map(([version, r]) => [
+          version,
+          r.contentHash,
+        ]),
+      ),
+      totalTopics: catalog.topics.length,
+      totalQuestions: catalog.topics.reduce(
+        (n, t) => n + t.quizItems.length,
+        0,
+      ),
+      files,
+    },
     null,
     2,
   ) + "\n",

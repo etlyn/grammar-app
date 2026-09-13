@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { grammarCatalog, catalogVersion } from "../services/contentService";
+import { grammarCatalog, progressVersion } from "../services/contentService";
 import {
   createSession,
   initialLearningState,
@@ -8,7 +8,7 @@ import {
   type LearningAction,
 } from "../utils/learningState";
 import type { QuizChoice } from "../types/grammar";
-const STORAGE_KEY = `grammacho-web-progress:${catalogVersion}`;
+const STORAGE_KEY = `grammacho-web-progress:${progressVersion}`;
 
 export function useProgress() {
   const [storageMessage, setStorageMessage] = useState("");

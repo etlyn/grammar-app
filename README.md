@@ -1,8 +1,8 @@
 # Grammacho web beta
 
-English foundation practice with Vite, React and TypeScript. Eight topics each include 200 original practice questions, short explanations and published learning references.
+English foundation practice with Vite, React and TypeScript. Eighteen topics each include 200 original practice questions, short explanations and published learning references.
 
-The questions were generated offline with AI assistance using British Council grammar guidance and the structure of Portland Community College's _A Digital Workbook for Beginning ESOL_. They are **not copied publisher exercises, official test material, endorsed school content, or a calibrated CEFR assessment**. Automated checks have passed; independent educator review remains pending. Each bank has 50 lexical/situational contexts and four practice tasks per context. See [curriculum coverage and expansion rules](content/INDEX.md).
+The questions were generated offline with AI assistance using British Council grammar guidance; the first eight topics also follow the structure of Portland Community College's _A Digital Workbook for Beginning ESOL_. They are **not copied publisher exercises, official test material, endorsed school content, or a calibrated CEFR assessment**. Automated checks have passed; independent educator review remains pending. Each bank has 50 lexical/situational contexts and four practice tasks per context. See [curriculum coverage and expansion rules](content/INDEX.md).
 
 ## Development
 
@@ -48,3 +48,21 @@ The standalone Supabase project was retired on 2026-09-12. See [the consolidatio
 ## Mobile
 
 `mobile/` retains the earlier React Native client and seed curriculum. This release changes the web app only, except for backward-compatible optional additions to shared types.
+
+## Web reading and keyboard controls
+
+Read and Practice are separate views. Lessons use a single reading column with linked sections, examples, and expandable study goals and source notes. Selecting another topic opens its lesson; switching back to Practice resumes checked answers. The chosen view is remembered on this browser.
+
+Quiz choices stay editable until checked:
+
+- Tab / Shift+Tab: move between controls; the answers form one native radio group.
+- Arrow keys: move and select within the answers. Space also selects the focused choice.
+- Enter on an answer: check it and focus Next. Press Enter again to advance. The new question focuses its first answer; finishing focuses the result heading.
+- Left / Right and Home / End: switch the Read / Practice tabs when a tab is focused.
+- Escape: close the mobile topic dialog and restore focus to Topics.
+
+Hints, answer review, sources, and progress disclosures also work with Tab and Enter. Keyboard actions are scoped to the focused controls. Focus uses a single visible edge; reduced motion and forced-colors settings are respected. Only checked answers are saved; an unsubmitted choice is not persisted.
+
+## Additive curriculum release
+
+`foundations-2026-09-v2` adds ten topics and 2,000 questions: 18 topics and 3,600 questions in the combined offline catalog. The first eight banks remain unchanged. Each added lesson links to British Council guidance; the app does not claim an official school sequence or publisher approval. See [extension coverage and review boundaries](content/extension/README.md). The original browser progress key is retained so checked answers and sessions survive this expansion.

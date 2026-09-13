@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, type KeyboardEvent } from "react";
+import { flushSync } from "react-dom";
 import { PracticePanel } from "./components/PracticePanel";
-import { ProgressDashboard } from "./components/ProgressDashboard";
 import { TopicReader } from "./components/TopicReader";
 import { TopicSidebar } from "./components/TopicSidebar";
 import { useProgress } from "./hooks/useProgress";
@@ -9,134 +9,238 @@ import {
   catalogVersion,
 } from "./services/contentService";
 
+type View = "read" | "practice";
+const viewKey = "grammacho-web-view";
 export default function App() {
   const learning = useProgress();
   const topic = topics.find((t) => t.slug === learning.activeSlug) ?? topics[0];
   const nextTopic = topics[topics.indexOf(topic) + 1];
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [view, setView] = useState<View>(() => {
+    try {
+      return localStorage.getItem(viewKey) === "practice" ? "practice" : "read";
+    } catch {
+      return "read";
+    }
+  });
+  const dialog = useRef<HTMLDialogElement>(null);
+  const readTab = useRef<HTMLButtonElement>(null);
+  const practiceTab = useRef<HTMLButtonElement>(null);
+  const content = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (!menuOpen) return;
-    const previous = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    const close = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setMenuOpen(false);
-    };
-    window.addEventListener("keydown", close);
-    return () => {
-      document.body.style.overflow = previous;
-      window.removeEventListener("keydown", close);
-    };
-  }, [menuOpen]);
+    try {
+      localStorage.setItem(viewKey, view);
+    } catch {
+      /* Learning hook reports storage failures. */
+    }
+  }, [view]);
   const select = (slug: string) => {
     learning.selectTopic(slug);
-    setMenuOpen(false);
+    setView("read");
+    dialog.current?.close();
+    requestAnimationFrame(() => {
+      readTab.current?.focus({ preventScroll: true });
+      window.scrollTo({ top: 0, behavior: "instant" });
+    });
   };
+  const changeView = (next: View) => {
+    if (view === next) return;
+    if (
+      document.startViewTransition &&
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      document.startViewTransition(() => flushSync(() => setView(next)));
+    } else setView(next);
+  };
+  const tabKeys = (event: KeyboardEvent<HTMLButtonElement>) => {
+    if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+    event.preventDefault();
+    const next =
+      event.key === "Home"
+        ? "read"
+        : event.key === "End"
+          ? "practice"
+          : view === "read"
+            ? "practice"
+            : "read";
+    changeView(next);
+    (next === "read" ? readTab : practiceTab).current?.focus();
+  };
+  const practise = () => {
+    setView("practice");
+    requestAnimationFrame(() => {
+      content.current?.focus({ preventScroll: true });
+      window.scrollTo({ top: 0, behavior: "instant" });
+    });
+  };
+  const sidebar = (mobile = false) => (
+    <TopicSidebar
+      topics={topics}
+      activeSlug={topic.slug}
+      progress={learning.progress}
+      onSelect={select}
+      onClose={mobile ? () => dialog.current?.close() : undefined}
+    />
+  );
   return (
-    <main className="min-h-screen bg-[#fbf9ff] text-slate-950">
-      <header className="sticky top-0 z-30 border-b border-indigo-100 bg-white/95 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-3">
-            <button
-              className="rounded-xl border border-indigo-200 px-3 py-2 font-bold text-indigo-700 lg:hidden"
-              aria-expanded={menuOpen}
-              onClick={() => setMenuOpen((v) => !v)}
-              type="button"
-            >
-              Topics
-            </button>
-            <img
-              src="/assets/grammacho-logo.png"
-              alt=""
-              className="h-9 w-9 rounded-xl"
-            />
-            <div>
-              <h1 className="font-black">
-                Grammacho{" "}
-                <span className="ml-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-bold text-indigo-600">
-                  Beta
-                </span>
-              </h1>
-              <p className="hidden text-xs text-slate-500 sm:block">
-                English foundations · Learn, practise, review
-              </p>
-            </div>
-          </div>
-          <p className="text-right text-xs font-medium text-slate-500">
-            Progress saved
-            <br />
-            on this browser
-          </p>
+    <div className="app-shell">
+      <a className="skip-link" href="#lesson-content">
+        Skip to lesson
+      </a>
+      <header className="app-header">
+        <a
+          className="brand"
+          href="#lesson-content"
+          aria-label="Grammacho, skip to lesson"
+        >
+          <img src="/assets/grammacho-logo.png" alt="" width="32" height="32" />
+          <span>Grammacho</span>
+          <span className="beta-label">Beta</span>
+        </a>
+        <div className="header-actions">
+          <span className="save-note">Saved on this browser</span>
+          <button
+            className="button secondary mobile-menu"
+            onClick={() => dialog.current?.showModal()}
+            type="button"
+            aria-haspopup="dialog"
+          >
+            Topics
+          </button>
         </div>
       </header>
-      <ProgressDashboard {...learning.totals} syncing={false} />
-      <div className="mx-auto max-w-7xl px-4 pt-4 sm:px-6 lg:px-8">
-        {learning.storageMessage && (
-          <p
-            role="alert"
-            className="mb-3 rounded-2xl bg-amber-50 p-4 text-sm text-amber-950"
-          >
-            {learning.storageMessage}
-          </p>
-        )}
-        {learning.legacyProgress && (
-          <details className="mb-3 rounded-2xl bg-white p-3 text-sm text-slate-600">
-            <summary className="cursor-pointer font-semibold">
-              A fresh start with the foundation curriculum
+      <div className="workspace">
+        <aside className="desktop-sidebar">
+          {sidebar()}
+          <details className="progress-details">
+            <summary>
+              Your progress{" "}
+              <span>
+                {learning.totals.completedTopics}/{topics.length}
+              </span>
             </summary>
-            <p className="mt-2">
-              Your earlier prototype progress is preserved separately in this
-              browser. This beta uses new questions, so completion starts fresh.
-            </p>
+            <div className="disclosure-content">
+              <p>
+                {learning.totals.completedTopics} of {topics.length} topics
+                complete
+              </p>
+              <p>
+                {learning.totals.correctAnswers} correct of{" "}
+                {learning.totals.totalAnswers} answers ·{" "}
+                {learning.totals.accuracy}% accuracy
+              </p>
+              <p className="muted">
+                Score 16/20 in one session to complete a topic. Progress stays
+                on this browser.
+              </p>
+            </div>
           </details>
-        )}
-        <p className="text-sm leading-6 text-slate-600">
-          8 foundation topics · 200 practice questions per topic · No account
-          needed
-        </p>
-      </div>
-      {menuOpen && (
-        <div className="fixed inset-x-0 bottom-0 top-[69px] z-40 flex flex-col bg-slate-950/30 p-3 lg:hidden">
-          <div className="h-full max-w-sm">
-            <TopicSidebar
-              topics={topics}
-              activeSlug={topic.slug}
-              progress={learning.progress}
-              onSelect={select}
-              onClose={() => setMenuOpen(false)}
-            />
+          <p className="rail-note">A little practice, at your pace.</p>
+        </aside>
+        <dialog
+          ref={dialog}
+          className="topics-dialog"
+          aria-label="Grammar topics"
+          onClick={(event) => {
+            if (event.target === dialog.current) dialog.current?.close();
+          }}
+        >
+          {sidebar(true)}
+          <p className="muted mobile-progress">
+            {learning.totals.completedTopics} of {topics.length} topics complete
+            · Progress stays on this browser.
+          </p>
+        </dialog>
+        <main className="learning-space">
+          {learning.storageMessage && (
+            <p role="alert" className="notice">
+              {learning.storageMessage}
+            </p>
+          )}
+          {learning.legacyProgress && (
+            <details className="small-disclosure">
+              <summary>About your earlier progress</summary>
+              <p>
+                Your earlier prototype progress is preserved separately in this
+                browser. This beta uses new questions, so completion starts
+                fresh.
+              </p>
+            </details>
+          )}
+          <div className="lesson-toolbar">
+            <span className="topic-position">
+              Foundations <span aria-hidden="true">/</span>{" "}
+              {String(topics.indexOf(topic) + 1).padStart(2, "0")}
+            </span>
+            <div
+              className="view-tabs"
+              role="tablist"
+              aria-label="Learning mode"
+            >
+              <button
+                ref={readTab}
+                id="read-tab"
+                role="tab"
+                aria-selected={view === "read"}
+                aria-controls="lesson-content"
+                tabIndex={view === "read" ? 0 : -1}
+                onKeyDown={tabKeys}
+                onClick={() => changeView("read")}
+              >
+                Read
+              </button>
+              <button
+                ref={practiceTab}
+                id="practice-tab"
+                role="tab"
+                aria-selected={view === "practice"}
+                aria-controls="lesson-content"
+                tabIndex={view === "practice" ? 0 : -1}
+                onKeyDown={tabKeys}
+                onClick={() => changeView("practice")}
+              >
+                Practice
+              </button>
+            </div>
           </div>
-        </div>
-      )}
-      <div className="mx-auto grid max-w-7xl gap-6 px-4 py-5 sm:px-6 lg:grid-cols-[20rem_minmax(0,1fr)] lg:px-8">
-        <div className="hidden lg:block">
-          <TopicSidebar
-            topics={topics}
-            activeSlug={topic.slug}
-            progress={learning.progress}
-            onSelect={select}
-          />
-        </div>
-        <div className="min-w-0 space-y-6">
-          <PracticePanel
-            key={topic.slug}
-            topic={topic}
-            progress={learning.progress[topic.slug]}
-            session={learning.sessions[topic.slug]}
-            onStart={() => learning.startSession(topic.slug)}
-            onAnswer={(sessionId, itemId, choice) =>
-              learning.answer(topic.slug, sessionId, itemId, choice)
-            }
-            onNext={(sessionId) => learning.next(topic.slug, sessionId)}
-            onReset={() => learning.resetTopic(topic.slug)}
-            onContinue={nextTopic ? () => select(nextTopic.slug) : undefined}
-          />
-          <TopicReader topic={topic} progress={learning.progress[topic.slug]} />
-        </div>
+          <div
+            ref={content}
+            id="lesson-content"
+            className="lesson-content"
+            role="tabpanel"
+            tabIndex={0}
+            aria-labelledby={`${view}-tab`}
+          >
+            {view === "read" ? (
+              <TopicReader
+                key={topic.slug}
+                topic={topic}
+                onPractice={practise}
+              />
+            ) : (
+              <PracticePanel
+                key={topic.slug}
+                topic={topic}
+                progress={learning.progress[topic.slug]}
+                session={learning.sessions[topic.slug]}
+                onStart={() => learning.startSession(topic.slug)}
+                onAnswer={(sessionId, itemId, choice) =>
+                  learning.answer(topic.slug, sessionId, itemId, choice)
+                }
+                onNext={(sessionId) => learning.next(topic.slug, sessionId)}
+                onReset={() => learning.resetTopic(topic.slug)}
+                onContinue={
+                  nextTopic ? () => select(nextTopic.slug) : undefined
+                }
+              />
+            )}
+          </div>
+          <footer className="app-footer">
+            Original practice with published references.
+            <br />
+            Educator review pending · Curriculum {catalogVersion}
+          </footer>
+        </main>
       </div>
-      <footer className="mx-auto max-w-7xl px-4 pb-8 text-xs leading-6 text-slate-500 sm:px-6 lg:px-8">
-        Curriculum {catalogVersion}. Original practice with published
-        references; educator review pending. Progress stays on this browser.
-      </footer>
-    </main>
+    </div>
   );
 }
