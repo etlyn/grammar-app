@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 1,
+  "app": {
+    "id": "grammacho-web",
+    "name": "Grammacho Web",
+    "platform": "web"
+  },
+  "suites": [
+    {
+      "id": "learning",
+      "title": "Read and practice (R1)",
+      "cases": [
+        {
+          "id": "map-search",
+          "title": "Find a grammar concept",
+          "steps": [
+            {
+              "action": "Search Negation from the Grammar map; open a result.",
+              "expected": "The matching reading section opens and navigation remains available."
+            }
+          ]
+        },
+        {
+          "id": "practice",
+          "title": "Complete practice and review answers",
+          "steps": [
+            {
+              "action": "Start a 20-question session; submit one incorrect and nineteen correct answers.",
+              "expected": "Feedback explains each answer; result is 19/20 with one item to review."
+            }
+          ]
+        },
+        {
+          "id": "keyboard",
+          "title": "Complete the keyboard-only practice loop",
+          "steps": [
+            {
+              "action": "Use Tab, arrows, Space, Enter and hint controls through a session.",
+              "expected": "Selection alone does not submit; focus moves to feedback/next controls; hint controls remain operable."
+            }
+          ]
+        },
+        {
+          "id": "restore",
+          "title": "Resume checked answers",
+          "steps": [
+            {
+              "action": "Submit a question, reload, and return to practice.",
+              "expected": "Checked answers/order/progress are restored; unsubmitted choices are not claimed as saved."
+            }
+          ]
+        },
+        {
+          "id": "reset",
+          "title": "Reset one topic",
+          "steps": [
+            {
+              "action": "Confirm reset of one topic after saving work in two topics.",
+              "expected": "Only the selected topic resets; cancelling preserves all progress."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "offline",
+      "title": "Offline and accessible replay (R3)",
+      "cases": [
+        {
+          "id": "offline-reopen",
+          "title": "Replay after service-worker installation",
+          "steps": [
+            {
+              "action": "Load once online and wait for caching; go offline, reload and start practice.",
+              "expected": "Bundled reading/practice work without remote APIs; external references need connectivity."
+            }
+          ]
+        },
+        {
+          "id": "narrow-layout",
+          "title": "Narrow viewport and topic dialog",
+          "steps": [
+            {
+              "action": "Open at 390px; select a topic, close the dialog with Escape and return.",
+              "expected": "No horizontal overflow; focus returns to the Topics trigger."
+            }
+          ]
+        },
+        {
+          "id": "forced-colors",
+          "title": "Forced colors and reduced motion",
+          "steps": [
+            {
+              "action": "Enable forced colors/reduced motion; navigate reading and practice.",
+              "expected": "Focus, checked/incorrect states and controls remain distinguishable."
+            }
+          ]
+        },
+        {
+          "id": "screen-reader",
+          "title": "Screen-reader feedback",
+          "steps": [
+            {
+              "action": "Use VoiceOver to select, check, review and advance questions.",
+              "expected": "Question, choices, checked result and current action have understandable announcements."
+            }
+          ]
+        },
+        {
+          "id": "storage-loss",
+          "title": "Explain local-only progress",
+          "steps": [
+            {
+              "action": "Inspect storage/privacy copy; clear browser data in a disposable profile.",
+              "expected": "The product explains local progress and does not promise cloud backup."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pilot",
+      "title": "Independent review and learner pilot (R2/R4)",
+      "cases": [
+        {
+          "id": "educator-review",
+          "title": "Independent educator review",
+          "steps": [
+            {
+              "action": "Have a qualified reviewer inspect the selected pilot explanations/questions/keys.",
+              "expected": "Record the actual scope/date and corrections; do not infer approval from automated checks."
+            }
+          ]
+        },
+        {
+          "id": "learner-outcome",
+          "title": "Tutor-led learner outcome",
+          "steps": [
+            {
+              "action": "An approved tutor/learner tries the reviewed topic and later returns.",
+              "expected": "Record observed usefulness, errors and supported return evidence without claiming calibrated proficiency."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

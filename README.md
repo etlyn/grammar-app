@@ -47,7 +47,7 @@ The standalone Supabase project was retired on 2026-09-12. See [the consolidatio
 
 ## Mobile
 
-`mobile/` retains the earlier React Native client and seed curriculum. This release changes the web app only, except for backward-compatible optional additions to shared types.
+The legacy React Native client now lives in the separate local `grammacho-mobile` repository. Its mobile history and required curriculum modules were preserved. This repository owns the web beta and its content archive. See [the extraction record](docs/mobile-extraction.md).
 
 ## Web reading and keyboard controls
 

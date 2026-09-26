@@ -1,4 +1,5 @@
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
+const { expect } = require((process.env.PLAYWRIGHT_MODULE || "playwright") + "/test");
 const fs = require("node:fs");
 const path = require("node:path");
 const os = require("node:os");
@@ -40,6 +41,8 @@ const assert = require("node:assert/strict");
   await page
     .getByRole("heading", { name: "Question 1 of 20", exact: true })
     .waitFor();
+  await page.getByRole("radio").first().waitFor();
+  await page.evaluate(async () => { await Promise.all(document.getAnimations().map(a => a.finished.catch(() => {}))); });
   await page.screenshot({ path: desktopImage, fullPage: true });
   const key = await page.evaluate(() =>
     Object.keys(localStorage).find((k) =>
@@ -53,6 +56,8 @@ const assert = require("node:assert/strict");
     ),
   );
   for (let i = 0; i < 20; i++) {
+    await page.getByRole("heading", {name: `Question ${i + 1} of 20`, exact: true}).waitFor();
+    await expect(page.getByRole("radio").first()).toBeFocused();
     const state = await page.evaluate(
       (key) => JSON.parse(localStorage.getItem(key)),
       key,
@@ -92,12 +97,7 @@ const assert = require("node:assert/strict");
     await page.keyboard.press("Space");
     for (let move = 0; move < targetIndex; move++)
       await page.keyboard.press("ArrowDown");
-    assert.equal(
-      await page
-        .getByRole("radio", { name: chosen.text, exact: true })
-        .isChecked(),
-      true,
-    );
+    await expect(page.getByRole("radio", { name: chosen.text, exact: true })).toBeChecked();
     await page
       .getByText(`${i} ${i === 1 ? "answer" : "answers"} saved`, {
         exact: true,
@@ -112,22 +112,18 @@ const assert = require("node:assert/strict");
         )
         .waitFor();
       await page.keyboard.press("ArrowRight");
-      assert.equal(
-        await page
-          .getByRole("radio", { name: chosen.text, exact: true })
-          .isChecked(),
-        true,
-      );
+      await expect(page.getByRole("radio", { name: chosen.text, exact: true })).toBeChecked();
       assert.equal(
         await page.evaluate(() => document.activeElement.value),
         chosen.id,
       );
       await page.getByText("1 answer saved", { exact: true }).waitFor();
     }
-    await page.keyboard.press(i % 2 ? "ArrowRight" : "Enter");
-    assert.match(
-      await page.evaluate(() => document.activeElement.textContent),
-      /Next question|Finish session/,
+    await expect(page.getByRole("button", { name: "Check answer", exact: true })).toBeEnabled();
+    await page.getByRole("radio", { name: chosen.text, exact: true }).press(i % 2 ? "ArrowRight" : "Enter");
+    await page.waitForFunction(() =>
+      document.activeElement?.matches("button") &&
+      /Next question|Finish session/.test(document.activeElement.textContent || ""),
     );
     if (i === 0) {
       await page.reload();
@@ -145,7 +141,7 @@ const assert = require("node:assert/strict");
     .waitFor();
   assert.equal(await page.locator(".review-item.needs-review").count(), 1);
   await page.locator(".review-item.needs-review > summary").press("Enter");
-  await page.getByText("How to find the answer", { exact: true }).waitFor();
+  await page.locator(".review-item.needs-review").getByText("How to find the answer", { exact: true }).waitFor();
   await page.reload();
   await page
     .getByRole("heading", { name: "You scored 19/20 · 95%", exact: true })
