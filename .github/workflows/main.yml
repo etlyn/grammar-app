@@ -27,7 +27,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20.x"
+          node-version: "24.x"
           cache: yarn
 
       - name: Install
@@ -49,6 +49,31 @@ jobs:
         run: |
           yarn build
           touch ./dist/.nojekyll
+
+      - name: Install Chromium
+        run: yarn playwright install --with-deps chromium
+
+      - name: Run real browser acceptance
+        env:
+          GRAMMACHO_BUILD_SHA: ${{ github.sha }}
+          GRAMMACHO_RESULTS_PATH: browser-outcomes.json
+        run: |
+          yarn preview --host 127.0.0.1 --port 4173 --strictPort > /tmp/grammacho-preview.log 2>&1 &
+          PREVIEW_PID=$!
+          trap 'kill "$PREVIEW_PID"' EXIT
+          for attempt in $(seq 1 60); do
+            curl --fail --silent http://127.0.0.1:4173 > /dev/null && break
+            sleep 1
+          done
+          yarn test:browser
+
+      - name: Preserve executed outcomes
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-acceptance
+          path: browser-outcomes.json
+          if-no-files-found: warn
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
