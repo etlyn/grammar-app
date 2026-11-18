@@ -18,7 +18,8 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    # Keep the runner compatible with the pinned Playwright browser/dependency build.
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout 🛎️
@@ -84,7 +85,8 @@ jobs:
     if: github.event_name != 'pull_request'
     environment:
       name: github-pages
-    runs-on: ubuntu-latest
+    # Keep the runner compatible with the pinned Playwright browser/dependency build.
+    runs-on: ubuntu-24.04
     needs: build
     steps:
       - name: Deploy to GitHub Pages
