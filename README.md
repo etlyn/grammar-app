@@ -45,6 +45,12 @@ For database imports, see [the content release runbook](supabase/content/README.
 
 The standalone Supabase project was retired on 2026-09-12. See [the consolidation runbook](supabase/consolidation/README.md); never point legacy clients at the shared private schema.
 
+## Spanish course materials
+
+The [Spanish course](content/spanish/README.md) adds 30 chapters, 120 reading sections and 720 original exercises for the native app. English explanations accompany Spanish examples and questions, with complete hints, answer feedback, a grammar map and source provenance. Approximate A1–B2 labels are teaching labels; independent educator and native-speaker review remains pending.
+
+Run `yarn content:spanish` to generate the separate `src/generated/catalog-es.json` export, coverage index and complete editorial review TSV. `yarn content:check`, `yarn test` and `yarn build` verify this export as well as the unchanged English catalog. The web interface still loads its English snapshot; Spanish activation is in the independent native client.
+
 ## Mobile
 
 The legacy React Native client now lives in the separate local `grammacho-mobile` repository. Its mobile history and required curriculum modules were preserved. This repository owns the web beta and its content archive. See [the extraction record](docs/mobile-extraction.md).

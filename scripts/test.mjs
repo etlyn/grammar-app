@@ -24,7 +24,12 @@ try {
   else {
     const result = spawnSync(
       process.execPath,
-      ["--test", "tests/content.test.mjs", "tests/learning.test.cjs"],
+      [
+        "--test",
+        "tests/content.test.mjs",
+        "tests/spanish-content.test.mjs",
+        "tests/learning.test.cjs",
+      ],
       {
         stdio: "inherit",
         env: { ...process.env, LEARNING_BUILD_DIR: directory },
