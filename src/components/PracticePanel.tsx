@@ -1,4 +1,10 @@
-import { useEffect, useRef, useState, type KeyboardEvent } from "react";
+import {
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type KeyboardEvent,
+} from "react";
 import type { GrammarTopic, QuizChoice, TopicProgress } from "../types/grammar";
 import { AnswerExplanation } from "./AnswerExplanation";
 import { RichText } from "./RichText";
@@ -49,7 +55,7 @@ export function PracticePanel({
     ? topic.quizItems.find((q) => q.id === session.itemIds[displayIndex])
     : undefined;
   const answer = session?.answers.find((a) => a.itemId === item?.id);
-  useEffect(() => {
+  useLayoutEffect(() => {
     setDraft(null);
     setShowHint(false);
     setConfirmReset(false);
