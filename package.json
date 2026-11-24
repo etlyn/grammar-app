@@ -20,6 +20,7 @@
     "content:spanish:check": "node scripts/build-spanish-content.mjs --check"
   },
   "dependencies": {
+    "@etlyn/etlyn-auth": "file:vendor/etlyn-etlyn-auth-0.1.0.tgz",
     "@supabase/supabase-js": "^2.49.8",
     "react": "18.2.0",
     "react-dom": "18.2.0"

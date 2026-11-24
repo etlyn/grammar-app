@@ -1088,3 +1088,205 @@ body:has(.topics-dialog[open]) {
 .grammar-map .grammar-area > div:not([hidden]) { animation: panel-enter .2s ease-in-out; }
 @media (max-width: 680px) { .map-counts { font-size: .78rem; gap: .4rem; } .grammar-area-toggle { padding: 1.2rem 0; } .map-search-controls { margin-top: 2rem; } }
 @media (prefers-reduced-motion: reduce) { .grammar-map .grammar-area > div:not([hidden]) { animation: none; } }
+
+/* Optional accounts use the existing web controls and quiet reading surfaces. */
+.account-dialog {
+  width: min(460px, calc(100vw - 32px));
+  max-height: calc(100dvh - 48px);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 28px;
+  color: var(--ink);
+  background: #fff;
+  overflow-y: auto;
+}
+.account-dialog::backdrop {
+  background: #25232c66;
+}
+.account-dialog-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.account-dialog-header h2 {
+  font-size: 24px;
+}
+.account-close {
+  min-width: 36px;
+  min-height: 36px;
+  font-size: 28px;
+  line-height: 1;
+}
+.account-dialog .muted {
+  line-height: 1.6;
+  font-size: 14px;
+}
+.account-form {
+  display: grid;
+  gap: 18px;
+  margin-top: 20px;
+}
+.account-form label {
+  display: grid;
+  gap: 8px;
+  font-size: 14px;
+}
+.account-form input {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: var(--ink);
+  background: #fff;
+}
+.account-form .button,
+.google-button {
+  width: 100%;
+  justify-content: center;
+  min-height: 44px;
+}
+.google-button {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  border: 1px solid var(--line);
+}
+.account-divider {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+}
+.account-status {
+  line-height: 1.6;
+  font-size: 14px;
+  margin-top: 16px;
+  overflow-wrap: anywhere;
+}
+.account-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 18px;
+}
+.account-links .text-button {
+  font-size: 13px;
+  min-height: 36px;
+}
+.account-guest {
+  width: 100%;
+  margin-top: 16px;
+  min-height: 44px;
+}
+.account-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+.account-clear {
+  margin-top: 24px;
+  min-height: 44px;
+}
+.account-clear-confirm {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+.account-clear-confirm p {
+  font-size: 14px;
+  line-height: 1.6;
+}
+.account-clear-confirm label {
+  display: grid;
+  gap: 8px;
+  margin-top: 16px;
+  font-size: 12px;
+}
+.account-clear-confirm input {
+  min-height: 44px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-size: 16px;
+}
+.guest-import {
+  padding: 22px;
+  margin: 24px 0;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+.guest-import h2,
+.mistake-suggestions h2 {
+  font-size: 21px;
+  margin-bottom: 10px;
+}
+.guest-import p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.mistake-suggestions {
+  margin-top: 40px;
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+}
+.suggestion-list {
+  display: grid;
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.suggestion-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+.suggestion-list p {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.mistake-suggestions details {
+  margin-top: 18px;
+}
+.mistake-item {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+.mistake-item p {
+  font-size: 14px;
+  line-height: 1.65;
+}
+.mistake-item .account-actions {
+  margin-top: 10px;
+}
+@media (max-width: 760px) {
+  .account-dialog {
+    padding: 22px;
+  }
+  .account-form input {
+    font-size: 16px;
+  }
+  .account-close,
+  .account-links .text-button,
+  .account-actions .button,
+  .account-trigger {
+    min-height: 44px;
+  }
+  .suggestion-list li {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+}

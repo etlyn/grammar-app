@@ -5,6 +5,9 @@ import { GrammarMap } from "./components/GrammarMap";
 import { TopicReader } from "./components/TopicReader";
 import { TopicSidebar } from "./components/TopicSidebar";
 import { useProgress } from "./hooks/useProgress";
+import { useAuth, type AccountAuth } from "./hooks/useAuth";
+import { AuthPanel } from "./components/AuthPanel";
+import { MistakeSuggestions } from "./components/MistakeSuggestions";
 import {
   grammarCatalog as topics,
   catalogVersion,
@@ -13,7 +16,18 @@ import {
 type View = "map" | "read" | "practice";
 const viewKey = "grammacho-web-view";
 export default function App() {
-  const learning = useProgress();
+  const auth = useAuth();
+  if (!auth.hydrated)
+    return (
+      <main className="account-startup" aria-busy="true">
+        <p>Opening your learning…</p>
+      </main>
+    );
+  return <LearningWorkspace key={auth.user?.id ?? "guest"} auth={auth} />;
+}
+
+function LearningWorkspace({ auth }: { auth: AccountAuth }) {
+  const learning = useProgress(auth.user?.id ?? null);
   const topic = topics.find((t) => t.slug === learning.activeSlug) ?? topics[0];
   const nextTopic = topics[topics.indexOf(topic) + 1];
   const [view, setView] = useState<View>(() => {
@@ -124,7 +138,22 @@ export default function App() {
           <span className="beta-label">Beta</span>
         </a>
         <div className="header-actions">
-          <span className="save-note">Saved on this browser</span>
+          <span className="save-note">
+            {auth.user &&
+            !learning.pendingCount &&
+            learning.syncMessage === "Progress synced to your account."
+              ? "Saved to your account"
+              : "Saved on this browser"}
+          </span>
+          <AuthPanel
+            auth={auth}
+            syncing={learning.syncing}
+            syncMessage={learning.syncMessage}
+            pendingCount={learning.pendingCount}
+            onSync={learning.sync}
+            onClear={learning.clearAccountData}
+            clearing={learning.clearing}
+          />
           <button
             className="button secondary mobile-menu"
             onClick={() => dialog.current?.showModal()}
@@ -178,6 +207,36 @@ export default function App() {
           </p>
         </dialog>
         <main className="learning-space">
+          {learning.canImport && (
+            <section
+              className="guest-import"
+              aria-labelledby="guest-import-title"
+            >
+              <h2 id="guest-import-title">Keep your browser progress?</h2>
+              <p>
+                Your account is separate from guest learning. Add the progress
+                saved on this browser to this account, or keep it on this
+                browser. Older mistakes can only be recovered where their
+                answers were saved.
+              </p>
+              <div className="account-actions">
+                <button
+                  type="button"
+                  className="button primary"
+                  onClick={learning.importGuest}
+                >
+                  Add to my account
+                </button>
+                <button
+                  type="button"
+                  className="button secondary"
+                  onClick={learning.declineImport}
+                >
+                  Keep on this browser
+                </button>
+              </div>
+            </section>
+          )}
           {learning.storageMessage && (
             <p role="alert" className="notice">
               {learning.storageMessage}
@@ -283,6 +342,13 @@ export default function App() {
               />
             )}
           </div>
+          <MistakeSuggestions
+            mistakes={learning.mistakes}
+            suggestions={learning.suggestions}
+            topics={topics}
+            onRead={select}
+            onReviewed={learning.markReviewed}
+          />
           <footer className="app-footer">
             <details className="curriculum-about">
               <summary>About this learning path</summary>
@@ -318,7 +384,10 @@ export default function App() {
             </div>
             <p>
               Original practice with published references. Independent educator
-              review pending. Your progress stays on this browser.
+              review pending.{" "}
+              {auth.user
+                ? "Your learning is saved locally and syncs to this account when connected."
+                : "Guest progress stays on this browser. Sign in when you want to save it across devices."}
             </p>
             <p className="release-label">Curriculum {catalogVersion}</p>
           </footer>

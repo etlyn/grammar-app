@@ -29,7 +29,7 @@ All lessons and questions are bundled into the production app. After a successfu
 - Overall accuracy includes all answers. Last/best session scores and completion are separate.
 - Reset clears only the selected topic after an in-app confirmation.
 - Previous prototype progress remains under its old local-storage key. It does not grant completion for the new curriculum.
-- The old CEFR placement test and account/generation UI are not part of this web beta. Historical modules are not imported into its runtime bundle.
+- Accounts are optional. Signed-in learners can sync progress and use their missed questions to find lessons to revisit. See [accounts and progress sync](docs/accounts.md).
 
 ## Content and Supabase
 
@@ -41,7 +41,7 @@ yarn content:check   # fail on drift, duplicates or invalid records
 yarn content:sql     # prepare transactional SQL; does not connect to Supabase
 ```
 
-For database imports, see [the content release runbook](supabase/content/README.md). The browser does not fetch from Supabase or use API keys. No runtime AI function is enabled. Hosted accounts and progress synchronisation remain a separate future FastAPI project.
+For database imports, see [the content release runbook](supabase/content/README.md). The browser uses Supabase for identity and the Etlyn API for account progress. Lessons and question banks remain bundled, and practice works offline.
 
 The standalone Supabase project was retired on 2026-09-12. See [the consolidation runbook](supabase/consolidation/README.md); never point legacy clients at the shared private schema.
 
