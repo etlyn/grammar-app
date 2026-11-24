@@ -10,6 +10,7 @@ try {
       "node_modules/typescript/bin/tsc",
       "src/utils/learningState.ts",
       "src/utils/accountProgress.ts",
+      "src/lib/accountConfig.ts",
       "--module",
       "commonjs",
       "--target",
@@ -31,6 +32,7 @@ try {
         "tests/spanish-content.test.mjs",
         "tests/learning.test.cjs",
         "tests/account-progress.test.cjs",
+        "tests/account-config.test.cjs",
       ],
       {
         stdio: "inherit",
