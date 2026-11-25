@@ -10,6 +10,8 @@ try {
       "node_modules/typescript/bin/tsc",
       "src/utils/learningState.ts",
       "src/utils/accountProgress.ts",
+      "src/utils/progressCache.ts",
+      "src/utils/courseSelection.ts",
       "src/lib/accountConfig.ts",
       "--module",
       "commonjs",
@@ -32,6 +34,8 @@ try {
         "tests/spanish-content.test.mjs",
         "tests/learning.test.cjs",
         "tests/account-progress.test.cjs",
+        "tests/progress-cache.test.cjs",
+        "tests/course-selection.test.cjs",
         "tests/account-config.test.cjs",
       ],
       {

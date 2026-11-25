@@ -26,53 +26,93 @@ const assert = require("node:assert/strict");
   page.on("request", (r) => {
     if (!r.url().startsWith(previewUrl)) remote.push(r.url());
   });
-  await page.goto(previewUrl);
-  await page
-    .getByRole("heading", { name: "The English grammar map", exact: true })
-    .waitFor();
-  assert.equal(await page.locator(".grammar-area").count(), 20);
-  await page
-    .getByRole("searchbox", { name: "Find a concept" })
-    .fill("Negation");
-  assert.ok((await page.locator(".concept-list button:visible").count()) > 0);
-  await page.locator(".concept-list button:visible").first().click();
-  await expect(
-    page.getByRole("tab", { name: "Read", exact: true }),
-  ).toHaveAttribute("aria-selected", "true");
-  await page.getByRole("tab", { name: "Grammar map", exact: true }).click();
-  await expect(
-    page.getByRole("searchbox", { name: "Find a concept" }),
-  ).toHaveValue("");
-  await page
-    .getByRole("button", { name: /Start with the foundations/ })
-    .click();
-  await page
-    .getByRole("tab", { name: "Read", exact: true })
-    .press("ArrowRight");
-  await page
-    .getByRole("button", { name: "Start 20-question practice" })
-    .press("Enter");
-  await page
-    .getByRole("heading", { name: "Question 1 of 20", exact: true })
-    .waitFor();
-  await page.getByRole("radio").first().waitFor();
-  await page.evaluate(async () => {
-    await Promise.all(
-      document.getAnimations().map((a) => a.finished.catch(() => {})),
-    );
-  });
-  await page.screenshot({ path: desktopImage, fullPage: true });
-  const key = await page.evaluate(() =>
-    Object.keys(localStorage).find((k) =>
-      k.startsWith("grammacho-web-progress:"),
-    ),
-  );
+  const useTab = (name) => page.getByRole("tab", { name, exact: true }).click();
+  const goBack = async () => {
+    const button = page.getByRole("button", {
+      name: "Close practice",
+      exact: true,
+    });
+    if (await button.isVisible()) await button.click();
+    else await page.getByRole("button", { name: "Back", exact: true }).click();
+  };
+  const openPractice = () =>
+    page.locator(".rb-reader-practice-bar button").click();
+  const startPractice = () =>
+    page.getByRole("button", { name: "Start 20-question practice" }).click();
   const catalog = JSON.parse(
     fs.readFileSync(
       path.resolve(__dirname, "../src/generated/catalog.json"),
       "utf8",
     ),
   );
+  const spanish = JSON.parse(
+    fs.readFileSync(
+      path.resolve(__dirname, "../src/generated/catalog-es.json"),
+      "utf8",
+    ),
+  );
+  const key = "grammacho-web-progress:" + catalog.progressVersion;
+  const spanishKey = "grammacho-web-progress:" + spanish.progressVersion;
+  const saved = (storageKey) =>
+    page.evaluate(
+      (storageKey) => JSON.parse(localStorage.getItem(storageKey)),
+      storageKey,
+    );
+  await page.goto(previewUrl);
+  await expect(
+    page.getByRole("heading", { name: /Grammar,.*con gusto/ }),
+  ).toBeVisible();
+  await page.reload();
+  await expect(
+    page.getByRole("heading", { name: /Grammar,.*con gusto/ }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "Get started" }).click();
+  await expect(
+    page.getByRole("radio", { name: "Español", exact: true }),
+  ).toBeChecked();
+  await page.getByRole("radio", { name: "English", exact: true }).check();
+  await page.getByRole("button", { name: "Continue", exact: true }).click();
+  await expect(
+    page.getByRole("heading", { name: "Where do you want to start?" }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "Start learning" }).click();
+  await expect(
+    page.getByRole("heading", { name: "Learn", exact: true }),
+  ).toBeVisible();
+  await expect(page.getByRole("tab", { name: "Learn" })).toHaveAttribute(
+    "aria-selected",
+    "true",
+  );
+  await page.screenshot({ path: desktopImage, fullPage: true });
+  await page
+    .getByRole("tab", { name: "Learn", exact: true })
+    .press("ArrowRight");
+  await expect(
+    page.getByRole("tab", { name: "Map", exact: true }),
+  ).toBeFocused();
+  await expect(
+    page.getByRole("heading", { name: "Grammar map", exact: true }),
+  ).toBeVisible();
+  await expect(page.locator(".rb-learning-area-tile")).toHaveCount(20);
+  const mapSearch = page.getByRole("searchbox", {
+    name: "Find a grammar concept",
+  });
+  await mapSearch.fill("Negation");
+  const concept = page.locator(".rb-learning-map-results button").first();
+  await expect(concept).toBeVisible();
+  await concept.click();
+  await expect(page.locator(".rb-reader")).toBeVisible();
+  await goBack();
+  await expect(
+    page.getByRole("heading", { name: "Grammar map", exact: true }),
+  ).toBeVisible();
+  await expect(mapSearch).toHaveValue("Negation");
+  await mapSearch.fill("");
+  await page
+    .getByRole("button", { name: "Start with the foundations" })
+    .click();
+  await openPractice();
+  await startPractice();
   for (let i = 0; i < 20; i++) {
     await page
       .getByRole("heading", { name: `Question ${i + 1} of 20`, exact: true })
@@ -108,7 +148,7 @@ const assert = require("node:assert/strict");
           .getAttribute("aria-expanded"),
         "false",
       );
-      await page.keyboard.press("Tab");
+      await page.getByRole("radio").first().focus();
       await page.keyboard.press("Shift");
       await page
         .getByRole("button", { name: "Hide hint", exact: true })
@@ -167,116 +207,68 @@ const assert = require("node:assert/strict");
       })
       .press("Enter");
   }
-  await page
-    .getByRole("heading", { name: "You scored 19/20 · 95%", exact: true })
-    .waitFor();
-  assert.equal(await page.locator(".review-item.needs-review").count(), 1);
+  const score = page.getByRole("heading", {
+    name: "You scored 19/20 · 95%",
+    exact: true,
+  });
+  await expect(score).toBeVisible();
+  await expect(page.locator(".review-item.needs-review")).toHaveCount(1);
+  await page.getByRole("button", { name: /To review/ }).click();
+  await expect(page.locator(".review-item")).toHaveCount(1);
   await page.locator(".review-item.needs-review > summary").press("Enter");
-  await page
-    .locator(".review-item.needs-review")
-    .getByText("How to find the answer", { exact: true })
-    .waitFor();
+  await expect(
+    page
+      .locator(".review-item.needs-review")
+      .getByText("How to find the answer", { exact: true }),
+  ).toBeVisible();
   await page.reload();
-  await page
-    .getByRole("heading", { name: "You scored 19/20 · 95%", exact: true })
-    .waitFor();
+  await expect(score).toBeVisible();
   await page.evaluate(() => navigator.serviceWorker.ready);
-  await page.waitForFunction(() => !!navigator.serviceWorker.controller);
+  await page.waitForFunction(() => Boolean(navigator.serviceWorker.controller));
   await context.setOffline(true);
   await page.reload();
-  await page
-    .getByRole("heading", { name: "You scored 19/20 · 95%", exact: true })
-    .waitFor();
-  await page
-    .getByRole("button", { name: "Next topic", exact: true })
-    .press("Enter");
-  await page
-    .getByRole("tab", { name: "Read", exact: true })
-    .press("ArrowRight");
-  await page
-    .getByRole("button", { name: "Start 20-question practice" })
-    .click();
-  await page
-    .getByRole("heading", { name: "Question 1 of 20", exact: true })
-    .waitFor();
-  assert.equal(remote.length, 0);
-  assert.equal(errors.length, 0);
-  await context.setOffline(false);
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.reload();
-  await page
-    .getByRole("button", { name: "Topics", exact: true })
-    .press("Enter");
-  await page.keyboard.press("Escape");
-  assert.equal(
-    await page.evaluate(() => document.activeElement.textContent),
-    "Topics",
-  );
-  await page.keyboard.press("Enter");
-  await page.getByRole("searchbox").filter({ visible: true }).fill("articles");
-  await page
-    .getByRole("button", { name: /Articles: a, an and the/ })
-    .filter({ visible: true })
-    .click();
-  await page
-    .getByRole("tab", { name: "Read", exact: true })
-    .press("ArrowRight");
-  await page
-    .getByRole("button", { name: "Start 20-question practice" })
-    .click();
-  await page.screenshot({ path: mobileImage, fullPage: true });
+  await expect(score).toBeVisible();
   assert.ok(
-    await page.evaluate(
-      () => document.documentElement.scrollWidth <= innerWidth,
+    await page.evaluate(() =>
+      document.fonts.check('600 32px "Fraunces Display"'),
     ),
   );
-  // Keep genuine work in a second topic while resetting the completed first.
+  await page.getByRole("button", { name: "Next chapter", exact: true }).click();
+  await openPractice();
+  await startPractice();
+  await expect(
+    page.getByRole("heading", { name: "Question 1 of 20", exact: true }),
+  ).toBeVisible();
   await page.getByRole("radio").first().check();
   await page.getByRole("button", { name: "Check answer", exact: true }).click();
-  await page.setViewportSize({ width: 1440, height: 1000 });
-  const secondState = await page.evaluate(
-    (key) => JSON.parse(localStorage.getItem(key)),
-    key,
-  );
-  const secondSlug = secondState.activeSlug;
+  await expect(page.getByText("1 answer saved", { exact: true })).toBeVisible();
+  await context.setOffline(false);
+
+  // Return through the quiz, reading and results without losing either session.
+  await goBack();
+  await expect(page.locator(".rb-reader")).toBeVisible();
+  await goBack();
+  await expect(score).toBeVisible();
+  const secondState = await saved(key);
+  const secondSlug = catalog.topics[1].slug;
+  assert.equal(secondState.sessions[secondSlug].answers.length, 1);
   await page
-    .locator(".desktop-sidebar .topic-search")
-    .fill(catalog.topics[0].title);
-  await page
-    .locator(".desktop-sidebar .topic-list button")
-    .filter({ hasText: catalog.topics[0].title })
-    .click();
-  await page.getByRole("tab", { name: "Practice", exact: true }).click();
-  await expect(
-    page.getByRole("heading", { name: "You scored 19/20 · 95%", exact: true }),
-  ).toBeVisible();
-  const beforeReset = await page.evaluate(
-    (key) => localStorage.getItem(key),
-    key,
-  );
-  await page
-    .getByRole("button", { name: "Reset topic progress", exact: true })
+    .getByRole("button", { name: "Reset chapter progress", exact: true })
     .click();
   await page
     .getByRole("button", { name: "Keep progress", exact: true })
     .click();
-  assert.equal(
-    await page.evaluate((key) => localStorage.getItem(key), key),
-    beforeReset,
-  );
+  await expect(score).toBeVisible();
   await page
-    .getByRole("button", { name: "Reset topic progress", exact: true })
+    .getByRole("button", { name: "Reset chapter progress", exact: true })
     .click();
   await page
-    .getByRole("button", { name: "Clear this topic", exact: true })
+    .getByRole("button", { name: "Clear this chapter", exact: true })
     .click();
   await expect(
     page.getByRole("button", { name: "Start 20-question practice" }),
   ).toBeVisible();
-  const afterReset = await page.evaluate(
-    (key) => JSON.parse(localStorage.getItem(key)),
-    key,
-  );
+  const afterReset = await saved(key);
   assert.equal(afterReset.sessions[catalog.topics[0].slug], undefined);
   assert.deepEqual(
     afterReset.sessions[secondSlug],
@@ -288,47 +280,106 @@ const assert = require("node:assert/strict");
   );
 
   await page.emulateMedia({ forcedColors: "active", reducedMotion: "reduce" });
-  await page
-    .getByRole("button", { name: "Start 20-question practice" })
-    .click();
+  await startPractice();
   const radio = page.getByRole("radio").first();
-  await expect(radio).toBeVisible();
   await expect(radio).toBeFocused();
-  const radioStyles = await radio.evaluate((el) => ({
-    opacity: getComputedStyle(el).opacity,
-    height: el.getBoundingClientRect().height,
-  }));
-  assert.equal(radioStyles.opacity, "1");
-  assert.ok(radioStyles.height >= 18);
-  await radio.check();
-  await expect(radio).toBeChecked();
-  await page.getByRole("button", { name: "Check answer", exact: true }).click();
-  await expect(page.getByText("Correct answer", { exact: true })).toBeVisible();
-  await expect(page.locator(".answer-feedback > strong")).toBeVisible();
-  assert.equal(
-    await page
-      .locator(".answer-option")
-      .first()
-      .evaluate((el) => getComputedStyle(el).transitionDuration),
-    "0s",
+  await expect(radio).toBeVisible();
+  assert.ok(
+    await radio.evaluate((el) => el.getBoundingClientRect().height >= 18),
   );
+  await radio.check();
+  await page.getByRole("button", { name: "Check answer", exact: true }).click();
+  await expect(
+    page.getByText("Correct answer", { exact: true }).first(),
+  ).toBeVisible();
   await page.screenshot({
     path: path.join(os.tmpdir(), "grammacho-forced-colors.png"),
     fullPage: true,
   });
-  await page.getByRole("tab", { name: "Read", exact: true }).click();
-  await expect(page.locator(".save-note")).toHaveText("Saved on this browser");
+  await page.emulateMedia({ forcedColors: "none", reducedMotion: "reduce" });
+  await goBack();
+  await expect(page.locator(".rb-reader")).toBeVisible();
+  await goBack();
+  await expect(
+    page.getByRole("heading", { name: "Grammar map", exact: true }),
+  ).toBeVisible();
+  await page.setViewportSize({ width: 390, height: 844 });
+
+  const courseTrigger = page.getByRole("button", {
+    name: /Courses, current course/,
+  });
+  await courseTrigger.click();
+  await page.keyboard.press("Escape");
+  await expect(courseTrigger).toBeFocused();
+  await courseTrigger.click();
+  await page.getByRole("radio", { name: "Español", exact: true }).check();
+  await page
+    .getByRole("button", { name: "Switch course", exact: true })
+    .click();
+  await expect(
+    page.getByRole("heading", { name: "Learn", exact: true }),
+  ).toBeVisible();
+  await expect(page.getByText(/30 chapters · 6 stages/)).toBeVisible();
+  await page.screenshot({ path: mobileImage, fullPage: true });
+  assert.ok(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  );
+  await useTab("Map");
+  await expect(page.locator(".rb-learning-area-tile")).toHaveCount(10);
+  await page
+    .getByRole("button", { name: "Start with the foundations" })
+    .click();
+  await openPractice();
+  await startPractice();
+  await expect(
+    page.getByRole("heading", { name: "Question 1 of 20" }),
+  ).toBeVisible();
+  await page.getByRole("radio").first().check();
+  await page.getByRole("button", { name: "Check answer", exact: true }).click();
+  await expect(page.getByText("1 answer saved", { exact: true })).toBeVisible();
+  assert.equal(
+    (await saved(spanishKey)).sessions[spanish.topics[0].slug].answers.length,
+    1,
+  );
+  assert.equal((await saved(key)).sessions[secondSlug].answers.length, 1);
+  await goBack();
+  await expect(page.locator(".rb-reader")).toBeVisible();
+  await goBack();
+  await expect(
+    page.getByRole("heading", { name: "Grammar map", exact: true }),
+  ).toBeVisible();
+  await useTab("Progress");
+  await expect(
+    page.getByRole("heading", { name: "Chapter mosaic" }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "Settings", exact: true }).click();
+  await page.getByRole("button", { name: "Dark", exact: true }).click();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await page.getByRole("button", { name: /Sign in/ }).click();
+  await expect(
+    page.getByRole("dialog", { name: "Keep learning, anywhere" }),
+  ).toBeVisible();
+  await expect(
+    page.getByText(/Accounts are available on the public Grammacho website/),
+  ).toBeVisible();
+  await page.keyboard.press("Escape");
+  await page.reload();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await expect(
+    page.getByRole("heading", { name: "Settings", exact: true }),
+  ).toBeVisible();
   await page.evaluate(() => {
     localStorage.clear();
     sessionStorage.clear();
   });
   await page.reload();
-  const resetState = await page.evaluate(
-    (key) => JSON.parse(localStorage.getItem(key)),
-    key,
-  );
-  assert.deepEqual(resetState.sessions, {});
-  assert.deepEqual(resetState.progress, {});
+  await expect(
+    page.getByRole("heading", { name: /Grammar,.*con gusto/ }),
+  ).toBeVisible();
+  const resetState = await saved(key);
+  assert.deepEqual(resetState?.progress ?? {}, {});
   assert.equal(errors.length, 0);
   assert.equal(remote.length, 0);
   const outcomes = {
@@ -347,6 +398,8 @@ const assert = require("node:assert/strict");
       "Chromium desktop 1440x1000 / mobile viewport 390x844; forced colors and reduced motion",
     results: Object.fromEntries(
       [
+        "onboarding",
+        "course-switch",
         "map-search",
         "practice",
         "keyboard",
@@ -356,6 +409,8 @@ const assert = require("node:assert/strict");
         "narrow-layout",
         "forced-colors",
         "storage-loss",
+        "appearance",
+        "preview-account-isolation",
       ].map((id) => [
         id,
         {
@@ -381,7 +436,7 @@ const assert = require("node:assert/strict");
   console.log(
     JSON.stringify({
       journey:
-        "20 keyboard answers with Shift hint, preserved Shift+Tab, Left history, Enter/Right checks, focus assertions and amber incorrect review, reload resume, completion persistence, offline new session, mobile topic search and Escape focus restoration",
+        "Spanish-first onboarding, English keyboard practice and mistake review, independent Spanish history, offline reading/quiz, mobile reflow, theme and reset isolation",
       runtimeErrors: errors,
       externalRequests: remote,
       screenshots: [desktopImage, mobileImage],

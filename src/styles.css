@@ -975,6 +975,9 @@ body:has(.topics-dialog[open]) {
     animation: none !important;
     transition: none !important;
   }
+  details::details-content {
+    transition: none !important;
+  }
 }
 @media (forced-colors: active) {
   .answer-option input {

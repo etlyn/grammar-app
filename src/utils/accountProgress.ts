@@ -314,13 +314,14 @@ export function snapshotEvent(
   generation: number,
   catalogVersion: string,
   occurredAt: string,
+  courseId: CourseId = "en",
   eventId = globalThis.crypto.randomUUID(),
 ): ProgressEvent {
   // Persist this ID with its immutable payload. Different devices may produce
   // the same logical snapshot at different times; they must not share event IDs.
   return {
     id: `attempt:${session.id}:${eventId}`,
-    courseId: "en",
+    courseId,
     catalogVersion,
     topicSlug,
     generation,
@@ -336,6 +337,7 @@ export function legacyImportEvents(
   catalogVersion: string,
   importId: string,
   now: string,
+  courseId: CourseId = "en",
 ): ProgressEvent[] {
   const slugs = new Set([
     ...Object.keys(state.progress),
@@ -346,7 +348,7 @@ export function legacyImportEvents(
     const session = state.sessions[topicSlug];
     return {
       id: `import:${importId}:${topicSlug}`,
-      courseId: "en",
+      courseId,
       catalogVersion,
       topicSlug,
       generation: generations[topicSlug] ?? 0,
@@ -377,10 +379,11 @@ export function survivingGuestImport(
   catalogVersion: string,
   importId: string,
   now: string,
+  courseId: CourseId = "en",
 ): ProgressEvent[] {
   const guestGenerations: Record<string, number> = {};
   for (const event of events)
-    if (event.kind === "topic-reset")
+    if (event.courseId === courseId && event.kind === "topic-reset")
       guestGenerations[event.topicSlug] = Math.max(
         guestGenerations[event.topicSlug] ?? 0,
         event.generation,
@@ -391,16 +394,19 @@ export function survivingGuestImport(
     catalogVersion,
     importId,
     now,
+    courseId,
   ).filter((event) => !guestGenerations[event.topicSlug]);
   const surviving = events
     .filter(
       (event) =>
+        event.courseId === courseId &&
         event.kind !== "topic-reset" &&
         event.generation === (guestGenerations[event.topicSlug] ?? 0),
     )
     .map((event) => ({
       ...event,
       id: `guest:${importId}:${event.id}`,
+      sequence: undefined,
       generation: accountGenerations[event.topicSlug] ?? 0,
     }));
   return [...legacy, ...surviving];

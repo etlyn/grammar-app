@@ -16,6 +16,8 @@ type Props = {
   onSync: () => Promise<void>;
   onClear: () => Promise<void>;
   clearing: boolean;
+  showTrigger?: boolean;
+  openRequest?: number;
 };
 export function AuthPanel({
   auth,
@@ -25,9 +27,12 @@ export function AuthPanel({
   onSync,
   onClear,
   clearing,
+  showTrigger = true,
+  openRequest = 0,
 }: Props) {
   const dialog = useRef<HTMLDialogElement>(null);
   const opener = useRef<HTMLButtonElement>(null);
+  const returnFocus = useRef<HTMLElement | null>(null);
   const [mode, setMode] = useState<"sign-in" | "sign-up" | "reset">("sign-in");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -66,15 +71,21 @@ export function AuthPanel({
       setChecking(false);
     }
   }, []);
-  const open = () => {
+  const open = useCallback(() => {
+    returnFocus.current = document.activeElement as HTMLElement | null;
     dialog.current?.showModal();
     if (auth.isConfigured) void checkAvailability();
-  };
+  }, [auth.isConfigured, checkAvailability]);
+  const previousRequest = useRef(0);
+  useEffect(() => {
+    if (openRequest > previousRequest.current) open();
+    previousRequest.current = openRequest;
+  }, [open, openRequest]);
   const close = () => {
     dialog.current?.close();
     setPassword("");
     setConfirmation("");
-    opener.current?.focus();
+    (opener.current ?? returnFocus.current)?.focus();
   };
   useEffect(() => {
     const url = new URL(window.location.href);
@@ -120,15 +131,17 @@ export function AuthPanel({
   };
   return (
     <>
-      <button
-        ref={opener}
-        className="button secondary account-trigger"
-        type="button"
-        onClick={open}
-        aria-haspopup="dialog"
-      >
-        {auth.user ? "Account" : "Sign in"}
-      </button>
+      {showTrigger && (
+        <button
+          ref={opener}
+          className="button secondary account-trigger"
+          type="button"
+          onClick={open}
+          aria-haspopup="dialog"
+        >
+          {auth.user ? "Account" : "Sign in"}
+        </button>
+      )}
       <dialog
         ref={dialog}
         className="account-dialog"

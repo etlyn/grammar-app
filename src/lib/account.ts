@@ -13,17 +13,24 @@ import { productionAccountConfig } from "./productionAccountConfig";
 import { resolveAccountConfig } from "./accountConfig";
 
 const env = import.meta.env;
+const allowPreviewAccounts = env.DEV || env.VITE_PREVIEW_ACCOUNTS === "true";
 const {
   hostEnabled,
   url,
   anonKey,
   apiUrl: resolvedApiUrl,
   callbackOrigin,
-} = resolveAccountConfig(productionAccountConfig, window.location.origin, {
-  url: env.VITE_SUPABASE_URL as string | undefined,
-  anonKey: env.VITE_SUPABASE_ANON_KEY as string | undefined,
-  apiUrl: env.VITE_ETLYN_API_URL as string | undefined,
-});
+} = resolveAccountConfig(
+  productionAccountConfig,
+  window.location.origin,
+  allowPreviewAccounts
+    ? {
+        url: env.VITE_SUPABASE_URL as string | undefined,
+        anonKey: env.VITE_SUPABASE_ANON_KEY as string | undefined,
+        apiUrl: env.VITE_ETLYN_API_URL as string | undefined,
+      }
+    : {},
+);
 export const accountEnabled =
   hostEnabled &&
   env.VITE_ACCOUNT_ENABLED !== "false" &&

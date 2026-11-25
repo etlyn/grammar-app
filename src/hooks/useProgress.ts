@@ -1,176 +1,72 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import {
-  grammarCatalog,
-  progressVersion,
-  catalogVersion,
-} from "../services/contentService";
+import { courses, type CourseId } from "../services/contentService";
 import {
   createSession,
-  initialLearningState,
   reduceLearning,
-  restoreLearning,
   type LearningAction,
-  type LearningState,
 } from "../utils/learningState";
-import type { QuizChoice } from "../types/grammar";
+import type { QuizChoice, ProgressByTopic } from "../types/grammar";
 import {
-  compactAttemptEvents,
-  legacyImportEvents,
   projectEvents,
-  reconcilePendingAttempts,
   snapshotEvent,
   survivingGuestImport,
   type ProgressEvent,
 } from "../utils/accountProgress";
+import {
+  emptyCache,
+  eventsOf,
+  guestClaimKey,
+  mergeEvents,
+  mergeSyncResult,
+  projectionOf,
+  readProgressCache,
+  retireStaleOutbox,
+  writeProgressCache,
+  type ProgressCache,
+  type SyncResult,
+} from "../utils/progressCache";
+import { shuffle } from "../utils/quiz";
 import { accountFetchFor, isCurrentAccount } from "../lib/account";
 
-const GUEST_KEY = `grammacho-web-progress:${progressVersion}`;
-const GUEST_LEDGER = `grammacho-web-guest-ledger:${progressVersion}`;
-const IMPORT_OWNER = `grammacho-web-import-owner:${progressVersion}`;
-type Cache = {
-  version: 1;
-  state: LearningState;
-  events: ProgressEvent[];
-  outbox: ProgressEvent[];
-  cursor: number;
-  accountEpoch: string | null;
-  importChoice: "pending" | "imported" | "declined";
-  guestBaseline?: LearningState;
-  importId: string;
-};
-type SyncResult = {
-  accountId: string;
-  accountEpoch: string;
-  revision: number;
-  cursor: number;
-  hasMore: boolean;
-  acceptedEventIds: string[];
-  events: ProgressEvent[];
-};
-const emptyCache = (state = initialLearningState()): Cache => ({
-  version: 1,
-  state,
-  events: [],
-  outbox: [],
-  cursor: 0,
-  accountEpoch: null,
-  importChoice: "pending",
-  importId: crypto.randomUUID(),
-});
-const plausibleEvent = (value: unknown): value is ProgressEvent => {
-  if (!value || typeof value !== "object") return false;
-  const event = value as ProgressEvent;
-  if (
-    typeof event.id !== "string" ||
-    !["en", "es"].includes(event.courseId) ||
-    typeof event.topicSlug !== "string" ||
-    typeof event.catalogVersion !== "string" ||
-    !Number.isInteger(event.generation) ||
-    event.generation < 0 ||
-    typeof event.occurredAt !== "string" ||
-    !event.payload ||
-    typeof event.payload !== "object" ||
-    Array.isArray(event.payload)
-  )
-    return false;
-  if (event.kind === "attempt") {
-    const attempt = event.payload as {
-      id?: unknown;
-      itemIds?: unknown[];
-      answers?: { itemId?: unknown; selectedAnswer?: unknown }[];
-      index?: unknown;
-      complete?: unknown;
-    };
-    return (
-      typeof attempt.id === "string" &&
-      Array.isArray(attempt.itemIds) &&
-      attempt.itemIds.length === 20 &&
-      attempt.itemIds.every((id) => typeof id === "string") &&
-      Array.isArray(attempt.answers) &&
-      attempt.answers.every(
-        (answer) =>
-          answer &&
-          typeof answer.itemId === "string" &&
-          ["A", "B", "C", "D"].includes(String(answer.selectedAnswer)),
-      ) &&
-      Number.isInteger(attempt.index) &&
-      typeof attempt.complete === "boolean"
-    );
-  }
-  if (event.kind === "legacy-import") {
-    const legacy = event.payload as {
-      progress?: { total?: unknown; correct?: unknown };
-      attempt?: unknown;
-    };
-    return Boolean(
-      legacy.progress &&
-        Number.isInteger(legacy.progress.total) &&
-        Number.isInteger(legacy.progress.correct) &&
-        (!legacy.attempt ||
-          plausibleEvent({
-            ...event,
-            kind: "attempt",
-            payload: legacy.attempt,
-          })),
-    );
-  }
-  return (
-    event.kind === "topic-reset" ||
-    (event.kind === "mistake-review" &&
-      "mistakeId" in event.payload &&
-      typeof event.payload.mistakeId === "string")
-  );
-};
-function readCache(owner: string | null): Cache {
+const load = (owner: string | null) => {
   try {
-    const key = owner ? `grammacho-web-account:${owner}` : GUEST_LEDGER;
-    const raw = localStorage.getItem(key);
-    const value = raw ? (JSON.parse(raw) as Cache) : null;
-    if (
-      value?.version === 1 &&
-      Array.isArray(value.events) &&
-      Array.isArray(value.outbox) &&
-      typeof value.cursor === "number" &&
-      typeof value.importId === "string"
-    ) {
-      return {
-        ...value,
-        state: restoreLearning(JSON.stringify(value.state), grammarCatalog),
-        events: value.events.filter(plausibleEvent),
-        outbox: value.outbox.filter(plausibleEvent),
-        accountEpoch:
-          typeof value.accountEpoch === "string" ? value.accountEpoch : null,
-      };
-    }
-    if (owner) return emptyCache();
-    const state = restoreLearning(
-      localStorage.getItem(GUEST_KEY),
-      grammarCatalog,
-    );
-    return { ...emptyCache(state), guestBaseline: state };
+    return {
+      cache: readProgressCache(localStorage, owner, courses),
+      error: "",
+    };
   } catch {
-    return emptyCache();
+    return {
+      cache: emptyCache(owner),
+      error:
+        "Saved progress could not be read safely. Existing browser data was kept. Enable browser storage or reload before changing learning.",
+    };
   }
-}
-const mergeEvents = (existing: ProgressEvent[], incoming: ProgressEvent[]) =>
-  compactAttemptEvents([
-    ...new Map(
-      [...existing, ...incoming].map((event) => [event.id, event]),
-    ).values(),
-  ]);
-const optimistic = (events: ProgressEvent[]) =>
-  events.map((event) =>
-    event.kind === "topic-reset"
-      ? { ...event, generation: event.generation + 1 }
-      : event,
-  );
+};
+const totalsOf = (progress: ProgressByTopic) => {
+  const values = Object.values(progress);
+  const totalAnswers = values.reduce((sum, value) => sum + value.total, 0);
+  const correctAnswers = values.reduce((sum, value) => sum + value.correct, 0);
+  return {
+    completedTopics: values.filter((value) => value.isCompleted).length,
+    totalAnswers,
+    correctAnswers,
+    accuracy: totalAnswers
+      ? Math.round((correctAnswers / totalAnswers) * 100)
+      : 0,
+  };
+};
 
-/** The component is keyed by provider subject. Every closure and storage write
- * belongs to that fixed owner; a later sign-in cannot reuse an old outbox. */
-export function useProgress(owner: string | null = null) {
-  const [cache, setCache] = useState(() => readCache(owner));
+/** Mount this workspace by verified provider subject. Course changes select a
+ * projection of the same ledger, preserving its account epoch, cursor and sync. */
+export function useProgress(
+  owner: string | null = null,
+  courseId: CourseId = "en",
+) {
+  const course = courses[courseId];
+  const [loaded] = useState(() => load(owner));
+  const [cache, setCache] = useState(loaded.cache);
   const current = useRef(cache);
-  const [storageMessage, setStorageMessage] = useState("");
+  const [storageMessage, setStorageMessage] = useState(loaded.error);
   const [syncMessage, setSyncMessage] = useState("");
   const [syncing, setSyncing] = useState(false);
   const [syncReady, setSyncReady] = useState(false);
@@ -185,17 +81,14 @@ export function useProgress(owner: string | null = null) {
   });
   const active = useRef(true);
   const inFlight = useRef(false);
+  const deleting = useRef(false);
   const persist = useCallback(
-    (next: Cache) => {
-      if (!active.current) return;
+    (next: ProgressCache) => {
+      if (!active.current || loaded.error || next.owner !== owner) return;
       current.current = next;
       setCache(next);
       try {
-        localStorage.setItem(
-          owner ? `grammacho-web-account:${owner}` : GUEST_LEDGER,
-          JSON.stringify(next),
-        );
-        if (!owner) localStorage.setItem(GUEST_KEY, JSON.stringify(next.state));
+        writeProgressCache(localStorage, next, courses);
         setStorageMessage("");
       } catch {
         setStorageMessage(
@@ -203,7 +96,7 @@ export function useProgress(owner: string | null = null) {
         );
       }
     },
-    [owner],
+    [owner, loaded.error],
   );
   useEffect(() => {
     active.current = true;
@@ -213,87 +106,27 @@ export function useProgress(owner: string | null = null) {
     };
   }, [persist]);
 
-  const allEvents = useMemo(
-    () => mergeEvents(cache.events, optimistic(cache.outbox)),
-    [cache.events, cache.outbox],
-  );
   const projection = useMemo(
-    () => projectEvents(allEvents, grammarCatalog, "en"),
-    [allEvents],
+    () => projectionOf(cache, courses, courseId),
+    [cache, courseId],
   );
-  const generations = useRef(projection.generations);
-  generations.current = projection.generations;
 
   const sync = useCallback(async () => {
-    if (!owner || inFlight.current || !navigator.onLine) return;
+    if (!owner || inFlight.current || !navigator.onLine || loaded.error) return;
     inFlight.current = true;
     setSyncing(true);
     const fetchAccount = accountFetchFor(owner);
     let reconciliation = "";
     const accept = (result: SyncResult) => {
       if (!active.current) return false;
-      if (
-        result.accountId !== owner ||
-        typeof result.accountEpoch !== "string" ||
-        !Array.isArray(result.events)
-      )
-        throw new Error("The account response could not be verified.");
-      let next = current.current;
-      if (next.accountEpoch && next.accountEpoch !== result.accountEpoch) {
-        next = { ...emptyCache(), accountEpoch: result.accountEpoch };
+      const merged = mergeSyncResult(current.current, result, courses);
+      if (merged.epochChanged)
         reconciliation =
-          "Your Grammacho account data was reset elsewhere. Older queued work was not restored.";
-      }
-      const accepted = new Set(result.acceptedEventIds);
-      let outbox = next.outbox.filter((event) => !accepted.has(event.id));
-      // An acknowledgement may precede its canonical event on a paginated
-      // response. Retain the accepted local payload until that page arrives.
-      const acknowledged = optimistic(
-        next.outbox.filter((event) => accepted.has(event.id)),
-      );
-      const events = mergeEvents(
-        mergeEvents(next.events, acknowledged),
-        result.events,
-      );
-      const reconciled = reconcilePendingAttempts(outbox, events);
-      outbox = reconciled.events;
-      if (reconciled.conflictedAttemptIds.size)
+          "Your Grammacho account data was reset elsewhere. Older queued work in both courses was not restored.";
+      if (merged.conflicted)
         reconciliation =
           "An answer was already checked on another device. That saved answer was kept; your other learning is unchanged.";
-      const projected = projectEvents(
-        mergeEvents(events, optimistic(outbox)),
-        grammarCatalog,
-        "en",
-      );
-      const sessions = { ...projected.sessions };
-      for (const [slug, local] of Object.entries(next.state.sessions)) {
-        const oldGeneration = generations.current[slug] ?? 0;
-        if (
-          oldGeneration === (projected.generations[slug] ?? 0) &&
-          !local.complete &&
-          !reconciled.conflictedAttemptIds.has(local.id)
-        ) {
-          const remote = sessions[slug];
-          // A later snapshot of the same session wins; a different unfinished
-          // local session stays available while its own events are uploaded.
-          if (
-            !remote ||
-            remote.id !== local.id ||
-            (local.answers.length >= remote.answers.length &&
-              local.index >= remote.index &&
-              !remote.complete)
-          )
-            sessions[slug] = local;
-        }
-      }
-      persist({
-        ...next,
-        events,
-        outbox,
-        cursor: result.cursor,
-        accountEpoch: result.accountEpoch,
-        state: { ...next.state, progress: projected.progress, sessions },
-      });
+      persist(merged.cache);
       return true;
     };
     const request = async (
@@ -349,28 +182,21 @@ export function useProgress(owner: string | null = null) {
       }
       return (await response.json()) as SyncResult;
     };
+    const retire = () => {
+      const next = retireStaleOutbox(current.current, courses);
+      if (next !== current.current) {
+        persist(next);
+        reconciliation =
+          "A chapter was reset on another device. Older queued answers were not restored.";
+      }
+    };
     try {
       let result = await request("GET");
       while (active.current && accept(result) && result.hasMore)
         result = await request("GET");
       if (!active.current) return;
       setSyncReady(true);
-      // Canonical resets invalidate stale queued work. Keep the ledger itself
-      // for provenance, but never upload answers from before a newer reset.
-      const canonical = projectEvents(
-        current.current.events,
-        grammarCatalog,
-        "en",
-      );
-      const valid = current.current.outbox.filter(
-        (event) =>
-          event.generation >= (canonical.generations[event.topicSlug] ?? 0),
-      );
-      if (valid.length !== current.current.outbox.length) {
-        persist({ ...current.current, outbox: valid });
-        reconciliation =
-          "A chapter was reset on another device. Older queued answers were not restored.";
-      }
+      retire();
       let conflictRetried = false;
       while (active.current && current.current.outbox.length) {
         try {
@@ -392,21 +218,7 @@ export function useProgress(owner: string | null = null) {
             while (active.current && accept(result) && result.hasMore)
               result = await request("GET");
             if (!active.current) return;
-            const canonicalGeneration = projectEvents(
-              current.current.events,
-              grammarCatalog,
-              "en",
-            ).generations;
-            persist({
-              ...current.current,
-              outbox: current.current.outbox.filter(
-                (event) =>
-                  event.generation >=
-                  (canonicalGeneration[event.topicSlug] ?? 0),
-              ),
-            });
-            reconciliation ||=
-              "A chapter was reset on another device. Older queued answers were not restored.";
+            retire();
             continue;
           }
           throw error;
@@ -430,78 +242,173 @@ export function useProgress(owner: string | null = null) {
       inFlight.current = false;
       if (active.current) setSyncing(false);
     }
-  }, [owner, persist]);
+  }, [owner, persist, loaded.error]);
   useEffect(() => {
     if (!owner) return;
     void sync();
-    const online = () => {
+    const retry = () => {
       void sync();
     };
-    window.addEventListener("online", online);
-    return () => window.removeEventListener("online", online);
+    window.addEventListener("online", retry);
+    window.addEventListener("focus", retry);
+    return () => {
+      window.removeEventListener("online", retry);
+      window.removeEventListener("focus", retry);
+    };
   }, [owner, sync, syncRevision]);
 
+  const append = useCallback(
+    (before: ProgressCache, additions: ProgressEvent[]) =>
+      owner
+        ? { ...before, outbox: mergeEvents(before.outbox, additions) }
+        : { ...before, events: mergeEvents(before.events, additions) },
+    [owner],
+  );
   const dispatch = useCallback(
     (action: LearningAction) => {
       const before = current.current;
+      if (deleting.current || loaded.error) return;
       if (owner && !before.accountEpoch && action.type !== "select") {
         setSyncMessage(
           "Connect once to load this account’s learning before starting practice. You can sign out to keep learning as a guest.",
         );
         return;
       }
-      const state = reduceLearning(before.state, action, grammarCatalog);
-      if (state === before.state) return;
-      let event: ProgressEvent | undefined;
-      const now = "now" in action ? action.now : new Date().toISOString();
-      const generation = generations.current[action.slug] ?? 0;
-      if (action.type === "answer" || action.type === "next")
-        event = snapshotEvent(
-          state.sessions[action.slug],
-          action.slug,
-          generation,
-          catalogVersion,
-          now,
+      if (
+        owner &&
+        action.type !== "select" &&
+        before.outbox.some(
+          (event) =>
+            event.courseId === courseId &&
+            event.topicSlug === action.slug &&
+            event.kind === "topic-reset",
+        )
+      ) {
+        setSyncMessage(
+          "This chapter reset is waiting for sync. Reconnect before starting a new session.",
         );
+        return;
+      }
+      const state = reduceLearning(
+        before.states[courseId],
+        action,
+        course.topics,
+      );
+      if (state === before.states[courseId]) return;
+      const now = "now" in action ? action.now : new Date().toISOString();
+      const projected = projectionOf(before, courses, courseId);
+      const generation = projected.generations[action.slug] ?? 0;
+      const additions: ProgressEvent[] = [];
+      if (
+        action.type === "start" ||
+        action.type === "answer" ||
+        action.type === "next"
+      ) {
+        additions.push(
+          snapshotEvent(
+            state.sessions[action.slug],
+            action.slug,
+            generation,
+            course.catalogVersion,
+            now,
+            courseId,
+          ),
+        );
+        if (
+          action.type === "answer" &&
+          course.topics
+            .find((topic) => topic.slug === action.slug)
+            ?.quizItems.find((item) => item.id === action.itemId)?.answerId ===
+            action.choice
+        ) {
+          for (const mistake of projected.mistakes.filter(
+            (mistake) =>
+              mistake.itemId === action.itemId &&
+              !mistake.id.startsWith(`${action.sessionId}:`),
+          )) {
+            additions.push({
+              id: crypto.randomUUID(),
+              courseId,
+              catalogVersion: course.catalogVersion,
+              topicSlug: action.slug,
+              generation,
+              kind: "mistake-review",
+              occurredAt: now,
+              payload: { mistakeId: mistake.id },
+            });
+          }
+        }
+      }
       if (action.type === "reset")
-        event = {
+        additions.push({
           id: crypto.randomUUID(),
-          courseId: "en",
-          catalogVersion,
+          courseId,
+          catalogVersion: course.catalogVersion,
           topicSlug: action.slug,
-          generation: owner ? generation : generation + 1,
+          generation: generation + Number(!owner),
           kind: "topic-reset",
           occurredAt: now,
           payload: {},
-        };
-      const next = { ...before, state };
-      if (event) {
-        if (owner) next.outbox = mergeEvents(before.outbox, [event]);
-        else next.events = mergeEvents(before.events, [event]);
-      }
-      persist(next);
-      if (owner && event) setSyncRevision((value) => value + 1);
+        });
+      persist(
+        append(
+          { ...before, states: { ...before.states, [courseId]: state } },
+          additions,
+        ),
+      );
+      if (owner && additions.length) setSyncRevision((value) => value + 1);
     },
-    [owner, persist],
+    [owner, persist, append, course, courseId, loaded.error],
   );
   const selectTopic = useCallback(
     (slug: string) => dispatch({ type: "select", slug }),
     [dispatch],
   );
-  const startSession = useCallback(
-    (slug: string) => {
-      const topic = grammarCatalog.find((value) => value.slug === slug);
-      if (topic)
-        dispatch({
-          type: "start",
-          slug,
-          session: createSession(
-            topic,
-            current.current.state.progress[slug]?.answeredItemIds,
+  const start = useCallback(
+    (slug: string, focused: boolean) => {
+      const topic = course.topics.find((value) => value.slug === slug);
+      if (!topic) return;
+      const session = createSession(
+        topic,
+        current.current.states[courseId].progress[slug]?.answeredItemIds,
+      );
+      if (focused) {
+        const mistakes = projectionOf(
+          current.current,
+          courses,
+          courseId,
+        ).mistakes;
+        const preferred = [
+          ...new Set(
+            mistakes
+              .filter((mistake) => mistake.topicSlug === slug)
+              .map((mistake) => mistake.itemId),
           ),
-        });
+        ];
+        session.itemIds = shuffle(
+          [
+            ...shuffle(preferred),
+            ...session.itemIds.filter((id) => !preferred.includes(id)),
+            ...topic.quizItems
+              .map((item) => item.id)
+              .filter(
+                (id) =>
+                  !preferred.includes(id) && !session.itemIds.includes(id),
+              ),
+          ].slice(0, 20),
+        );
+      }
+      dispatch({ type: "start", slug, session });
     },
-    [dispatch],
+    [dispatch, course, courseId],
+  );
+  const startSession = useCallback(
+    (slug: string) => start(slug, false),
+    [start],
+  );
+  const startFocusedSession = useCallback(
+    (slug: string) => start(slug, true),
+    [start],
   );
   const answer = useCallback(
     (
@@ -534,39 +441,87 @@ export function useProgress(owner: string | null = null) {
     (slug: string) => dispatch({ type: "reset", slug }),
     [dispatch],
   );
+  const resetAll = useCallback(() => {
+    const before = current.current;
+    const slugs = new Set([
+      ...Object.keys(before.states[courseId].progress),
+      ...Object.keys(before.states[courseId].sessions),
+      ...eventsOf(before)
+        .filter((event) => event.courseId === courseId)
+        .map((event) => event.topicSlug),
+    ]);
+    slugs.forEach((slug) => dispatch({ type: "reset", slug }));
+  }, [dispatch, courseId]);
+  const discardSession = useCallback(
+    (slug: string, sessionId: string) => {
+      const before = current.current;
+      if (
+        deleting.current ||
+        before.states[courseId].sessions[slug]?.id !== sessionId
+      )
+        return;
+      const sessions = { ...before.states[courseId].sessions };
+      delete sessions[slug];
+      persist({
+        ...before,
+        states: {
+          ...before.states,
+          [courseId]: { ...before.states[courseId], sessions },
+        },
+        discardedSessions: {
+          ...before.discardedSessions,
+          [courseId]: [
+            ...new Set([...before.discardedSessions[courseId], sessionId]),
+          ],
+        },
+      });
+    },
+    [courseId, persist],
+  );
   const markReviewed = useCallback(
     (mistakeId: string, topicSlug: string) => {
+      const before = current.current;
+      if (deleting.current || loaded.error || (owner && !before.accountEpoch))
+        return;
+      const projected = projectionOf(before, courses, courseId);
+      if (
+        !projected.mistakes.some(
+          (mistake) =>
+            mistake.id === mistakeId && mistake.topicSlug === topicSlug,
+        )
+      )
+        return;
       const event: ProgressEvent = {
         id: crypto.randomUUID(),
-        courseId: "en",
-        catalogVersion,
+        courseId,
+        catalogVersion: course.catalogVersion,
         topicSlug,
-        generation: generations.current[topicSlug] ?? 0,
+        generation: projected.generations[topicSlug] ?? 0,
         kind: "mistake-review",
         occurredAt: new Date().toISOString(),
         payload: { mistakeId },
       };
-      const before = current.current;
-      persist(
-        owner
-          ? { ...before, outbox: [...before.outbox, event] }
-          : { ...before, events: [...before.events, event] },
-      );
+      persist(append(before, [event]));
       if (owner) setSyncRevision((value) => value + 1);
     },
-    [owner, persist],
+    [owner, course, courseId, persist, append, loaded.error],
   );
-  const [guestImport] = useState(() => readCache(null));
+
+  const [guestLoad] = useState(() => load(null));
+  const guestImport = guestLoad.cache;
   const canImport = Boolean(
     owner &&
       syncReady &&
       !syncing &&
+      !guestLoad.error &&
+      !loaded.error &&
       cache.accountEpoch &&
-      cache.importChoice === "pending" &&
-      Object.keys(guestImport.state.progress).length &&
+      cache.importChoices[courseId] === "pending" &&
+      (Object.keys(guestImport.states[courseId].progress).length ||
+        Object.keys(guestImport.states[courseId].sessions).length) &&
       (() => {
         try {
-          const claimed = localStorage.getItem(IMPORT_OWNER);
+          const claimed = localStorage.getItem(guestClaimKey(course));
           return !claimed || claimed === owner;
         } catch {
           return false;
@@ -574,51 +529,74 @@ export function useProgress(owner: string | null = null) {
       })(),
   );
   const importGuest = useCallback(() => {
-    if (!owner) return;
+    if (!owner || !canImport) return;
     const before = current.current;
     if (!syncReady || inFlight.current || !before.accountEpoch) return;
     const offset = projectEvents(
       before.events,
-      grammarCatalog,
-      "en",
+      course.topics,
+      courseId,
     ).generations;
     const imported = survivingGuestImport(
-      guestImport.guestBaseline ?? guestImport.state,
+      guestImport.guestBaselines[courseId],
       guestImport.events,
       offset,
-      catalogVersion,
-      guestImport.importId,
+      course.catalogVersion,
+      guestImport.importIds[courseId],
       new Date().toISOString(),
+      courseId,
     );
     try {
-      localStorage.setItem(IMPORT_OWNER, owner);
+      localStorage.setItem(guestClaimKey(course), owner);
     } catch {
       setStorageMessage(
         "Your browser could not remember this import choice. Please enable storage and try again.",
       );
       return;
     }
-    const outbox = mergeEvents(before.outbox, imported);
-    const projected = projectEvents(
-      mergeEvents(before.events, optimistic(outbox)),
-      grammarCatalog,
-      "en",
+    const updated = append(
+      {
+        ...before,
+        importChoices: { ...before.importChoices, [courseId]: "imported" },
+      },
+      imported,
     );
+    const projected = projectEvents(eventsOf(updated), course.topics, courseId);
     persist({
-      ...before,
-      importChoice: "imported",
-      outbox,
-      state: {
-        ...before.state,
-        progress: projected.progress,
-        sessions: { ...before.state.sessions, ...projected.sessions },
+      ...updated,
+      states: {
+        ...updated.states,
+        [courseId]: {
+          ...updated.states[courseId],
+          progress: projected.progress,
+          sessions: {
+            ...updated.states[courseId].sessions,
+            ...projected.sessions,
+          },
+        },
       },
     });
     setSyncRevision((value) => value + 1);
-  }, [owner, guestImport, persist, syncReady]);
+  }, [
+    owner,
+    canImport,
+    syncReady,
+    course,
+    courseId,
+    guestImport,
+    append,
+    persist,
+  ]);
   const declineImport = useCallback(
-    () => persist({ ...current.current, importChoice: "declined" }),
-    [persist],
+    () =>
+      persist({
+        ...current.current,
+        importChoices: {
+          ...current.current.importChoices,
+          [courseId]: "declined",
+        },
+      }),
+    [persist, courseId],
   );
   const clearAccountData = useCallback(async () => {
     if (!owner || !current.current.accountEpoch)
@@ -627,6 +605,7 @@ export function useProgress(owner: string | null = null) {
       throw new Error("Wait for the current sync to finish, then try again.");
     const epoch = current.current.accountEpoch;
     inFlight.current = true;
+    deleting.current = true;
     setClearing(true);
     try {
       const response = await accountFetchFor(owner)(
@@ -661,73 +640,58 @@ export function useProgress(owner: string | null = null) {
         throw new Error(
           "The learning-clear response could not be verified. Sync again before retrying.",
         );
+      const cleared = emptyCache(owner);
       persist({
-        ...emptyCache(),
+        ...cleared,
         accountEpoch: receipt.accountEpoch,
-        importChoice: "declined",
+        importChoices: { en: "declined", es: "declined" },
       });
       setSyncMessage(
-        "Your Grammacho learning was cleared. Your Etlyn account and guest history are kept.",
+        "Your Grammacho learning in both courses was cleared. Your Etlyn account and guest history are kept.",
       );
     } finally {
       inFlight.current = false;
+      deleting.current = false;
       if (active.current) setClearing(false);
     }
   }, [owner, persist]);
-  const totals = useMemo(() => {
-    const values = Object.values(cache.state.progress);
-    const totalAnswers = values.reduce((sum, value) => sum + value.total, 0),
-      correctAnswers = values.reduce((sum, value) => sum + value.correct, 0);
-    return {
-      completedTopics: values.filter((value) => value.isCompleted).length,
-      totalAnswers,
-      correctAnswers,
-      accuracy: totalAnswers
-        ? Math.round((correctAnswers / totalAnswers) * 100)
-        : 0,
-    };
-  }, [cache.state.progress]);
-  const guestProjection = useMemo(
-    () =>
-      owner
-        ? projection
-        : projectEvents(
-            [
-              ...legacyImportEvents(
-                cache.guestBaseline ?? initialLearningState(),
-                {},
-                catalogVersion,
-                cache.importId,
-                new Date(0).toISOString(),
-              ),
-              ...cache.events,
-            ],
-            grammarCatalog,
-            "en",
-          ),
-    [owner, projection, cache],
+  const totals = useMemo(
+    () => totalsOf(cache.states[courseId].progress),
+    [cache.states, courseId],
   );
   return {
-    ...cache.state,
+    ...cache.states[courseId],
     totals,
+    totalsForCourse: (id: CourseId) => totalsOf(cache.states[id].progress),
     storageMessage,
     legacyProgress,
     selectTopic,
     startSession,
+    startFocusedSession,
+    discardSession,
     answer,
     next,
     resetTopic,
+    resetAll,
     syncing,
     syncMessage,
     sync,
     canImport,
     importGuest,
     declineImport,
-    mistakes: guestProjection.mistakes,
-    suggestions: guestProjection.suggestions,
+    mistakes: projection.mistakes,
+    suggestions: projection.suggestions,
     markReviewed,
     pendingCount: cache.outbox.length,
     clearAccountData,
     clearing,
+    accountReady: !owner || Boolean(cache.accountEpoch),
+    resetWaiting: Boolean(
+      owner &&
+        cache.outbox.some(
+          (event) =>
+            event.courseId === courseId && event.kind === "topic-reset",
+        ),
+    ),
   };
 }

@@ -1,12 +1,14 @@
-# Grammacho web beta
+# Grammacho web
 
-An English grammar reading and practice app with Vite, React and TypeScript. A searchable Grammar map connects 20 subject areas and 403 reading sections. 67 ordered chapters each include 200 original practice questions, extended explanations and published learning references: 13,400 questions in six stages from sentence foundations to advanced control.
+Spanish and English grammar reading and practice with Vite, React and TypeScript. The web app uses the native 2.1 “Grammar, con gusto.” identity, including its Azul and Paper palette, Fraunces and Figtree typography, chapter tiles, and Learn, Map, Practice and Progress navigation.
 
-The questions were generated offline with AI assistance using British Council grammar guidance; the first eight topics also follow the structure of Portland Community College's _A Digital Workbook for Beginning ESOL_. They are **not copied publisher exercises, official test material, endorsed school content, or a calibrated CEFR assessment**. Automated checks have passed; independent educator review remains pending. Each bank has 50 lexical/situational contexts and four practice tasks per context. See [curriculum coverage and expansion rules](content/INDEX.md).
+New learners can pick a course and a starting stage. The English course includes 67 chapters, 403 reading sections and 13,400 original practice questions. Spanish includes 30 chapters, 120 reading sections and 720 questions, with explanations in English. See [curriculum coverage and expansion rules](content/INDEX.md).
+
+The English questions were generated offline with AI assistance using British Council grammar guidance. The first eight topics also follow the structure of Portland Community College's _A Digital Workbook for Beginning ESOL_. Each bank has 50 lexical or situational contexts and four practice tasks per context. Independent educator review and CEFR calibration remain pending.
 
 ## Development
 
-Use Node 20 or later and Yarn 1:
+Use Node 24 and Yarn 1.
 
 ```sh
 yarn install --frozen-lockfile
@@ -27,7 +29,7 @@ All lessons and questions are bundled into the production app. After a successfu
 - Answers, question order, current topic and unfinished sessions persist on the same browser.
 - A completed 16/20 session marks a topic complete. Failed earlier attempts do not block a later pass; later practice does not revoke a pass.
 - Overall accuracy includes all answers. Last/best session scores and completion are separate.
-- Reset clears only the selected topic after an in-app confirmation.
+- Practice can reset an individual chapter. Settings can reset the selected course. Both actions require in-app confirmation.
 - Previous prototype progress remains under its old local-storage key. It does not grant completion for the new curriculum.
 - Accounts are optional. Signed-in learners can sync progress and use their missed questions to find lessons to revisit. See [accounts and progress sync](docs/accounts.md).
 
@@ -47,9 +49,9 @@ The standalone Supabase project was retired on 2026-09-12. See [the consolidatio
 
 ## Spanish course materials
 
-The [Spanish course](content/spanish/README.md) adds 30 chapters, 120 reading sections and 720 original exercises for the native app. English explanations accompany Spanish examples and questions, with complete hints, answer feedback, a grammar map and source provenance. Approximate A1–B2 labels are teaching labels; independent educator and native-speaker review remains pending.
+The [Spanish course](content/spanish/README.md) includes 30 chapters, 120 reading sections and 720 original exercises for web and native. English explanations accompany Spanish examples and questions, with complete hints, answer feedback, a grammar map and source provenance. Approximate A1–B2 labels are teaching labels; independent educator and native-speaker review remains pending.
 
-Run `yarn content:spanish` to generate the separate `src/generated/catalog-es.json` export, coverage index and complete editorial review TSV. `yarn content:check`, `yarn test` and `yarn build` verify this export as well as the unchanged English catalog. The web interface still loads its English snapshot; Spanish activation is in the independent native client.
+Run `yarn content:spanish` to generate the separate `src/generated/catalog-es.json` export, coverage index and complete editorial review TSV. `yarn content:check`, `yarn test` and `yarn build` verify this export as well as the unchanged English catalog. The browser offers both course snapshots and keeps learning history separate by course. Existing English browser progress carries forward.
 
 ## Mobile
 
@@ -57,7 +59,7 @@ The legacy React Native client now lives in the separate local `grammacho-mobile
 
 ## Web reading and keyboard controls
 
-Grammar map, Read and Practice are separate views. First-time visitors see the map; returning visitors retain their saved view. Map entries open the corresponding reading section, and each chapter offers a link to continue reading the next one. Lessons use a single reading column with linked sections, examples, and expandable study goals and source notes. Selecting another topic opens its lesson; switching back to Practice resumes checked answers. The chosen view is remembered on this browser.
+Use Learn for the next chapter or saved session, Map for the course outline or a concept search, Practice for recent scores and mistake review, and Progress for completion by chapter and stage. The selector in the header switches courses. Progress opens Settings for appearance, account access and reset.
 
 Quiz choices stay editable until checked:
 
@@ -67,10 +69,18 @@ Quiz choices stay editable until checked:
 - Left: review the previous saved answer; Right returns toward the current question. Reviewing does not change scoring or discard the current selection.
 - Tap Shift alone: reveal the hint. Shift+Tab continues normal backward navigation.
 - Finishing focuses the result heading. Incorrect items have amber review containers with a specific diagnosis and a worked explanation.
-- Left / Right and Home / End: switch the Grammar map / Read / Practice tabs when a tab is focused.
-- Escape: close the mobile topic dialog and restore focus to Topics.
+- Left / Right and Home / End: switch the Learn / Map / Practice / Progress tabs when a tab is focused.
+- Escape closes the course or search sheet and returns focus to the opener.
 
 Hints, answer review, sources, and progress disclosures also work with Tab and Enter. Keyboard actions are scoped to the focused controls. Focus uses a single visible edge; reduced motion and forced-colors settings are respected. Only checked answers are saved; an unsubmitted choice is not persisted.
+
+## Staging
+
+Push reviewed changes to the `staging` branch for the protected Vercel Preview. The Vercel deployment record identifies the staged commit and URL. GitHub Actions validates staging, and the Pages publish job runs on main pushes.
+
+Production account settings are pinned to the canonical web host. Preview builds start in guest mode. A development build with an explicit test issuer and API can exercise account sync. Set `VITE_PREVIEW_ACCOUNTS=true` explicitly for a preview build that uses an isolated test project. See [accounts and progress sync](docs/accounts.md).
+
+The web mark, geometry, static fonts and tile artwork are adapted from the released [native brand assets](https://github.com/etlyn/grammacho-mobile/blob/2b9efefe85418494251857f1c08f81c31df548c4/docs/brand-assets.md). Font and icon licences ship with the web assets in `public/assets/rebrand/`.
 
 ## Additive curriculum release
 

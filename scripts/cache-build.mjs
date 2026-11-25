@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 const files = (await readdir("dist", { recursive: true })).filter(
   (file) =>
     !file.endsWith(".map") &&
-    /\.(html|js|css|png|ico|svg)$/.test(file) &&
+    /\.(html|js|css|png|ico|svg|ttf)$/.test(file) &&
     file !== "sw.js",
 );
 const assets = ["/", ...files.map((f) => "/" + f)];

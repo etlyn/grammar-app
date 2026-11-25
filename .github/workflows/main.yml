@@ -5,7 +5,7 @@ on:
     branches: [main]
     types: [opened, synchronize]
   push:
-    branches: [main]
+    branches: [main, staging]
 
 permissions:
   contents: write
@@ -13,7 +13,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
+  group: ${{ github.ref == 'refs/heads/staging' && 'grammacho-staging' || 'pages' }}
   cancel-in-progress: true
 
 jobs:
@@ -77,12 +77,13 @@ jobs:
           if-no-files-found: warn
 
       - name: Upload artifact
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
 
   deploy:
-    if: github.event_name != 'pull_request'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     environment:
       name: github-pages
     # Keep the runner compatible with the pinned Playwright browser/dependency build.

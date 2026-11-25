@@ -1,0 +1,1426 @@
+/* Native Grammacho practice and progress, adapted for a responsive browser. */
+.rb-practice-hub,
+.rb-progress-view,
+.rb-mistakes-view {
+  color: var(--text-primary);
+  font-family: var(--font-ui);
+  min-width: 0;
+}
+.rb-practice-page-title {
+  margin-bottom: 30px;
+}
+.rb-practice-page-title h1 {
+  font: 600 clamp(32px, 3vw, 42px) / 1.18 var(--font-display);
+  letter-spacing: -0.025em;
+  margin: 0 0 10px;
+}
+.rb-practice-page-title p {
+  color: var(--text-secondary);
+  font-size: 16px;
+  line-height: 1.6;
+  max-width: 700px;
+  margin: 0;
+}
+.rb-practice-hub-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(280px, 1fr);
+  gap: 26px;
+  align-items: start;
+}
+.rb-practice-hub-main,
+.rb-practice-improve {
+  display: grid;
+  gap: 28px;
+  min-width: 0;
+}
+.rb-practice-section {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+.rb-practice-section-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.rb-practice-section-label h2 {
+  margin: 0;
+  font: 600 13px/1.4 var(--font-ui);
+  color: var(--text-secondary);
+}
+.rb-practice-section-label > span {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+.rb-practice-up-next,
+.rb-practice-review-card,
+.rb-practice-suggestion,
+.rb-practice-empty {
+  padding: 24px;
+}
+.rb-practice-up-next,
+.rb-practice-suggestion {
+  display: grid;
+  gap: 18px;
+}
+.rb-practice-feature-heading {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.rb-practice-feature-heading > div {
+  min-width: 0;
+}
+.rb-practice-feature-heading h3 {
+  font: 600 25px/1.25 var(--font-display);
+  letter-spacing: -0.015em;
+  margin: 5px 0 0;
+}
+.rb-practice-eyebrow {
+  font: 700 11px/1.5 var(--font-ui);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-text);
+  margin: 0;
+}
+.rb-practice-secondary {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 0;
+}
+.rb-practice-paired-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.rb-practice-paired-actions > .rb-button {
+  flex: 1;
+  justify-content: center;
+  min-width: 112px;
+}
+.rb-practice-chapters {
+  overflow: hidden;
+  padding: 0;
+}
+.rb-practice-chapter {
+  width: 100%;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: transparent;
+  border: 0;
+  color: var(--text-primary);
+  text-align: left;
+  font-family: var(--font-ui);
+}
+.rb-practice-chapter + .rb-practice-chapter {
+  border-top: 1px solid var(--line-subtle);
+}
+.rb-practice-chapter:hover {
+  background: var(--bg-sunken);
+}
+.rb-practice-chapter > svg:last-child {
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+.rb-practice-chapter-copy {
+  display: grid;
+  gap: 5px;
+  flex: 1;
+  min-width: 0;
+}
+.rb-practice-chapter-copy strong {
+  font-size: 15px;
+  line-height: 1.4;
+  font-weight: 600;
+}
+.rb-practice-chapter-copy > span {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+.rb-practice-review-card {
+  display: grid;
+  gap: 14px;
+}
+.rb-practice-review-card h3,
+.rb-practice-suggestion h3,
+.rb-practice-empty h2,
+.rb-practice-empty h3 {
+  font: 600 21px/1.3 var(--font-display);
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+.rb-practice-review-card p,
+.rb-practice-suggestion > p:not(.rb-practice-eyebrow),
+.rb-practice-empty > p {
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+}
+.rb-practice-review-card > .rb-button {
+  justify-content: space-between;
+}
+.rb-practice-review-icon,
+.rb-practice-empty-symbol {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  color: var(--brand-text);
+  background: var(--brand-soft);
+  flex-shrink: 0;
+}
+.rb-practice-review-icon {
+  color: var(--sol-text, #7a5600);
+  background: var(--sol-soft);
+}
+.rb-practice-empty {
+  display: grid;
+  justify-items: start;
+  gap: 12px;
+}
+.rb-practice-quiet-button,
+.rb-practice-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 0;
+  background: transparent;
+  color: var(--brand-text);
+  font: 600 14px/1.4 var(--font-ui);
+  padding: 10px;
+  min-height: 44px;
+}
+.rb-practice-back {
+  margin: 0 0 20px -8px;
+}
+.rb-practice-quiet-button:hover,
+.rb-practice-back:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.rb-practice-correct-text {
+  color: var(--ok-main);
+}
+.rb-practice-warn-text {
+  color: var(--warn-main);
+}
+
+/* Practice introduction, active session and results. */
+.rb-practice-session {
+  color: var(--text-primary);
+  font-family: var(--font-ui);
+  max-width: 820px;
+  min-width: 0;
+  margin: 0 auto;
+  padding: 0 6px 20px;
+  outline: none;
+}
+.rb-practice-session-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 48px;
+  margin-bottom: 28px;
+}
+.rb-practice-session-header > strong {
+  font-size: 17px;
+  font-weight: 600;
+}
+.rb-practice-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 0;
+  background: transparent;
+  color: var(--text-primary);
+  flex-shrink: 0;
+  padding: 0;
+}
+.rb-practice-icon-button:hover {
+  background: var(--bg-sunken);
+}
+.rb-practice-icon-button:disabled {
+  opacity: 0.4;
+}
+.rb-practice-icon-button.active-hint {
+  color: var(--sol-text, #7a5600);
+  background: var(--sol-soft);
+}
+.rb-practice-session-status {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  gap: 10px;
+}
+.rb-practice-status-caption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+.rb-practice-status-caption .question-count {
+  font: 600 13px/1.4 var(--font-ui);
+  color: var(--text-secondary);
+  margin: 0;
+  letter-spacing: 0;
+}
+.rb-practice-status-caption > span {
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.rb-practice-segments {
+  display: flex;
+  gap: 4px;
+  width: 100%;
+  min-width: 0;
+}
+.rb-practice-segments > span {
+  flex: 1;
+  height: 7px;
+  border-radius: 8px;
+  background: var(--line-subtle);
+  transition: background-color 220ms ease-in-out;
+}
+.rb-practice-segments > .current {
+  background: var(--brand-primary);
+}
+.rb-practice-segments > .reviewing {
+  background: var(--text-primary);
+}
+.rb-practice-segments > .correct {
+  background: var(--ok-fill, var(--ok-main));
+}
+.rb-practice-segments > .incorrect {
+  background: var(--warn-fill, #e99a1c);
+}
+.rb-practice-intro {
+  max-width: 660px;
+  margin: 0 auto;
+  display: grid;
+  gap: 28px;
+}
+.rb-practice-intro-title {
+  display: grid;
+  gap: 16px;
+}
+.rb-practice-intro-eyebrow {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.rb-practice-intro-eyebrow p {
+  color: var(--brand-text);
+  font: 700 11px/1.5 var(--font-ui);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0;
+}
+.rb-practice-intro-title h1 {
+  font: 600 clamp(30px, 3vw, 40px) / 1.2 var(--font-display);
+  letter-spacing: -0.025em;
+  margin: 0;
+}
+.rb-practice-intro-title > p {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin: 0;
+}
+.rb-practice-session-facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+}
+.rb-practice-session-facts > div {
+  display: grid;
+  gap: 6px;
+  padding: 20px 16px;
+  border: 1px solid var(--line-subtle);
+  border-radius: 20px;
+  background: var(--bg-surface);
+}
+.rb-practice-session-facts dt {
+  font: 600 clamp(20px, 2.4vw, 26px) / 1.2 var(--font-display);
+}
+.rb-practice-session-facts dd {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-muted);
+  margin: 0;
+}
+.rb-practice-session-note {
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 1.65;
+  margin: 0;
+}
+.rb-practice-intro-actions {
+  display: grid;
+  gap: 8px;
+  padding-top: 12px;
+}
+.rb-practice-intro-actions > .button {
+  justify-content: space-between;
+}
+.rb-practice-session .button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 50px;
+  padding: 13px 22px;
+  border-radius: 999px;
+  font: 600 15px/1.4 var(--font-ui);
+  text-decoration: none;
+  box-shadow: none;
+}
+.rb-practice-session .button.primary {
+  background: var(--brand-primary);
+  border-color: transparent;
+  color: var(--text-on-brand, #fff);
+}
+.rb-practice-session .button.primary:hover:not(:disabled) {
+  background: var(--brand-pressed, #1b31b0);
+}
+.rb-practice-session .button.secondary {
+  background: var(--bg-surface);
+  border: 1px solid var(--line-subtle);
+  color: var(--text-primary);
+}
+.rb-practice-session .button.secondary:hover:not(:disabled) {
+  background: var(--bg-sunken);
+}
+.rb-practice-session .button:disabled {
+  opacity: 0.45;
+}
+.rb-practice-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.rb-practice-pills > span {
+  background: var(--bg-sunken);
+  border-radius: 999px;
+  padding: 6px 11px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+.rb-practice-pills > .complete {
+  background: var(--ok-soft);
+  color: var(--ok-main);
+}
+.rb-practice-question-body {
+  max-width: 660px;
+  margin: 0 auto;
+  display: grid;
+  gap: 22px;
+  animation: rb-practice-enter 260ms ease-in-out both;
+}
+.rb-practice-question-heading {
+  display: grid;
+  gap: 12px;
+}
+.rb-practice-instruction {
+  font: 600 14px/1.5 var(--font-ui);
+  color: var(--text-secondary);
+  margin: 0;
+}
+.rb-practice-sentence {
+  font: 400 clamp(23px, 2.5vw, 29px) / 1.5
+    var(--font-title, var(--font-reading));
+  letter-spacing: -0.01em;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.rb-sentence-blank {
+  color: var(--brand-primary);
+  font-weight: 600;
+}
+.rb-sentence-answer {
+  color: var(--ok-main);
+  font-weight: 600;
+}
+.rb-practice-question-instructions {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin: 0;
+}
+.rb-practice-options.question-options {
+  display: grid;
+  gap: 12px;
+  padding: 0;
+  border: 0;
+  margin: 0;
+  min-width: 0;
+}
+.rb-practice-option.answer-option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 66px;
+  margin: 0;
+  padding: 15px 17px;
+  border: 1.5px solid var(--line-subtle);
+  border-radius: 18px;
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  box-shadow: none;
+  cursor: pointer;
+  transform: none;
+  transition:
+    border-color 220ms ease-in-out,
+    background-color 220ms ease-in-out,
+    opacity 220ms ease-in-out;
+}
+.rb-practice-option.answer-option:hover:not(:has(input:disabled)) {
+  border-color: var(--line-strong);
+  background: var(--bg-surface);
+  transform: none;
+  box-shadow: none;
+}
+.rb-practice-option.answer-option.selected {
+  border: 2px solid var(--brand-primary);
+  background: var(--brand-soft);
+  padding: 14.5px 16.5px;
+  box-shadow: none;
+}
+.rb-practice-option.answer-option.is-correct {
+  border: 2px solid var(--ok-fill, var(--ok-main));
+  background: var(--ok-soft);
+  padding: 14.5px 16.5px;
+  box-shadow: none;
+}
+.rb-practice-option.answer-option.is-incorrect {
+  border: 2px solid var(--warn-fill, #e99a1c);
+  background: var(--warn-soft);
+  padding: 14.5px 16.5px;
+  box-shadow: none;
+}
+.rb-practice-option.answer-option.is-muted {
+  opacity: 0.55;
+}
+.rb-practice-option input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  padding: 0;
+  margin: 0;
+}
+.rb-practice-option.answer-option:has(input:focus-visible) {
+  border-color: var(--brand-primary);
+  outline: none;
+  box-shadow: inset 0 0 0 1px var(--brand-primary);
+}
+.rb-practice-choice-badge {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  font: 700 13px/1 var(--font-ui);
+  background: var(--bg-sunken);
+  color: var(--text-secondary);
+}
+.rb-practice-option.selected .rb-practice-choice-badge {
+  background: var(--brand-primary);
+  color: var(--text-on-brand, #fff);
+}
+.rb-practice-option.is-correct .rb-practice-choice-badge {
+  background: var(--ok-fill, var(--ok-main));
+  color: var(--text-on-brand, #fff);
+}
+.rb-practice-option.is-incorrect .rb-practice-choice-badge {
+  background: var(--warn-fill, #e99a1c);
+  color: #1b1a2b;
+}
+.rb-practice-choice-copy {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+.rb-practice-choice-copy > span:first-child {
+  font: 400 18px/1.45 var(--font-reading);
+  overflow-wrap: anywhere;
+}
+.rb-practice-answer-note {
+  font: 700 12px/1.4 var(--font-ui);
+  color: var(--warn-main);
+}
+.rb-practice-option.is-correct .rb-practice-answer-note {
+  color: var(--ok-main);
+}
+.rb-practice-saved-count {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.rb-practice-session-footer {
+  position: sticky;
+  bottom: 16px;
+  margin: 24px 0 0;
+  padding: 18px;
+  background: var(--bg-raised);
+  border: 1px solid var(--line-subtle);
+  border-radius: 24px;
+  box-shadow: 0 -8px 28px
+    color-mix(in srgb, var(--text-primary) 5%, transparent);
+  z-index: 3;
+}
+.rb-practice-session-footer.with-feedback {
+  background: var(--warn-soft);
+  border-color: transparent;
+  border-radius: 28px 28px 20px 20px;
+}
+.rb-practice-session-footer.with-feedback.right {
+  background: var(--ok-soft);
+}
+.rb-practice-feedback-body {
+  max-height: min(52vh, 470px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 3px 4px 20px;
+}
+.rb-practice-feedback-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.rb-practice-feedback-title h2 {
+  font: 600 24px/1.3 var(--font-display);
+  margin: 0;
+  color: var(--warn-main);
+}
+.rb-practice-session-footer.right .rb-practice-feedback-title h2 {
+  color: var(--ok-main);
+}
+.rb-practice-verdict {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  font: 700 19px/1 var(--font-ui);
+}
+.rb-practice-verdict.right {
+  background: var(--ok-fill, var(--ok-main));
+  color: var(--text-on-brand, #fff);
+}
+.rb-practice-verdict.wrong {
+  background: var(--warn-fill, #e99a1c);
+  color: #1b1a2b;
+}
+.rb-practice-question-actions {
+  display: flex;
+  gap: 12px;
+}
+.rb-practice-question-actions > .button:first-child {
+  flex: 0 0 auto;
+  min-width: 108px;
+}
+.rb-practice-question-actions > .button:last-child {
+  flex: 1;
+  justify-content: space-between;
+}
+.rb-practice-explanation {
+  display: grid;
+  gap: 12px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--text-primary);
+}
+.rb-practice-explanation > p {
+  margin: 0;
+}
+.rb-practice-explanation-links {
+  display: grid;
+  gap: 10px;
+}
+.rb-practice-explanation-links details {
+  padding: 0;
+  background: none;
+  border: 0;
+  margin: 0;
+}
+.rb-practice-explanation-links summary {
+  width: fit-content;
+  padding: 0;
+  color: var(--brand-text);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 32px;
+}
+.rb-practice-session-footer.with-feedback
+  .rb-practice-explanation-links
+  summary {
+  color: var(--warn-main);
+}
+.rb-practice-session-footer.right .rb-practice-explanation-links summary {
+  color: var(--ok-main);
+}
+.rb-practice-explanation-links ol {
+  padding-left: 24px;
+  margin: 10px 0 0;
+  display: grid;
+  gap: 8px;
+  color: var(--text-secondary);
+}
+.rb-practice-compare {
+  background: var(--bg-surface);
+  border: 1px solid var(--line-subtle);
+  border-radius: 18px;
+  padding: 16px;
+  margin-top: 10px;
+}
+.rb-practice-compare h3 {
+  font: 600 15px/1.4 var(--font-ui);
+  margin: 0 0 12px;
+}
+.rb-practice-compare dl {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+}
+.rb-practice-compare dt {
+  font-weight: 600;
+  font-size: 14px;
+}
+.rb-practice-compare dd {
+  margin: 3px 0 0;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+.rb-practice-hint {
+  background: var(--sol-soft);
+  color: var(--text-primary);
+  border-radius: 18px;
+  padding: 16px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.rb-practice-hint strong {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 14px;
+  color: var(--sol-text, #7a5600);
+}
+.rb-practice-hint p {
+  margin: 7px 0 0;
+}
+.rb-practice-history-note,
+.rb-practice-blocked {
+  font-size: 14px;
+  line-height: 1.6;
+  background: var(--bg-sunken);
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin: 0 0 12px;
+  color: var(--text-secondary);
+}
+.rb-practice-keyboard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 18px;
+  padding-top: 22px;
+  color: var(--text-muted);
+  font: 400 11px/1.6 var(--font-ui);
+  margin: 0;
+}
+.rb-practice-keyboard kbd {
+  font: inherit;
+  padding: 1px 3px;
+  border: 1px solid var(--line-subtle);
+  border-radius: 4px;
+}
+.rb-practice-results {
+  display: grid;
+  gap: 26px;
+  max-width: 740px;
+  margin: 0 auto;
+}
+.rb-practice-result-hero {
+  display: grid;
+  gap: 22px;
+  justify-items: center;
+  text-align: center;
+  padding: 4px 0;
+}
+.rb-practice-result-hero h1 {
+  font: 600 32px/1.2 var(--font-display);
+  margin: 0 0 10px;
+  letter-spacing: -0.02em;
+}
+.rb-practice-result-hero p {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  margin: 0;
+  max-width: 540px;
+}
+.rb-practice-score-ring {
+  width: 168px;
+  height: 168px;
+  position: relative;
+}
+.rb-practice-score-ring svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+  fill: none;
+  stroke-width: 14;
+}
+.rb-practice-score-ring circle {
+  fill: none;
+}
+.rb-score-track {
+  stroke: var(--line-subtle);
+}
+.rb-score-value {
+  stroke: var(--warn-fill, #e99a1c);
+  stroke-linecap: round;
+  transition: stroke-dashoffset 700ms ease-in-out;
+}
+.rb-practice-score-ring.passed .rb-score-value {
+  stroke: var(--ok-fill, var(--ok-main));
+}
+.rb-practice-score-ring > div {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}
+.rb-practice-score-ring strong {
+  font: 600 44px/1 var(--font-display);
+  letter-spacing: -0.03em;
+}
+.rb-practice-score-ring span {
+  font: 600 13px/1.4 var(--font-ui);
+  color: var(--text-muted);
+}
+.rb-practice-result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+.rb-practice-result-actions > .button {
+  flex: 1;
+  min-width: 160px;
+}
+.rb-practice-review-heading {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.rb-practice-review-heading h2 {
+  font: 600 20px/1.4 var(--font-ui);
+  margin: 0;
+}
+.rb-practice-answer-filter {
+  display: flex;
+  gap: 6px;
+}
+.rb-practice-answer-filter button {
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 7px 12px;
+  min-height: 38px;
+  background: var(--bg-sunken);
+  color: var(--text-secondary);
+  font: 600 12px/1.4 var(--font-ui);
+}
+.rb-practice-answer-filter button[aria-pressed="true"] {
+  background: var(--text-primary);
+  color: var(--bg-app);
+}
+.rb-practice-review-list {
+  background: var(--bg-surface);
+  border: 1px solid var(--line-subtle);
+  border-radius: 20px;
+  overflow: hidden;
+}
+.rb-practice-reviewed-answer.review-item {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+.rb-practice-reviewed-answer + .rb-practice-reviewed-answer {
+  border-top: 1px solid var(--line-subtle);
+}
+.rb-practice-reviewed-answer > summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  min-height: 68px;
+  list-style: none;
+  font: 400 14px/1.5 var(--font-ui);
+}
+.rb-practice-reviewed-answer > summary::-webkit-details-marker {
+  display: none;
+}
+.rb-practice-reviewed-answer.review-item > summary::after {
+  content: none;
+}
+.rb-practice-reviewed-answer > summary > svg:last-child {
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: transform 200ms ease-in-out;
+}
+.rb-practice-reviewed-answer[open] > summary > svg:last-child {
+  transform: rotate(180deg);
+}
+.rb-practice-reviewed-prompt {
+  flex: 1;
+  min-width: 0;
+}
+.rb-practice-reviewed-answer > summary > span:nth-last-child(2) {
+  font-size: 12px;
+  font-weight: 600;
+}
+.rb-practice-reviewed-body {
+  padding: 0 18px 20px 56px;
+  display: grid;
+  gap: 10px;
+  font: 400 14px/1.65 var(--font-ui);
+}
+.rb-practice-reviewed-body > p {
+  margin: 0;
+}
+.rb-practice-reset {
+  text-align: center;
+}
+.rb-practice-reset-confirm {
+  margin-top: 12px;
+  padding: 22px;
+  border: 1px solid var(--line-subtle);
+  border-radius: 20px;
+  background: var(--bg-surface);
+  text-align: left;
+}
+.rb-practice-reset-confirm h3 {
+  margin: 0 0 8px;
+  font: 600 22px/1.3 var(--font-display);
+}
+.rb-practice-reset-confirm p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 0 0 18px;
+}
+.rb-practice-visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Progress, chapter mosaic and saved-mistake review. */
+.rb-progress-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(300px, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+.rb-progress-overview {
+  display: grid;
+  gap: 18px;
+}
+.rb-progress-mosaic-card,
+.rb-progress-stages {
+  padding: 24px;
+}
+.rb-progress-card-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.rb-progress-card-heading h2,
+.rb-progress-stages > h2 {
+  font: 600 17px/1.4 var(--font-ui);
+  margin: 0;
+}
+.rb-progress-card-heading > span {
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+.rb-progress-mosaic {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+  gap: 6px;
+}
+.rb-progress-mosaic-tile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+  height: 44px;
+  min-width: 0;
+  position: relative;
+  background: var(--bg-sunken);
+  border: 1px solid transparent;
+  border-radius: 10px;
+  color: var(--text-muted);
+  font: 600 11px/1 var(--font-ui);
+  padding: 0;
+  transition:
+    background 180ms ease-in-out,
+    border-color 180ms ease-in-out;
+}
+.rb-progress-mosaic-tile:hover {
+  border-color: var(--stage-color);
+}
+.rb-progress-mosaic-tile.complete {
+  background: var(--stage-color);
+  color: #fff;
+}
+.rb-progress-mosaic-tile.complete[style*="sol-main"] {
+  color: #1b1a2b;
+}
+.rb-progress-mosaic-tile.complete[style*="text-primary"] {
+  color: var(--bg-app);
+}
+.rb-progress-mosaic-tile.started {
+  background: color-mix(in srgb, var(--stage-color) 12%, var(--bg-surface));
+  border: 2px solid var(--stage-color);
+  color: var(--text-primary);
+}
+.rb-progress-mosaic-tile > svg {
+  display: none;
+}
+.rb-progress-mosaic-tile.complete > span {
+  display: none;
+}
+.rb-progress-mosaic-tile.complete > svg {
+  display: block;
+}
+.rb-progress-caption {
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--text-muted);
+  margin: 18px 0 0;
+}
+.rb-progress-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 14px;
+  color: var(--text-muted);
+  font: 400 11px/1.5 var(--font-ui);
+}
+.rb-progress-legend > span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.rb-progress-legend i {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  background: var(--bg-sunken);
+}
+.rb-progress-legend i.complete {
+  background: var(--brand-primary);
+}
+.rb-progress-legend i.started {
+  border: 1px solid var(--brand-primary);
+  background: var(--brand-soft);
+}
+.rb-progress-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0;
+}
+.rb-progress-stats > div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 18px 14px;
+  min-width: 0;
+}
+.rb-progress-stats dd {
+  margin: 0;
+  font: 600 clamp(23px, 2.3vw, 30px) / 1.2 var(--font-display);
+  letter-spacing: -0.02em;
+}
+.rb-progress-stats dt {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+.rb-progress-stages {
+  display: grid;
+  gap: 24px;
+}
+.rb-progress-stage {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.rb-progress-stage > div {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  gap: 9px;
+}
+.rb-progress-stage-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.rb-progress-stage-label h3 {
+  font: 600 14px/1.4 var(--font-ui);
+  margin: 0;
+}
+.rb-progress-stage-label > span {
+  color: var(--text-muted);
+  font-size: 12px;
+  flex-shrink: 0;
+}
+.rb-progress-stage-bar {
+  height: 6px;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--line-subtle);
+}
+.rb-progress-stage-bar > span {
+  display: block;
+  height: 100%;
+  border-radius: 6px;
+}
+.rb-progress-stages > .rb-progress-caption {
+  margin-top: 0;
+}
+.rb-progress-storage {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin-top: 24px;
+}
+.rb-progress-mistakes-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px;
+  border: 1px solid var(--line-subtle);
+  text-align: left;
+  color: var(--text-primary);
+  font-family: var(--font-ui);
+}
+.rb-progress-mistakes-link:hover {
+  background: var(--bg-sunken);
+}
+.rb-progress-mistakes-link > span:nth-child(2) {
+  display: grid;
+  gap: 5px;
+  flex: 1;
+  min-width: 0;
+}
+.rb-progress-mistakes-link strong {
+  font-size: 15px;
+  line-height: 1.4;
+}
+.rb-progress-mistakes-link > span:nth-child(2) > span {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+.rb-progress-mistakes-link > svg {
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+.rb-mistakes-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+.rb-mistake-card {
+  display: grid;
+  gap: 18px;
+  padding: 24px;
+}
+.rb-mistake-prompt {
+  font: 400 22px/1.5 var(--font-reading);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+.rb-mistake-answers {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+}
+.rb-mistake-answers > div {
+  display: grid;
+  gap: 4px;
+}
+.rb-mistake-answers dt {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.rb-mistake-answers dd {
+  font-size: 15px;
+  line-height: 1.5;
+  margin: 0;
+}
+.rb-mistake-card > .rb-practice-quiet-button {
+  justify-self: center;
+}
+.rb-mistakes-more {
+  display: flex;
+  margin: 24px auto 0;
+}
+@keyframes rb-practice-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (max-width: 1050px) {
+  .rb-practice-hub-columns,
+  .rb-progress-columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .rb-practice-improve {
+    grid-row: 1;
+  }
+  .rb-practice-improve .rb-practice-section {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+  .rb-practice-improve .rb-practice-section-label {
+    grid-column: 1 / -1;
+  }
+}
+@media (max-width: 700px) {
+  .rb-practice-page-title {
+    margin-bottom: 24px;
+  }
+  .rb-practice-page-title p {
+    font-size: 15px;
+  }
+  .rb-practice-hub-columns {
+    gap: 26px;
+  }
+  .rb-practice-improve .rb-practice-section {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .rb-practice-up-next,
+  .rb-practice-review-card,
+  .rb-practice-suggestion,
+  .rb-practice-empty,
+  .rb-progress-mosaic-card,
+  .rb-progress-stages,
+  .rb-mistake-card {
+    padding: 20px;
+  }
+  .rb-practice-feature-heading h3 {
+    font-size: 23px;
+  }
+  .rb-practice-chapter {
+    padding: 16px;
+  }
+  .rb-practice-session {
+    padding: 0 0 12px;
+  }
+  .rb-practice-session-header {
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .rb-practice-status-caption > span {
+    font-size: 11px;
+  }
+  .rb-practice-segments {
+    gap: 3px;
+  }
+  .rb-practice-segments > span {
+    height: 6px;
+  }
+  .rb-practice-intro {
+    gap: 24px;
+  }
+  .rb-practice-session-facts {
+    gap: 8px;
+  }
+  .rb-practice-session-facts > div {
+    padding: 16px 12px;
+    border-radius: 18px;
+  }
+  .rb-practice-session-facts dt {
+    font-size: 20px;
+  }
+  .rb-practice-session-facts dd {
+    font-size: 12px;
+  }
+  .rb-practice-question-body {
+    gap: 18px;
+  }
+  .rb-practice-option.answer-option {
+    min-height: 62px;
+    padding: 14px;
+    gap: 12px;
+  }
+  .rb-practice-option.answer-option.selected,
+  .rb-practice-option.answer-option.is-correct,
+  .rb-practice-option.answer-option.is-incorrect {
+    padding: 13.5px;
+  }
+  .rb-practice-choice-copy > span:first-child {
+    font-size: 17px;
+  }
+  .rb-practice-session-footer {
+    bottom: var(--rb-nav-clearance, 96px);
+    padding: 16px;
+    margin: 20px -6px 0;
+  }
+  .rb-practice-feedback-title h2 {
+    font-size: 22px;
+  }
+  .rb-practice-question-actions > .button:first-child {
+    min-width: 94px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .rb-practice-session .button {
+    font-size: 14px;
+  }
+  .rb-practice-keyboard {
+    display: none;
+  }
+  .rb-practice-result-actions {
+    display: grid;
+  }
+  .rb-practice-result-hero h1 {
+    font-size: 28px;
+  }
+  .rb-practice-review-heading h2 {
+    font-size: 18px;
+  }
+  .rb-practice-answer-filter button {
+    min-height: 44px;
+  }
+  .rb-practice-reviewed-answer > summary {
+    padding: 14px 12px;
+    gap: 9px;
+  }
+  .rb-practice-reviewed-answer > summary > span:nth-last-child(2) {
+    font-size: 11px;
+  }
+  .rb-practice-reviewed-body {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+  .rb-practice-explanation-links summary {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+  .rb-progress-mosaic {
+    grid-template-columns: repeat(auto-fill, minmax(38px, 1fr));
+    gap: 5px;
+  }
+  .rb-progress-stats > div {
+    padding: 16px 12px;
+    border-radius: 18px;
+  }
+  .rb-progress-stats dd {
+    font-size: 25px;
+  }
+  .rb-progress-mistakes-link {
+    padding: 18px;
+    gap: 12px;
+  }
+  .rb-mistakes-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rb-practice-question-body {
+    animation: none;
+  }
+  .rb-practice-segments > span,
+  .rb-score-value,
+  .rb-practice-option.answer-option,
+  .rb-practice-reviewed-answer > summary > svg:last-child {
+    transition: none;
+  }
+}
+@media (forced-colors: active) {
+  .rb-practice-option input {
+    position: static;
+    width: 18px;
+    height: 18px;
+    opacity: 1;
+    accent-color: auto;
+    flex-shrink: 0;
+  }
+  .rb-practice-choice-badge {
+    display: none;
+  }
+  .rb-practice-option.answer-option:has(input:focus-visible) {
+    outline: 2px solid Highlight;
+    outline-offset: 0;
+  }
+  .rb-practice-verdict,
+  .rb-progress-mosaic-tile {
+    border: 1px solid ButtonText;
+  }
+  .rb-practice-option.answer-option.selected,
+  .rb-practice-option.answer-option.is-correct,
+  .rb-practice-option.answer-option.is-incorrect {
+    border-color: Highlight;
+  }
+  .rb-practice-segments > .correct,
+  .rb-practice-segments > .incorrect,
+  .rb-practice-segments > .current,
+  .rb-progress-stage-bar > span {
+    background: Highlight;
+    forced-color-adjust: none;
+  }
+}
