@@ -969,6 +969,7 @@
   gap: 8px;
   margin: 0;
   padding-left: 22px;
+  list-style: decimal;
   color: var(--text-secondary);
   font-size: 15px;
   line-height: 1.55;
@@ -992,6 +993,7 @@
   gap: 14px;
   margin: 0;
   padding-left: 18px;
+  list-style: disc;
 }
 .rb-reader-recap li {
   padding-left: 6px;
@@ -1000,6 +1002,18 @@
 .rb-reader-recap li::marker,
 .rb-reader-recap strong {
   color: var(--sol-main);
+}
+/* The inverse panel is Paper in dark mode. Fixed Azul retains 6.65:1 text contrast;
+   the brighter dark-theme action blue is only 4.39:1 on that surface. */
+:root[data-theme="dark"] .rb-reader-recap li::marker,
+:root[data-theme="dark"] .rb-reader-recap strong {
+  color: #2440d8;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .rb-reader-recap li::marker,
+  :root:not([data-theme="light"]) .rb-reader-recap strong {
+    color: #2440d8;
+  }
 }
 .rb-reader-next {
   display: flex;

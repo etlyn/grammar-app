@@ -451,7 +451,15 @@ function LearningWorkspace({
 
   return (
     <div className="rb-shell" data-detail={tab ? undefined : route.name}>
-      <a className="skip-link" href="#learning-main">
+      <a
+        className="skip-link"
+        href="#learning-main"
+        onClick={(event) => {
+          event.preventDefault();
+          main.current?.focus({ preventScroll: true });
+          main.current?.scrollIntoView({ block: "start" });
+        }}
+      >
         Skip to content
       </a>
       {authPanel}

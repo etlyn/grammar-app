@@ -93,6 +93,8 @@ const assert = require("node:assert/strict");
   await expect(
     page.getByRole("heading", { name: "Grammar map", exact: true }),
   ).toBeVisible();
+  await page.getByRole("link", { name: "Skip to content" }).press("Enter");
+  await expect(page.getByRole("tabpanel", { name: "Map" })).toBeFocused();
   await expect(page.locator(".rb-learning-area-tile")).toHaveCount(20);
   const mapSearch = page.getByRole("searchbox", {
     name: "Find a grammar concept",
@@ -101,6 +103,12 @@ const assert = require("node:assert/strict");
   const concept = page.locator(".rb-learning-map-results button").first();
   await expect(concept).toBeVisible();
   await concept.click();
+  await expect(page.locator(".rb-reader")).toBeVisible();
+  await page.getByRole("button", { name: "In this chapter" }).click();
+  const workedLink = page.getByRole("link", { name: "Worked examples" });
+  await expect(workedLink).toBeVisible();
+  await workedLink.press("Enter");
+  await expect(page.locator("#worked-examples")).toBeFocused();
   await expect(page.locator(".rb-reader")).toBeVisible();
   await goBack();
   await expect(

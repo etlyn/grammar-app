@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type MouseEvent } from "react";
 import type { GrammarTopic, TopicProgress } from "../../types/grammar";
 import type { PracticeSession } from "../../utils/learningState";
 import { RichText } from "../RichText";
@@ -40,6 +40,29 @@ export function splitReadingExample(example: string): {
       return { sentence: tail, note: head };
   }
   return { sentence: example, note: "" };
+}
+
+function jumpWithinChapter(event: MouseEvent<HTMLAnchorElement>, id: string) {
+  if (
+    event.button !== 0 ||
+    event.metaKey ||
+    event.ctrlKey ||
+    event.shiftKey ||
+    event.altKey
+  )
+    return;
+  const destination = document.getElementById(id);
+  if (!destination) return;
+  // A hash navigation creates a new history entry outside the chapter router.
+  // Keep this reading route and its Back destination while moving keyboard focus.
+  event.preventDefault();
+  destination.focus({ preventScroll: true });
+  destination.scrollIntoView({
+    block: "start",
+    behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      ? "instant"
+      : "smooth",
+  });
 }
 
 export function Reader({
@@ -223,7 +246,15 @@ export function Reader({
           <ol>
             {rules.map((rule, index) => (
               <li key={rule.id ?? rule.title}>
-                <a href={rule.id ? `#concept-${rule.id}` : `#rule-${index}`}>
+                <a
+                  href={rule.id ? `#concept-${rule.id}` : `#rule-${index}`}
+                  onClick={(event) =>
+                    jumpWithinChapter(
+                      event,
+                      rule.id ? `concept-${rule.id}` : `rule-${index}`,
+                    )
+                  }
+                >
                   <span>{index + 1}</span>
                   {rule.title}
                 </a>
@@ -231,7 +262,12 @@ export function Reader({
             ))}
             {!!worked.length && (
               <li>
-                <a href="#worked-examples">
+                <a
+                  href="#worked-examples"
+                  onClick={(event) =>
+                    jumpWithinChapter(event, "worked-examples")
+                  }
+                >
                   <span aria-hidden="true" />
                   <strong>Worked examples</strong>
                 </a>
