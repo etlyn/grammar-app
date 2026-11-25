@@ -2,18 +2,15 @@ name: pipeline
 
 on:
   pull_request:
-    branches: [main]
-    types: [opened, synchronize]
+    branches: [main, release]
   push:
-    branches: [main, staging]
+    branches: [main, release, staging]
 
 permissions:
-  contents: write
-  pages: write
-  id-token: write
+  contents: read
 
 concurrency:
-  group: ${{ github.ref == 'refs/heads/staging' && 'grammacho-staging' || 'pages' }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -76,14 +73,17 @@ jobs:
           path: browser-outcomes.json
           if-no-files-found: warn
 
-      - name: Upload artifact
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      - name: Upload Pages artifact
+        if: github.event_name == 'push' && github.ref == 'refs/heads/release'
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
 
   deploy:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/release'
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
     # Keep the runner compatible with the pinned Playwright browser/dependency build.

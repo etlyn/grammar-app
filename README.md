@@ -19,7 +19,7 @@ yarn build
 yarn preview
 ```
 
-`yarn build` deterministically generates and validates the committed content snapshot, typechecks the app, builds static assets and writes a versioned service-worker precache. No network, database connection or AI provider is required for content generation or the production build after dependencies are installed. Deploy `dist/` to the root of the web domain (the existing GitHub Pages workflow does this).
+`yarn build` deterministically generates and validates the committed content snapshot, typechecks the app, builds static assets and writes a versioned service-worker precache. No network, database connection or AI provider is required for content generation or the production build after dependencies are installed. Vercel serves `dist/` at the root of each deployed domain.
 
 All lessons and questions are bundled into the production app. After a successful first online visit and service-worker installation, the same build can reopen and start new practice sessions offline. Source-reference links require a network connection. Browser storage/cache clearing removes local progress/offline availability; local progress is not a cloud backup.
 
@@ -74,9 +74,11 @@ Quiz choices stay editable until checked:
 
 Hints, answer review, sources, and progress disclosures also work with Tab and Enter. Keyboard actions are scoped to the focused controls. Focus uses a single visible edge; reduced motion and forced-colors settings are respected. Only checked answers are saved; an unsubmitted choice is not persisted.
 
-## Staging
+## Staging and releases
 
-Push reviewed changes to the `staging` branch for the protected Vercel Preview. The Vercel deployment record identifies the staged commit and URL. GitHub Actions validates staging, and the Pages publish job runs on main pushes.
+Reviewed changes go to `main`, which serves the protected Vercel Preview at [stg.grammacho.com](https://stg.grammacho.com/). Use the deployment URL to review an exact commit. Other branches, including `staging`, can have their own Preview URLs for review.
+
+Advance `release` to the reviewed commit when production publication is authorized. Vercel Production tracks `release` for [www.grammacho.com](https://www.grammacho.com/). GitHub Actions checks both permanent branches and publishes GitHub Pages only on pushes to `release`. Verify the Vercel and GitHub Pages deployments separately. See the [Etlyn staging and release runbook](https://github.com/etlyn/etlyn-workspace/blob/main/docs/staging-and-releases.md).
 
 Production account settings are pinned to the canonical web host. Preview builds start in guest mode. A development build with an explicit test issuer and API can exercise account sync. Set `VITE_PREVIEW_ACCOUNTS=true` explicitly for a preview build that uses an isolated test project. See [accounts and progress sync](docs/accounts.md).
 
