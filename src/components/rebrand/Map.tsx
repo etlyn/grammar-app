@@ -1,5 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import type { GrammarMap, GrammarTopic } from "../../types/grammar";
+import type {
+  GrammarMap,
+  GrammarTopic,
+  ProgressByTopic,
+} from "../../types/grammar";
 import { RichText } from "../RichText";
 import { areaTile, Icon, Tile } from "./Brand";
 import type { LearningSource } from "./learningView";
@@ -9,12 +13,20 @@ export type MapProps = {
   courseId: "en" | "es";
   topics: GrammarTopic[];
   map: GrammarMap;
+  progress: ProgressByTopic;
   sources?: LearningSource[];
   onRead: (slug: string, sectionId?: string) => void;
 };
 type Concept = GrammarMap["domains"][number]["concepts"][number];
 
-export function Map({ courseId, topics, map, sources = [], onRead }: MapProps) {
+export function Map({
+  courseId,
+  topics,
+  map,
+  progress,
+  sources = [],
+  onRead,
+}: MapProps) {
   const [view, setView] = useState<"mosaic" | "outline">("mosaic");
   const [query, setQuery] = useState("");
   const [expanded, setExpanded] = useState<string[]>([]);
@@ -70,6 +82,9 @@ export function Map({ courseId, topics, map, sources = [], onRead }: MapProps) {
             (b.topic?.order ?? b.concepts[0].order),
         )
     : [];
+  const completedChapters = selectedChapters.filter(
+    (chapter) => progress[chapter.slug]?.isCompleted,
+  ).length;
   useEffect(() => {
     setAreaId(null);
     setQuery("");
@@ -134,6 +149,11 @@ export function Map({ courseId, topics, map, sources = [], onRead }: MapProps) {
             <span className="rb-learning-pill">
               {selectedChapters.length} chapters
             </span>
+            {!!completedChapters && (
+              <span className="rb-learning-pill rb-learning-pill-ok">
+                {completedChapters} complete
+              </span>
+            )}
           </div>
         </header>
         {selectedChapters.map(({ slug, topic, concepts }) => (
@@ -143,13 +163,20 @@ export function Map({ courseId, topics, map, sources = [], onRead }: MapProps) {
             aria-labelledby={`rb-map-chapter-${slug}`}
           >
             <header>
-              <p className="rb-learning-eyebrow">
-                Chapter {topic?.order ?? concepts[0].order}
-                {topic ? ` · ${topic.level}` : ""}
-              </p>
-              <h2 id={`rb-map-chapter-${slug}`}>
-                {topic?.title ?? concepts[0].topicTitle}
-              </h2>
+              <div>
+                <p className="rb-learning-eyebrow">
+                  Chapter {topic?.order ?? concepts[0].order}
+                  {topic ? ` · ${topic.level}` : ""}
+                </p>
+                <h2 id={`rb-map-chapter-${slug}`}>
+                  {topic?.title ?? concepts[0].topicTitle}
+                </h2>
+              </div>
+              {progress[slug]?.isCompleted && (
+                <span className="rb-learning-pill rb-learning-pill-ok">
+                  Complete
+                </span>
+              )}
             </header>
             <div className="rb-learning-list">
               {concepts.map((concept) => conceptRow(concept, false))}

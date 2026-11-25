@@ -23,7 +23,7 @@ const assert = require("node:assert/strict");
   const errors = [];
   const remote = [];
   page.on("pageerror", (e) => errors.push(e.message));
-  page.on("request", (r) => {
+  context.on("request", (r) => {
     if (!r.url().startsWith(previewUrl)) remote.push(r.url());
   });
   const useTab = (name) => page.getByRole("tab", { name, exact: true }).click();
@@ -220,6 +220,27 @@ const assert = require("node:assert/strict");
     exact: true,
   });
   await expect(score).toBeVisible();
+  const firstArea = catalog.grammarMap.domains.find((area) =>
+    area.concepts.some(
+      (concept) => concept.topicSlug === catalog.topics[0].slug,
+    ),
+  );
+  const mapPage = await context.newPage();
+  mapPage.on("pageerror", (e) => errors.push(e.message));
+  await mapPage.goto(previewUrl);
+  await mapPage.getByRole("tab", { name: "Map", exact: true }).click();
+  await mapPage
+    .getByRole("button", {
+      name: `${firstArea.title}, ${firstArea.concepts.length} sections`,
+      exact: true,
+    })
+    .click();
+  const areaDetail = mapPage.locator(".rb-map-area");
+  await expect(
+    areaDetail.getByText("1 complete", { exact: true }),
+  ).toBeVisible();
+  await expect(areaDetail.getByText("Complete", { exact: true })).toBeVisible();
+  await mapPage.close();
   await expect(page.locator(".review-item.needs-review")).toHaveCount(1);
   await page.getByRole("button", { name: /To review/ }).click();
   await expect(page.locator(".review-item")).toHaveCount(1);

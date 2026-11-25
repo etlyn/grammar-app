@@ -663,10 +663,18 @@
   display: grid;
   gap: 12px;
 }
-.rb-learning-area-chapter header {
+.rb-learning-area-chapter > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-inline: 4px;
+}
+.rb-learning-area-chapter > header > div {
   display: grid;
   gap: 4px;
-  padding-inline: 4px;
+  flex: 1;
+  min-width: 0;
 }
 .rb-learning-area-chapter h2 {
   font-size: 18px;

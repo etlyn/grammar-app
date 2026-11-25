@@ -336,6 +336,7 @@ function LearningWorkspace({
         courseId={courseId}
         topics={topics}
         map={map}
+        progress={learning.progress}
         sources={sources}
         onRead={openRead}
       />
